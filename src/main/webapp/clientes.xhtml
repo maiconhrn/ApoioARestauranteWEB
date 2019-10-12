@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="template_trabalho.xhtml">
+
+    <p:fieldset legend="Lista de Clientes" style=" border: 1px solid black; ">
+        <h:form id="frm" style="padding-top: 30px;">
+            <p:growl id="ms" showDetail="true"/>
+            <p:dataTable id="per1" var="cliente" value="#{clienteControl.clientes}" >
+                <f:facet name="header" >
+                    <div class="ui-g" >
+                        <div class="ui-g-4"></div>
+                        <div class="ui-g-4" style="align-self: center; ">
+                            Lista de Clientes
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-3"></div>
+                        <div class="ui-g-12 ui-lg-1" >
+                            <p:commandButton icon="ui-icon-refresh" value="Atualizar" action="#{clienteControl.listarClientes()}" update=":frm"  style=" height:30px; width: 100px; text-align:center;" />
+                        </div>
+                    </div>
+
+                </f:facet>
+                <p:column headerText="Código" style="height: 30px; width: 50px; text-align:center;">
+                    <h:outputText value="#{cliente.cod}" />
+                </p:column>
+
+                <p:column headerText="Descrição" style="height: 30px; width: 100px; text-align:center;">
+                    <h:outputText value="#{cliente.nome}" />
+                </p:column>
+
+                <p:column headerText="Observações" style="height: 30px; width: 150px; text-align:center;">
+                    <h:outputText value="#{cliente.cpf}" />
+                </p:column>
+                
+                <p:column headerText="Cidade" style="height: 20px; width: 100px; text-align:center;">
+                    <h:outputText value="#{cliente.cidade}" />
+                </p:column>
+
+                <p:column headerText="Estado" style="height: 20px; width: 100px; text-align:center;">
+                    <h:outputText value="#{cliente.estado}" />
+                </p:column>
+
+                <p:column headerText="Telefone" style="height: 20px; width: 100px; text-align:center;">
+                    <h:outputText value="#{cliente.telefone01}" />
+                </p:column>
+
+                <p:column style="width:55px;"  >
+                    <p:commandButton value="Editar" update=":frm"  style=" height: 30px; width: 100%; text-align:center;" >
+                        <f:setPropertyActionListener value="#{cliente}" target="#{clienteControl.cli}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+
+            <div class="ui-g" style="padding-top: 30px; padding-bottom: 30px;">
+                <div class="ui-g-12 ui-md-6 ui-lg-8">
+                    <p:inputText id="login1" value="#{usuarioControl.usuario.nomeUsuario}" required="false" label="Código" style="height: 20px; width: 100%;" />
+                </div>
+                <div class="ui-g-12 ui-md-6 ui-lg-2">
+                    <p:commandButton icon="ui-icon-refresh" value="BUSCAR" action="#{clienteControl.listarClientes()}" update=":frm"  style=" height:100%; width: 100px; text-align:center; float: left;" />
+                </div>
+                <div class="ui-g-12 ui-md-6 ui-lg-2">
+                    <p:commandButton icon="ui-icon-refresh" value="NOVO" action="gerenciaClientes" update=":frm"  style=" height:30px; width: 100px; text-align:center; float: right;" />
+                </div>
+            </div>
+            
+        </h:form>
+    </p:fieldset>
+</ui:decorate>
+
