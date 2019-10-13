@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * @author Maico
+ * @author Maiconm
  */
 @Entity
 @Table(name = "person")
