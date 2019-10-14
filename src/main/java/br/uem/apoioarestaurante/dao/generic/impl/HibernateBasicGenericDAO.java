@@ -2,17 +2,17 @@ package br.uem.apoioarestaurante.dao.generic.impl;
 
 import br.uem.apoioarestaurante.dao.generic.intf.BasicGenericDAO;
 import br.uem.apoioarestaurante.exceptions.DAOException;
-import br.uem.apoioarestaurante.metadata.entities.BaseEntity;
 import br.uem.apoioarestaurante.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author Maicon
  */
-public class HibernateBasicGenericDAO<T extends BaseEntity> implements BasicGenericDAO<T> {
+public class HibernateBasicGenericDAO<T> implements BasicGenericDAO<T> {
 
     private Class<T> entityClass;
     private Session session;
@@ -50,17 +50,6 @@ public class HibernateBasicGenericDAO<T extends BaseEntity> implements BasicGene
     @Override
     public boolean connect() {
         return this.session != null ? this.session.isOpen() || openSession() : openSession();
-    }
-
-    @Override
-    public T findByID(String id) {
-        try {
-            requireOpenSession();
-            return this.session.get(entityClass, id);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     @Override
