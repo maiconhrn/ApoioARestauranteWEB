@@ -48,6 +48,13 @@
             <artifactId>jsf-api</artifactId>
             <version>2.2.19</version>
         </dependency>
+        
+        <!-- BOOTSTRAP-->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>4.1.3</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.sun.faces/jsf-impl -->
         <dependency>
@@ -80,34 +87,36 @@
 
     <build>
         <finalName>apoio-a-restaurante</finalName>
-        <pluginManagement>
+        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
                 <plugin>
-                    <groupId>org.glassfish.maven.plugin</groupId>
-                    <artifactId>maven-glassfish-plugin</artifactId>
-                    <configuration>
-                        <glassfishDirectory>C:\Program Files\glassfish-4.1.1\glassfish</glassfishDirectory>
-                        <user>admin</user>
-                        <passwordFile>C:\Program Files\glassfish-4.1.1\glassfish-password.txt</passwordFile>
-                        <domain>
-                            <name>domain1</name>
-                            <host>localhost</host>
-                            <adminPort>4848</adminPort>
-                        </domain>
-                        <components>
-                            <component>
-                                <name>${project.artifactId}</name>
-                                <artifact>${project.build.directory}/${project.build.finalName}.war</artifact>
-                            </component>
-                        </components>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>deploy</goal>
-                            </goals>
-                        </execution>
-                    </executions>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+                <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.0.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>3.2.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.5.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.8.2</version>
                 </plugin>
             </plugins>
         </pluginManagement>
