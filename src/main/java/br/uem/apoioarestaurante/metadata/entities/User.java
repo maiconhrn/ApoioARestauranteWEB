@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
-public class User extends Person {
+public class User extends Person implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,6 +14,7 @@ public class User extends Person {
     @Column(nullable = false)
     private String password;
 
+    @Override
     public Long getId() {
         return id;
     }
