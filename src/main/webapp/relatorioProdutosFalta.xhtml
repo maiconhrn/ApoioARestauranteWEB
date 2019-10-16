@@ -10,13 +10,14 @@
     
     <p:fieldset legend="Relatório de Produtos em Falta" style=" border: 1px solid black; ">
         <h:form>
-            <p:panelGrid columns="5" layout="grid">
-                        <p:outputLabel for="date" value="Data Inicial: " />
-                        <p:inputMask id="date" value="#{relatorioProdutoFaltaBean.dataInicial}" mask="99/99/9999"/>         
-                        <p:outputLabel for="date" value="Data Final: " />
-                        <p:inputMask id="date1" value="#{relatorioProdutoFaltaBean.dataFinal}" mask="99/99/9999"/>         
-                        <p:commandButton value="Gerar Relatório" action="#{relatorioProdutoFaltaBean.gerarRelatorio()}" update="@form"></p:commandButton>            
-            </p:panelGrid>    
+            <p:panel id="panel" header="Form" style="margin-bottom:10px;">
+                <p:panelGrid columns="4" layout="grid">                    
+                    <p:selectBooleanCheckbox value="#{relatorioProdutoFaltaBean.manufatufado}" itemLabel="Manufaturado"/>
+                    <p:selectBooleanCheckbox value="#{relatorioProdutoFaltaBean.materiaPrima}" itemLabel="Manufaturado"/>
+                    <p:selectBooleanCheckbox value="#{relatorioProdutoFaltaBean.revenda}" itemLabel="Manufaturado"/>
+                    <p:commandButton value="Gerar Relatório" action="#{relatorioProdutoFaltaBean.gerarRelatorio()}" update="@form"></p:commandButton>                                
+                </p:panelGrid>  
+            </p:panel>
             <p></p>
             <p:dataTable value="#{relatorioProdutoFaltaBean.produtos}" var="produto" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >
                 <p:column headerText="Código" sortBy="#{produto.codigo}" width="10">
@@ -40,8 +41,8 @@
             </p:dataTable>
             <p></p>
             <p:panelGrid columns="5" layout="grid">
-                        <p:outputLabel for="date" value="Exportar: " />                        
-                        <p:commandButton value="PDF" action="#{relatorioProdutoFaltaBean.gerarRelatorio()}" update="@form"></p:commandButton>            
+                <p:outputLabel value="Exportar:  " />                        
+                <p:commandButton value="  PDF  " action="#{relatorioProdutoFaltaBean.gerarRelatorio()}" update="@form"></p:commandButton>            
             </p:panelGrid>    
         </h:form>
     </p:fieldset>              

@@ -21,6 +21,9 @@ public class RelatorioProdutoFaltaBean {
     private Date dataFinal;
     private ProdutoModel produto;
     private List<ProdutoModel> produtos = new ArrayList<>();
+    private boolean materiaPrima;
+    private boolean revenda;
+    private boolean manufatufado;
     
     public void adicionar(){
         produtos.add(produto);
@@ -30,6 +33,32 @@ public class RelatorioProdutoFaltaBean {
     public void gerarRelatorio(){
         
     }
+
+    public boolean isMateriaPrima() {
+        return materiaPrima;
+    }
+
+    public void setMateriaPrima(boolean materiaPrima) {
+        this.materiaPrima = materiaPrima;
+    }
+
+    public boolean isRevenda() {
+        return revenda;
+    }
+
+    public void setRevenda(boolean revenda) {
+        this.revenda = revenda;
+    }
+
+    public boolean isManufatufado() {
+        return manufatufado;
+    }
+
+    public void setManufatufado(boolean manufatufado) {
+        this.manufatufado = manufatufado;
+    }
+    
+    
     
 
     public ProdutoModel getProduto() {
