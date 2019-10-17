@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+<link type="text/css" rel="stylesheet" href="../style/order.css"/>
+<ui:decorate template="main-template.xhtml">
+    <h:form>
+        <div class="order-container">
+            <div style="height: 120px; width: 100%;">
+                <p:panel id="filters" header="Filtros" styleClass="filters-select">
+                    <p:selectBooleanCheckbox value="#{orderView.idFilterSelected}" itemLabel="ID"/>
+                    <p:selectBooleanCheckbox value="#{orderView.clientFilterSelected}" itemLabel="Cliente"/>
+                    <p:selectBooleanCheckbox value="#{orderView.userFilterSelected}" itemLabel="Usuário"/>
+                    <p:selectBooleanCheckbox value="#{orderView.tableFilterSelected}" itemLabel="Mesa"/>
+                </p:panel>
+
+                <p:panel id="type" header="Tipo" styleClass="types">
+                    <p:selectOneRadio value="#{orderView.type}" unselectable="true" layout="grid"
+                                      columns="2">
+                        <f:selectItems value="${orderView.types}" var="type" itemValue="#{type}"
+                                       itemLabel="#{type.textValue}"/>
+                        <f:selectItem itemLabel="Ambos" itemValue="BOTH"/>
+                    </p:selectOneRadio>
+                </p:panel>
+            </div>
+
+            <div style="height: 120px; width: 100%;">
+                <p:panel id="seach" header="Pesquisa" styleClass="search-panel">
+                    <div class="search">
+                        <div class="filters">
+                            <div>
+                                <p:outputLabel value="ID" for="idFilter"/>
+                                <p:inputText id="idFilter" value="${orderView.idFilter}"/>
+                            </div>
+
+                            <div>
+                                <p:outputLabel value="Cliente" for="clientFilter"/>
+                                <p:inputText id="clientFilter" value="${orderView.clientFilter}"/>
+                            </div>
+
+                            <div>
+                                <p:outputLabel value="Usuário" for="userFilter"/>
+                                <p:inputText id="userFilter" value="${orderView.userFilter}"/>
+                            </div>
+
+                            <div>
+                                <p:outputLabel value="Mesa" for="tableFilter"/>
+                                <p:inputText id="tableFilter" value="${orderView.tableFilter}"/>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p:commandButton icon="fa fa-search" action="#{orderController.search()}"
+                                             update="ordersTable"/>
+                        </div>
+                    </div>
+                </p:panel>
+            </div>
+
+            <div style="width: 100%;">
+                <!--@elvariable id="order" type="br.uem.apoioarestaurante.metadata.entities.Order"-->
+                <p:dataTable styleClass="dataTable" id="ordersTable" var="order"
+                             value="#{orderView.orders}"
+                             selectionMode="single" selection="#{orderView.selectedOrder}" rowKey="#{order.id}"
+                             paginator="true"
+                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             rows="10" resizableColumns="true" tableStyle="min-height: 120px">
+                    <f:facet name="header">
+                        Pedidos
+                    </f:facet>
+
+                    <p:column headerText="ID">
+                        <h:outputText value="#{order.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Tipo">
+                        <h:outputText value="#{order.type.toString}"/>
+                    </p:column>
+
+                    <p:column headerText="Usuário">
+                        <h:outputText value="#{order.user.name}"/>
+                    </p:column>
+
+                    <p:column headerText="Cliente">
+                        <h:outputText value="#{order.client.name}"/>
+                    </p:column>
+
+                    <p:column headerText="Mesa">
+                        <h:outputText value="#{order.table}"/>
+                    </p:column>
+
+                    <p:column headerText="Preço total">
+                        <h:outputText value="#{order.totalPrice}"/>
+                    </p:column>
+
+                    <p:column headerText="Data início">
+                        <h:outputText value="#{order.initDate}"/>
+                    </p:column>
+
+                    <p:column headerText="Data fim">
+                        <h:outputText value="#{order.finishDate}"/>
+                    </p:column>
+                </p:dataTable>
+            </div>
+
+            <div style="width: 100%;">
+                <p:dataTable styleClass="dataTable" id="orderItemsTable" var="orderItem"
+                             value="#{orderView.selectedOrder.items}" paginator="true"
+                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             rows="10" resizableColumns="true" tableStyle="min-height: 120px">
+                    <f:facet name="header">
+                        Itens do pedido
+                    </f:facet>
+
+                    <p:column headerText="ID">
+                        <h:outputText value="#{orderItem.id}"/>
+                    </p:column>
+
+                    <p:column headerText="ID Pedido">
+                        <h:outputText value="#{orderItem.order.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Produto">
+                        <h:outputText value="#{orderItem.product.description}"/>
+                    </p:column>
+
+                    <p:column headerText="Quantidade">
+                        <h:outputText value="#{orderItem.productQtt}"/>
+                    </p:column>
+
+                    <p:column headerText="Total">
+                        <h:outputText value="#{orderItem.price}"/>
+                    </p:column>
+                </p:dataTable>
+            </div>
+
+            <div style="float: right; padding-top: 20px;">
+                <p:commandButton value="Novo" id="new" action="#{orderController.newOrder()}"
+                                 style="margin-right:20px;" icon="fa fa-plus-square"/>
+                <p:commandButton value="Editar" id="edit" action="#{orderController.editOrder()}"
+                                 style="margin-right:20px;" icon="fa fa-edit"/>
+                <p:commandButton value="Deletar" id="delete" action="#{orderController.deleteOrder()}"
+                                 style="margin-right:20px;" icon="fa fa-remove"/>
+                <p:commandButton value="Fechar" id="close" action="#{orderController.closeOrder()}"
+                                 style="margin-right:20px;" icon="fa fa-check"/>
+            </div>
+        </div>
+    </h:form>
+</ui:decorate>
+</html>

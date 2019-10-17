@@ -1,0 +1,50 @@
+.order-container {
+    height: 100%;
+    width: 100%;
+}
+
+.order-container .filters-select {
+    width: 70%;
+    margin-left: 5px;
+    float: left;
+    height: 102px;
+}
+
+.order-container .types {
+    width: 28%;
+    margin-right: 5px;
+    height: 102px;
+    float: right;
+}
+
+.order-container .dataTable {
+    padding-bottom: 17px;
+    max-height: 500px;
+    margin-left: 5px;
+    margin-right: 5px;
+    min-height: 120px;
+}
+
+.order-container .search-panel {
+    margin-left: 5px;
+    margin-right: 5px;
+    height: 102px;
+}
+
+.order-container .search-panel .search {
+    display: flex;
+    justify-content: center;
+}
+
+.order-container .search-panel .search .filters {
+    display: flex;
+    float: left;
+}
+
+.order-container .search-panel .search .filters div {
+    padding-right: 15px;
+}
+
+.order-container .search-panel .search .filters div label {
+    padding-right: 10px;
+}

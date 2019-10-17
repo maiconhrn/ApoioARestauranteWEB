@@ -15,5 +15,12 @@
         <property name="hibernate.format_sql">true</property>
         <property name="hbm2ddl.auto">update</property>
         <property name="hibernate.connection.autocommit">false</property>
+
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.Product"/>
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.Order"/>
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.Client"/>
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.User"/>
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.OrderItem"/>
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.Person"/>
     </session-factory>
 </hibernate-configuration>

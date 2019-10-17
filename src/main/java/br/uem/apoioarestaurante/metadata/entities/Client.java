@@ -4,18 +4,18 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "aar_user")
-public class User extends Person {
+@Table(name = "aar_client")
+public class Client extends Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 30, unique = true, nullable = false)
-    private String login;
+    @Column(name = "phone")
+    private String phone;
 
-    @Column(nullable = false)
-    private String password;
+    @Column(name = "address")
+    private String address;
 
     @Column(name = "active")
     private Boolean active;
@@ -23,7 +23,7 @@ public class User extends Person {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> orders;
 
-    public User() {
+    public Client() {
         this.active = true;
     }
 
@@ -31,20 +31,20 @@ public class User extends Person {
         return id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getPassword() {
-        return password;
+    public String getAddress() {
+        return address;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public List<Order> getOrders() {
