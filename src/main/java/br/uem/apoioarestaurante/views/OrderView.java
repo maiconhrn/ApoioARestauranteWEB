@@ -42,7 +42,7 @@ public class OrderView implements Serializable {
         orderModel = new OrderModel();
         orderController.setOrderModel(orderModel);
 
-        type = OrderType.DELIVERY;
+        type = OrderType.BOTH;
         orders = new ArrayList<>();
     }
 

@@ -2,6 +2,7 @@ package br.uem.apoioarestaurante.models;
 
 import br.uem.apoioarestaurante.dao.OrderDAO;
 import br.uem.apoioarestaurante.metadata.entities.Order;
+import br.uem.apoioarestaurante.metadata.types.OrderType;
 import br.uem.apoioarestaurante.views.OrderView;
 
 import javax.inject.Inject;
@@ -22,10 +23,12 @@ public class OrderModel implements Serializable {
         orderDAO = OrderDAO.getInstance();
     }
 
-    public List<Order> seachByFilters(boolean byId, long orderId, boolean byClient, long clientId, boolean byUser, long userId, boolean byTable, int table) {
+    public List<Order> seachByFilters(OrderType orderType, boolean byId, long orderId, boolean byClient, long clientId, boolean byUser, long userId, boolean byTable, int table) {
         orderDAO.connect();
 
-        List<Order> orders = orderDAO.seachByFilters(byId, orderId, byClient, clientId, byUser, userId, byTable, table);
+        List<Order> orders = (!byId && !byClient && !byUser && !byTable)
+                ? orderDAO.findByOrderType(orderType)
+                : orderDAO.seachByFilters(orderType, byId, orderId, byClient, clientId, byUser, userId, byTable, table);
 
         orderDAO.disconnect();
 

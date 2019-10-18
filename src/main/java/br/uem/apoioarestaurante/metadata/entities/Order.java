@@ -14,6 +14,8 @@ import java.util.List;
 @Table(name = "aar_order")
 public class Order implements Serializable {
 
+    private static final long serialVersionUID = -7426816774231058297L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -44,15 +46,15 @@ public class Order implements Serializable {
     @Column(name = "active")
     private Boolean active;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(nullable = false, name = "client_id")
+    @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderItem> items;
 
     public Order() {

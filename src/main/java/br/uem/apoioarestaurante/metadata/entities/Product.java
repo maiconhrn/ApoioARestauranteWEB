@@ -11,6 +11,8 @@ import java.util.Date;
 @Table(name = "aar_product")
 public class Product implements Serializable {
 
+    private static final long serialVersionUID = -943067544577531821L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,11 +1,14 @@
 package br.uem.apoioarestaurante.metadata.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "aar_user")
-public class User extends Person {
+public class User extends Person implements Serializable {
+
+    private static final long serialVersionUID = -312099716113507516L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +23,7 @@ public class User extends Person {
     @Column(name = "active")
     private Boolean active;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
     private List<Order> orders;
 
     public User() {

@@ -5,7 +5,8 @@ package br.uem.apoioarestaurante.metadata.types;
  */
 public enum OrderType {
     LOCAL("Local"),
-    DELIVERY("Delivery");
+    DELIVERY("Delivery"),
+    BOTH("Ambos");
 
     private String textValue;
 

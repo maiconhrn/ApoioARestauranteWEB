@@ -1,6 +1,5 @@
 package br.uem.apoioarestaurante.controllers;
 
-import br.uem.apoioarestaurante.dao.OrderDAO;
 import br.uem.apoioarestaurante.metadata.entities.Order;
 import br.uem.apoioarestaurante.models.OrderModel;
 import br.uem.apoioarestaurante.views.OrderView;
@@ -41,9 +40,10 @@ public class OrderController implements Serializable {
     }
 
     public void search() {
-//        Considerar tambem tipo do pedido como filtro *****************
 
-        List<Order> res = orderModel.seachByFilters(orderView.isIdFilterSelected(),
+        List<Order> res = orderModel.seachByFilters(
+                orderView.getType(),
+                orderView.isIdFilterSelected(),
                 Long.parseLong(orderView.getIdFilter().equals("") ? "0" : orderView.getIdFilter()),
                 orderView.isClientFilterSelected(),
                 Long.parseLong(orderView.getClientFilter().equals("") ? "0" : orderView.getClientFilter()),
@@ -53,15 +53,11 @@ public class OrderController implements Serializable {
                 Integer.parseInt(orderView.getTableFilter().equals("") ? "0" : orderView.getTableFilter()));
 
         orderView.setOrders(res != null ? res : new ArrayList<>());
+        orderView.setSelectedOrder(null);
     }
 
     public void newOrder() {
-        OrderDAO orderDAO = OrderDAO.getInstance();
-        orderDAO.connect();
-        orderDAO.listAll();
-        orderDAO.disconnect();
 
-        System.out.println("OPA");
     }
 
     public void editOrder() {

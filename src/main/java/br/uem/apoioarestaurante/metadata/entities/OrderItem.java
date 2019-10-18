@@ -10,6 +10,8 @@ import java.io.Serializable;
 @Table(name = "aar_order_item")
 public class OrderItem implements Serializable {
 
+    private static final long serialVersionUID = 6292950162662163343L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,11 +22,11 @@ public class OrderItem implements Serializable {
     @Column(name = "price")
     private Double price;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "order_id")
     private Order order;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "product_id")
     private Product product;
 
