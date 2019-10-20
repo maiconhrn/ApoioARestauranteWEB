@@ -7,7 +7,7 @@
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
              template="template.xhtml">
 
-    <p:fieldset legend="Gerência de Grupo de Permissões" style=" border: 1px solid black; ">
+    <p:fieldset legend="Gerência Permissões" style=" border: 1px solid black; padding-right: 30px">
         <h:form id="frm1">
 
             <div class="ui-g" style="padding-top: 30px;">
@@ -15,29 +15,35 @@
                     <h:outputLabel for="login1" value="Código:" style="font-weight:bold; text-align:center;"/>
                 </div>
                 <div class="ui-g-12 ui-md-6 ui-lg-3">
-                    <p:inputText id="login1" value="#{usuarioControl.usuario.nomeUsuario}" required="true" label="Código" style="width: 100%; " />
+                    <p:inputText id="login1" value="#{permissaoBean.per.id}" disabled="true" required="true" label="Código" style="width: 100%; " />
                 </div>
                 <div class="ui-g-12 ui-md-6 ui-lg-1">
                     <h:outputLabel for="login3" value="Descrição:" style="font-weight:bold"/>
                 </div>
                 <div class="ui-g-12 ui-md-6 ui-lg-7">
-                    <p:inputText id="login3" value="#{usuarioControl.usuario.nomeUsuario}" required="true" label="Descrição" style="width: 98%;"/>
+                    <p:inputText id="login3" value="#{permissaoBean.per.descricao}" required="true" label="Descrição" style="width: 98%;"/>
                 </div>
                 <div class="ui-g-12 ui-md-6 ui-lg-1">
                     <h:outputLabel for="login2" value="Observações:" style="font-weight:bold"/>
                 </div>
                 <div class="ui-g-12 ui-md-6 ui-lg-11">
-                    <p:inputText id="login2" value="#{usuarioControl.usuario.nomeUsuario}" required="true" label="Observações" style="width: 99%;"/>
+                    <p:inputText id="login2" value="#{permissaoBean.per.observacao}" required="true" label="Observações" style="width: 99%;"/>
                 </div>
             </div>
 
             <div class="ui-g" style="padding-top: 30px; padding-bottom: 30px;">
-                <div class="ui-g-12 ui-md-6 ui-lg-8"></div>
+                <div class="ui-g-12 ui-md-6 ui-lg-6"></div>
+                
                 <div class="ui-g-12 ui-md-6 ui-lg-2">
-                    <p:commandButton icon="ui-icon-refresh" value="SALVAR" action="#{clienteControl.listarClientes()}" update=":frm1"  style=" height:30px; width: 100%; text-align:center;" />
+                    <p:commandButton icon="fa fa-fw fa-save" value="ALTERAR" actionListener="#{permissaoBean.alterarPermissao(permissaoBean.per)}" action="#{permissaoBean.retornar()}" update=":frm1"  style=" height:30px; width: 100%; text-align:center;" />
                 </div>
+                
                 <div class="ui-g-12 ui-md-6 ui-lg-2">
-                    <p:commandButton icon="ui-icon-refresh" value="CANCELAR" action="#{clienteControl.listarClientes()}" update=":frm1"  style=" height:30px; width: 100%; text-align:center;" />
+                    <p:commandButton icon="fa fa-fw fa-trash" value="EXCLUIR" actionListener="#{permissaoBean.excluirPermissao(permissaoBean.per)}" action="#{permissaoBean.retornar()}" update=":frm1"  style=" height:30px; width: 100%; text-align:center;" />
+                </div>
+                
+                <div class="ui-g-12 ui-md-6 ui-lg-2">
+                    <p:commandButton icon="fa fa-fw fa-close" value="CANCELAR" actionListener="#{permissaoBean.limparDados()}" action="permissoes" update=":frm1"  style=" height:30px; width: 100%; text-align:center;" />
                 </div>
             </div>
         </h:form>

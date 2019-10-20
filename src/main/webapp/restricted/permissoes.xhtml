@@ -10,7 +10,7 @@
     <p:fieldset legend="Lista de Permissões" style=" border: 1px solid black; ">
         <h:form id="frm" style="padding-top: 30px;">
             <p:growl id="ms" showDetail="true"/>
-            <p:dataTable id="per1" var="cliente" value="#{clienteControl.clientes}" >
+            <p:dataTable id="per1" var="permissao" value="#{permissaoBean.permissoes}" >
                 <f:facet name="header" >
                     <div class="ui-g" >
                         <div class="ui-g-4"></div>
@@ -19,39 +19,42 @@
                         </div>
                         <div class="ui-g-12 ui-md-6 ui-lg-3"></div>
                         <div class="ui-g-12 ui-lg-1" >
-                            <p:commandButton icon="ui-icon-refresh" value="Atualizar" action="#{clienteControl.listarClientes()}" update=":frm"  style=" height:30px; width: 100px; text-align:center;" />
+                            <p:commandButton icon="fa fa-fw fa-refresh" value="Atualizar" action="#{permissaoBean.listarPermissoes()}" update=":frm"  style=" height:30px; width: 100px; text-align:center;" />
                         </div>
                     </div>
 
                 </f:facet>
                 <p:column headerText="Código" style="height: 30px; width: 50px; text-align:center;">
-                    <h:outputText value="#{cliente.cod}" />
+                    <h:outputText value="#{permissao.id}" />
                 </p:column>
 
                 <p:column headerText="Descrição" style="height: 30px; width: 100px; text-align:center;">
-                    <h:outputText value="#{cliente.nome}" />
+                    <h:outputText value="#{permissao.descricao}" />
                 </p:column>
 
                 <p:column headerText="Observações" style="height: 30px; width: 150px; text-align:center;">
-                    <h:outputText value="#{cliente.cpf}" />
+                    <h:outputText value="#{permissao.observacao}" />
                 </p:column>
 
                 <p:column style="width:10px;"  >
-                    <p:commandButton value="Editar" update=":frm"  style=" height: 30px; width: 100%; text-align:center;" >
-                        <f:setPropertyActionListener value="#{cliente}" target="#{clienteControl.cli}" />
+                    <p:commandButton value="Editar" update=":frm" action="atualizaPermissoes" style=" height: 30px; width: 100%; text-align:center;" >
+                        <f:setPropertyActionListener value="#{permissao}" target="#{permissaoBean.per}" />
                     </p:commandButton>
                 </p:column>
             </p:dataTable>
 
             <div class="ui-g" style="padding-top: 30px; padding-bottom: 30px;">
                 <div class="ui-g-12 ui-md-6 ui-lg-8">
-                    <p:inputText id="login1" value="#{usuarioControl.usuario.nomeUsuario}" required="false" label="Código" style="height: 20px; width: 100%;" />
+                    <p:inputText id="login1" value="#{permissaoBean.per.descricao}" required="false" label="Código" style="height: 20px; width: 100%;" />
                 </div>
                 <div class="ui-g-12 ui-md-6 ui-lg-2">
-                    <p:commandButton icon="ui-icon-refresh" value="BUSCAR" action="#{clienteControl.listarClientes()}" update=":frm"  style=" height:100%; width: 100px; text-align:center; float: left;" />
+                    <p:commandButton icon="fa fa-fw fa-search" value="BUSCAR" action="#{permissaoBean.buscarPermissao(permissaoBean.per.descricao)}" update=":frm"  style=" height:100%; width: 100px; text-align:center; float: left;" />
                 </div>
                 <div class="ui-g-12 ui-md-6 ui-lg-2">
-                    <p:commandButton icon="ui-icon-refresh" value="NOVO" action="gerenciaPermissoes" update=":frm"  style=" height:30px; width: 100px; text-align:center; float: right;" />
+                    <p:commandButton  id="bot" icon="fa fa-fw fa-plus" value="NOVO" action="cadastraPermissoes" update=":frm"  style=" height:30px; width: 100px; text-align:center; float: right;">
+                        <f:ajax listener="#{permissaoBean.listarPermissoes()}" render="bot"/>
+                        <f:ajax listener="#{permissaoBean.limparDados()}" render="bot"/>
+                    </p:commandButton>
                 </div>
             </div>
             
