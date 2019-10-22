@@ -2,7 +2,10 @@ package br.uem.apoioarestaurante.models;
 
 import br.uem.apoioarestaurante.metadata.entities.*;
 import javax.persistence.*;
-
+/**
+ *
+ * @author GabrielConejo
+ */
 @Entity
 @Table(name = "usuario")
 public class Usuarios extends Person {
