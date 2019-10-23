@@ -1,4 +1,4 @@
-package br.uem.apoioarestaurante.views;
+package br.uem.apoioarestaurante.controls;
 
 
 import br.uem.apoioarestaurante.dao.generic.impl.UsuariosDAO;
@@ -16,12 +16,12 @@ import javax.servlet.http.HttpSession;
 
 @ManagedBean
 @SessionScoped
-public class UsuariosView {
+public class UsuariosControl {
     private Usuarios usuario;
     private UsuariosDAO usuDAO;
     List<Usuarios> usuarios;
     
-    public UsuariosView() {
+    public UsuariosControl() {
         usuario = new Usuarios();
         usuDAO = new UsuariosDAO();
         usuarios = null;

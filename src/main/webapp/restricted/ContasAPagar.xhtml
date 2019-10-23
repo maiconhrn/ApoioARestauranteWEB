@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="template.xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+<!--        <style type="text/css">
+            
+            .withIcon{
+                margin-right:20px;
+            }
+
+        </style>-->
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <script type="text/javascript">
+            PrimeFaces.locales['pt'] = {
+                closeText: 'Fechar',
+                prevText: 'Anterior',
+                nextText: 'Proximo',
+                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
+                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+                weekHeader: 'Semana',
+                firstDayOfWeek: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                timeOnlyTitle: 'So hora',
+                timeText: 'Tempo',
+                hourText: 'Hora',
+                minuteText: 'Minuto',
+                secondText: 'Segundo',
+                currentText: 'Hora atual',
+                ampm: false,
+                month: 'Mes',
+                week: 'Semana',
+                day: 'Dia',
+                allDayText: 'Todo o dia'
+            };
+        </script>
+
+        <script type="text/javascript">
+            //<![CDATA[
+            function dateTemplateFunc(date) {
+                return '<span style="background-color:' + ((date.day < 21 && date.day > 10) ? '#81C784' : 'inherit') + ';border-radius:50%;padding: .25em;width: 1.75em; height:1.75em; display:block;">' + date.day + '</span>';
+            }
+            //]]>
+        </script>
+
+        <style type="text/css">
+            .value {
+                font-weight: bold;
+            }
+        </style>
+        <div style="padding: 100px; margin: 200px auto;">      
+            <div class="ui-g-12 ui-lg-4">    
+                <p:growl id="msgs" showDetail="true" />
+                <p:panel id="basic" header="Pesquisa" style="margin-bottom:20px">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <span class="ui-float-label">
+                            <p:inputText id="float-input" value="#{basicView.text}" />
+                            <p:outputLabel for="@previous" value="Descrição" />
+                        </span>
+                        <p:outputLabel for="button" value="Button:" />
+                        <p:datePicker id="button" value="#{calendarView.date7}" showIcon="true" />
+                        <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+                            <p:panelGrid id="display" columns="4" columnClasses="label,value,label,value">
+                                <h:outputText value="Button:" />
+                                <h:outputText value="#{calendarView.date7}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                            </p:panelGrid>
+                            <p:commandButton id="novoBot" value="NOVO" icon="fa fa-fw fa-search"  action="#{ContasAPagarView.Novo()}" update="@all" style="height: 30px;  text-align:center; width: 100%; margin-right: 20px;"/>
+                        </p:dialog>                        
+                    </h:panelGrid>
+                </p:panel>
+            </div>
+            <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+                <p:panelGrid id="display" columns="4" columnClasses="label,value,label,value">
+                    <h:outputText value="Button:" />
+                    <h:outputText value="#{calendarView.date7}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:panelGrid>
+            </p:dialog>
+            <div class="ui-g-12 ui-lg-4">
+                <p:panel id="basic" header="Pesquisa" style="margin-bottom:20px">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <!--<p:commandButton value="Salvar" id="withIcon" action="#{ContasAPagarView.Novo()}" update="growl"  icon="pi pi-file" />-->
+                        <p:commandButton id="novoBot" value="NOVO" icon="fa fa-fw fa-file"  action="#{ContasAPagarView.Novo()}" update="@all" style="height: 30px;  text-align:center; width: 100%; margin-right: 20px;"/>
+                        <p:commandButton id="alterarBot" value="ALTERAR" icon="fa fa-fw fa-pencil"  action="#{ContasAPagarView.Alterar()}" update="@all" style="height: 30px;  text-align:center; width: 100%; margin-right: 20px;"/>
+                        <p:commandButton id="deletarBot" value="DELETAR" icon="fa fa-fw fa-trash"  action="#{ContasAPagarView.Deletar()}" update="@all" style="height: 30px;  text-align:center; width: 100%; margin-right: 20px;"/>
+                        <p:commandButton id="mudarStatusBot" value="MUDAR STATUS" icon="fa fa-fw fa-check-circle"  action="#{ContasAPagarView.MudarStatus()}" update="@all" style="height: 30px;  text-align:center; width: 100%; margin-right: 20px;"/>
+                        <p:commandButton id="voltarBot" value="VOLTAR" icon="fa fa-fw fa-chevron-left"  action="#{ContasAPagarView.Voltar()}" update="@all" style="height: 30px;  text-align:center; width: 100%; margin-right: 20px;"/>
+                    </h:panelGrid>
+                </p:panel>
+            </div>    
+        </div>
+    </body>
+</ui:decorate>
