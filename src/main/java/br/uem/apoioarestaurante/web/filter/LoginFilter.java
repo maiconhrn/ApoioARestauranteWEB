@@ -32,7 +32,7 @@ public class LoginFilter implements Filter {
             String contextPath = ((HttpServletRequest) request)
                     .getContextPath();
             ((HttpServletResponse) response).sendRedirect(contextPath
-                    + "/security/login.xhtml");
+                    + "/security/testeTelaLogin.xhtml");
         } else {
             chain.doFilter(request, response);
         }

@@ -1,4 +1,4 @@
-package br.uem.apoioarestaurante.controls;
+package br.uem.apoioarestaurante.views;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -6,6 +6,6 @@ import java.io.Serializable;
 
 @Named
 @SessionScoped
-public class HomeControl implements Serializable {
+public class HomeView implements Serializable {
 
 }

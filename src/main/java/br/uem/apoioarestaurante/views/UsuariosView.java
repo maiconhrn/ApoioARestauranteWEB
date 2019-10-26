@@ -1,27 +1,25 @@
-package br.uem.apoioarestaurante.controls;
+package br.uem.apoioarestaurante.views;
 
 
 import br.uem.apoioarestaurante.dao.generic.impl.UsuariosDAO;
 import br.uem.apoioarestaurante.models.Usuarios;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-/**
- *
- * @author GabrielConejo
- */
+
 
 @ManagedBean
 @SessionScoped
-public class UsuariosControl {
+public class UsuariosView {
     private Usuarios usuario;
     private UsuariosDAO usuDAO;
     List<Usuarios> usuarios;
     
-    public UsuariosControl() {
+    public UsuariosView() {
         usuario = new Usuarios();
         usuDAO = new UsuariosDAO();
         usuarios = null;
@@ -49,6 +47,25 @@ public class UsuariosControl {
         return "";
     }
     
+    public void buscarUsuario(String nome) throws SQLException {
+        usuarios = null;
+        Usuarios usu = new Usuarios();
+        List<Usuarios> resultado = new ArrayList<>();
+        usuDAO.connect();
+        usuarios = usuDAO.listAll();
+        for (int i = 0; i < usuarios.size(); i++) {
+            usu = usuarios.get(i);
+            if (usu.getName().startsWith(nome)) {
+                System.out.println(usu.getName());
+                resultado.add(usu);
+            }
+        }
+        usuarios.clear();
+        usuarios = resultado;
+        usuDAO.disconnect();
+        usuario = new Usuarios();
+    }
+    
     public void inserirUsuario(Usuarios usua) throws SQLException, ClassNotFoundException {
         usuDAO.connect();
         usua.setAtivo(Boolean.TRUE);
@@ -70,6 +87,22 @@ public class UsuariosControl {
         usuDAO.delete(usua);
         usuDAO.disconnect();
         usuario = new Usuarios();
+    }
+    
+    public void listarUsuarios() throws SQLException {
+        usuarios = null;
+        usuDAO.connect();
+        usuarios = usuDAO.listAll();
+        usuDAO.disconnect();
+    }
+    
+    public void limparDados(){
+        usuario = new Usuarios();
+    }
+    
+    public String retornar() throws SQLException{
+        listarUsuarios();
+        return"usuarios";
     }
 
     public Usuarios getUsuario() {
@@ -94,8 +127,5 @@ public class UsuariosControl {
 
     public void setUsuarios(List<Usuarios> usuarios) {
         this.usuarios = usuarios;
-    }
-    
-    
-
+    } 
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.uem.apoioarestaurante.controls;
+package br.uem.apoioarestaurante.views;
 
 import br.uem.apoioarestaurante.dao.generic.impl.ContasAPagarDAO;
 import br.uem.apoioarestaurante.models.ContasAPagar;
@@ -25,7 +25,7 @@ import org.primefaces.event.SelectEvent;
  */
 @Named(value = "contasAPagar")
 @Dependent
-public class ContasAPagarControl {
+public class ContasAPagarView {
 
     private ContasAPagar contaAPagar;
     private ContasAPagarDAO contaAPagarDAO;
@@ -40,6 +40,14 @@ public class ContasAPagarControl {
     
     private String text;
  
+    public ContasAPagarView(){
+        contaAPagar = new ContasAPagar();
+        contaAPagarDAO = new ContasAPagarDAO();
+        contasAPagar = null;
+        contasAPagar = contaAPagarDAO.listAll();
+        
+    }
+    
     public String getText() {
         return text;
     }
@@ -130,17 +138,27 @@ public class ContasAPagarControl {
     public void setMaxDate(Date maxDate) {
         this.maxDate = maxDate;
     }
-    
-    public ContasAPagarControl() {
-    }
 
     public void Novo(){
+        contaAPagarDAO.connect();
+        contaAPagar.setAtivo(Boolean.TRUE);   
+        contaAPagarDAO.save(contaAPagar);
+        contaAPagarDAO.disconnect();
+        contaAPagarDAO = new ContasAPagarDAO();
     }
     
     public void Alterar(){
+        contaAPagarDAO.connect();
+        contaAPagarDAO.update(contaAPagar);
+        contaAPagarDAO.disconnect();
+        contaAPagarDAO = new ContasAPagarDAO();
     }
     
     public void Deletar(){
+        contaAPagarDAO.connect();
+        contaAPagarDAO.delete(contaAPagar);
+        contaAPagarDAO.disconnect();
+        contaAPagarDAO = new ContasAPagarDAO();
     }
     
     public void MudarStatus(){

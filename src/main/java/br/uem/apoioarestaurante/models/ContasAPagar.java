@@ -5,6 +5,7 @@
  */
 package br.uem.apoioarestaurante.models;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +21,7 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name = "contasAPagar")
-public class ContasAPagar {
+public class ContasAPagar implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +36,9 @@ public class ContasAPagar {
     private String produto;
     @Column(nullable = false)
     private int qtd;
+    @Column(name = "Ativo")
+    private Boolean ativo;
+    
 
     public ContasAPagar() {
         this.data = data;
@@ -42,6 +46,15 @@ public class ContasAPagar {
         this.descrição = descrição;
         this.produto = produto;
         this.qtd = qtd;
+        this.ativo = ativo;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
     
     public Date getData() {

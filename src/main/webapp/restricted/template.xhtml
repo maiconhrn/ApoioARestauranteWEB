@@ -9,6 +9,7 @@
         <style type="text/css">
             body {background-color: #eeeeee; font-size: 12px}
         </style> 
+        <link type="text/css" rel="stylesheet" href="../style/cadastroUsuario.css"/>
     </h:head>
     <h:body>
         <div align="center">
@@ -22,14 +23,13 @@
                         <h:form>
                             <p:panelMenu style="width:200px">
                                 <p:submenu label="Inicio">
-                                    <p:menuitem value="Inicio" url="/ApoioARestauranteWEB/restricted/home.xhtml"/>
+                                    <p:menuitem value="Inicio" url="/ApoioARestauranteWEB/home.xhtml"/>
                                 </p:submenu>
                             </p:panelMenu>
                             <p:panelMenu style="width:200px">
                                 <p:submenu label="Gerir">
-                                    <p:menuitem value="Cliente" url="/ApoioARestauranteWEB/restricted/clientes.xhtml"/>
-                                    <p:menuitem value="Permissões" url="/ApoioARestauranteWEB/restricted/permissoes.xhtml"/>
-                                    <p:menuitem value="Grupo de Permissões" url="/ApoioARestauranteWEB/restricted/grupoPermissoes.xhtml"/>
+                                    <p:menuitem value="Usuarios" url="/ApoioARestauranteWEB/restricted/usuarios.xhtml"/>
+                                    <p:menuitem value="Contas a Pagar" url="/ApoioARestauranteWEB/restricted/ContasAPagar.xhtml"/>
 
                                 </p:submenu>
                             </p:panelMenu>
@@ -41,8 +41,6 @@
                             <p:panelMenu style="width:200px">
                                 <p:submenu label="Relatórios">
 
-                                    <p:menuitem value="Relatorio de Lucro" url="/ApoioARestauranteWEB/restricted/relatorioClientes.xhtml"/>
-                                    <p:menuitem value="Relatorio de Clientes" url="/ApoioARestauranteWEB/restricted/relatorioClientes.xhtml"/>
                                 </p:submenu>
                             </p:panelMenu>
                         </h:form>
@@ -57,3 +55,4 @@
         </div>
     </h:body>
 </html>
+
