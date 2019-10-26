@@ -3,14 +3,14 @@ package br.uem.apoioarestaurante.metadata.types;
 /**
  * @author Maicon
  */
-public enum OrderType {
+public enum PedidoTipo {
     LOCAL("Local"),
     DELIVERY("Delivery"),
     BOTH("Ambos");
 
     private String textValue;
 
-    OrderType(String textValue) {
+    PedidoTipo(String textValue) {
         this.textValue = textValue;
     }
 

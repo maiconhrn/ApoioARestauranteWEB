@@ -11,19 +11,19 @@ import java.util.Date;
  * @author Maicon
  */
 @MappedSuperclass
-public abstract class Person implements Serializable {
+public abstract class Pessoa implements Serializable {
 
     private static final long serialVersionUID = 3072179824199336890L;
 
     @Column(name = "cpf", length = 15, unique = true, nullable = false)
     private String cpf;
 
-    @Column(name = "name", length = 50, nullable = false)
-    private String name;
+    @Column(name = "nome", length = 50, nullable = false)
+    private String nome;
 
-    @Column(name = "birth_date", nullable = false)
+    @Column(name = "data_nascimento", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date birthDate;
+    private Date dataNascimento;
 
     public String getCpf() {
         return cpf;
@@ -33,19 +33,19 @@ public abstract class Person implements Serializable {
         this.cpf = cpf;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public Date getDataNascimento() {
+        return dataNascimento;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 }

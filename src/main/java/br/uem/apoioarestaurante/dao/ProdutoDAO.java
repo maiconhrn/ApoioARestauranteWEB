@@ -2,7 +2,7 @@ package br.uem.apoioarestaurante.dao;
 
 import br.uem.apoioarestaurante.dao.generic.impl.HibernateBasicGenericDAO;
 import br.uem.apoioarestaurante.exceptions.DAOException;
-import br.uem.apoioarestaurante.metadata.entities.Product;
+import br.uem.apoioarestaurante.metadata.entities.Produto;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -14,25 +14,25 @@ import java.util.List;
 /**
  * @author Maicon
  */
-public class ProductDAO extends HibernateBasicGenericDAO<Product> {
+public class ProdutoDAO extends HibernateBasicGenericDAO<Produto> {
 
-    private static ProductDAO ourInstance = new ProductDAO();
+    private static ProdutoDAO ourInstance = new ProdutoDAO();
 
-    public static ProductDAO getInstance() {
+    public static ProdutoDAO getInstance() {
         return ourInstance;
     }
 
-    private ProductDAO() {
-        super(Product.class);
+    private ProdutoDAO() {
+        super(Produto.class);
     }
 
-    public List<Product> findProductsByFilters(boolean byId, long producId, boolean byDescription, String description) {
+    public List<Produto> findProductsByFilters(boolean byId, long producId, boolean byDescription, String description) {
         try {
             requireOpenSession();
 
             CriteriaBuilder cb = getSession().getCriteriaBuilder();
-            CriteriaQuery<Product> criteriaQuery = cb.createQuery(Product.class);
-            Root<Product> root = criteriaQuery.from(Product.class);
+            CriteriaQuery<Produto> criteriaQuery = cb.createQuery(Produto.class);
+            Root<Produto> root = criteriaQuery.from(Produto.class);
 
             List<Predicate> predicates = new ArrayList<>();
 
@@ -41,7 +41,7 @@ public class ProductDAO extends HibernateBasicGenericDAO<Product> {
             }
 
             if (byDescription) {
-                predicates.add(cb.like(root.get("description"), description));
+                predicates.add(cb.like(root.get("descricao"), description));
             }
 
             return getSession().createQuery(criteriaQuery.where(predicates.toArray(new Predicate[0]))).getResultList();

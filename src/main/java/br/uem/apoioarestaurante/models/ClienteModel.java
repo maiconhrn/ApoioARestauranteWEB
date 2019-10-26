@@ -3,5 +3,5 @@ package br.uem.apoioarestaurante.models;
 /**
  * @author Maicon
  */
-public class ClientModel {
+public class ClienteModel {
 }

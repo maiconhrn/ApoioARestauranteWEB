@@ -1,11 +1,6 @@
 package br.uem.apoioarestaurante.web.filter;
 
-import br.uem.apoioarestaurante.metadata.entities.User;
-
 import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**

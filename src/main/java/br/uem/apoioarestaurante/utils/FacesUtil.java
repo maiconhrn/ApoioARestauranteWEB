@@ -10,9 +10,9 @@ public class FacesUtil {
 
     public static String LOGIN = "/security/login?faces-redirect=true";
     public static String HOME = "/restricted/home?faces-redirect=true";
-    public static String ORDER = "/restricted/order?faces-redirect=true";
-    public static String ORDER_MAINTENANCE = "/restricted/order-maintenance?faces-redirect=true";
-    public static String ORDER_ITEM_PRODUCT = "/restricted/order-item-product?faces-redirect=true";
+    public static String ORDER = "/restricted/pedido?faces-redirect=true";
+    public static String ORDER_MAINTENANCE = "/restricted/manutencao-pedido?faces-redirect=true";
+    public static String ORDER_ITEM_PRODUCT = "/restricted/produto-item-pedido?faces-redirect=true";
 
     public static String getParam(String paramName) {
         FacesContext context = FacesContext.getCurrentInstance();

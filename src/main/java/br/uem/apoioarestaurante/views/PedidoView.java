@@ -1,9 +1,9 @@
 package br.uem.apoioarestaurante.views;
 
-import br.uem.apoioarestaurante.controllers.OrderController;
-import br.uem.apoioarestaurante.metadata.entities.Order;
-import br.uem.apoioarestaurante.metadata.types.OrderType;
-import br.uem.apoioarestaurante.models.OrderModel;
+import br.uem.apoioarestaurante.controllers.PedidoController;
+import br.uem.apoioarestaurante.metadata.entities.Pedido;
+import br.uem.apoioarestaurante.metadata.types.PedidoTipo;
+import br.uem.apoioarestaurante.models.PedidoModel;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -18,21 +18,21 @@ import java.util.List;
  */
 @Named
 @SessionScoped
-public class OrderView implements Serializable {
+public class PedidoView implements Serializable {
 
     @Inject
-    private OrderController orderController;
+    private PedidoController pedidoController;
 
     @Inject
-    private OrderModel orderModel;
+    private PedidoModel pedidoModel;
 
     private boolean idFilterSelected;
     private boolean clientFilterSelected;
     private boolean userFilterSelected;
     private boolean tableFilterSelected;
-    private OrderType type;
-    private List<Order> orders = new ArrayList<>();
-    private Order selectedOrder;
+    private PedidoTipo type;
+    private List<Pedido> pedidos = new ArrayList<>();
+    private Pedido selectedPedido;
     private String idFilter;
     private String clientFilter;
     private String userFilter;
@@ -40,8 +40,8 @@ public class OrderView implements Serializable {
 
     @PostConstruct
     public void init() {
-        type = OrderType.BOTH;
-        orders = new ArrayList<>();
+        type = PedidoTipo.BOTH;
+        pedidos = new ArrayList<>();
     }
 
     public boolean isIdFilterSelected() {
@@ -76,32 +76,32 @@ public class OrderView implements Serializable {
         this.tableFilterSelected = tableFilterSelected;
     }
 
-    public OrderType getType() {
+    public PedidoTipo getType() {
         return type;
     }
 
-    public void setType(OrderType type) {
+    public void setType(PedidoTipo type) {
         this.type = type;
     }
 
-    public OrderType[] getTypes() {
-        return OrderType.values();
+    public PedidoTipo[] getTypes() {
+        return PedidoTipo.values();
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public List<Pedido> getPedidos() {
+        return pedidos;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
-    public Order getSelectedOrder() {
-        return selectedOrder;
+    public Pedido getSelectedPedido() {
+        return selectedPedido;
     }
 
-    public void setSelectedOrder(Order selectedOrder) {
-        this.selectedOrder = selectedOrder;
+    public void setSelectedPedido(Pedido selectedPedido) {
+        this.selectedPedido = selectedPedido;
     }
 
     public String getIdFilter() {

@@ -1,6 +1,6 @@
 package br.uem.apoioarestaurante.views.converter;
 
-import br.uem.apoioarestaurante.metadata.entities.Person;
+import br.uem.apoioarestaurante.metadata.entities.Pessoa;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -25,7 +25,7 @@ public class PersonConverter implements Converter, Serializable {
     @Override
     public String getAsString(FacesContext facesContext, UIComponent uiComponent, Object o) {
         if (o != null && !"".equals(o)) {
-            Person entity = (Person) o;
+            Pessoa entity = (Pessoa) o;
 
             this.addAttribute(uiComponent, entity);
 
@@ -39,7 +39,7 @@ public class PersonConverter implements Converter, Serializable {
 
     }
 
-    protected void addAttribute(UIComponent component, Person o) {
+    protected void addAttribute(UIComponent component, Pessoa o) {
         String key = o.getCpf();
         this.getAttributesFrom(component).put(key, o);
     }

@@ -6,58 +6,66 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
-<link type="text/css" rel="stylesheet" href="../style/order.css"/>
+<link type="text/css" rel="stylesheet" href="../style/pedido.css"/>
 <ui:decorate template="main-template.xhtml">
     <h:form id="ordersForm">
         <div class="order-container">
             <div style="min-height: 120px; width: 100%;">
                 <p:panel id="filters" header="Filtros" styleClass="filters-select">
-                    <p:selectBooleanCheckbox value="#{orderView.idFilterSelected}" itemLabel="ID"/>
-                    <p:selectBooleanCheckbox value="#{orderView.clientFilterSelected}" itemLabel="Cliente"/>
-                    <p:selectBooleanCheckbox value="#{orderView.userFilterSelected}" itemLabel="Usuário"/>
-                    <p:selectBooleanCheckbox value="#{orderView.tableFilterSelected}" itemLabel="Mesa"/>
+                    <p:selectBooleanCheckbox value="#{pedidoView.idFilterSelected}" itemLabel="ID">
+                        <p:ajax update="ordersForm:search"/>
+                    </p:selectBooleanCheckbox>
+                    <p:selectBooleanCheckbox value="#{pedidoView.clientFilterSelected}" itemLabel="Cliente">
+                        <p:ajax update="ordersForm:search"/>
+                    </p:selectBooleanCheckbox>
+                    <p:selectBooleanCheckbox value="#{pedidoView.userFilterSelected}" itemLabel="Usuário">
+                        <p:ajax update="ordersForm:search"/>
+                    </p:selectBooleanCheckbox>
+                    <p:selectBooleanCheckbox value="#{pedidoView.tableFilterSelected}" itemLabel="Mesa">
+                        <p:ajax update="ordersForm:search"/>
+                    </p:selectBooleanCheckbox>
                 </p:panel>
 
                 <p:panel id="type" header="Tipo" styleClass="types">
-                    <p:selectOneRadio value="#{orderView.type}" unselectable="true" layout="grid"
+                    <p:selectOneRadio value="#{pedidoView.type}" unselectable="true" layout="grid"
                                       columns="2">
-                        <f:selectItems value="#{orderView.types}" var="type" itemValue="#{type}"
+                        <f:selectItems value="#{pedidoView.types}" var="type" itemValue="#{type}"
                                        itemLabel="#{type.textValue}"/>
                     </p:selectOneRadio>
                 </p:panel>
             </div>
 
             <div style="min-height: 120px; width: 100%;">
-                <p:panel id="seach" header="Pesquisa" styleClass="search-panel">
+                <p:panel id="search" header="Pesquisa" styleClass="search-panel">
                     <div class="search">
                         <div class="filters">
                             <div>
                                 <p:outputLabel value="ID" for="idFilter"/>
-                                <p:inputText required="#{orderView.idFilterSelected}" id="idFilter"
-                                             value="#{orderView.idFilter}"/>
+                                <p:inputText required="#{pedidoView.idFilterSelected}" id="idFilter"
+                                             value="#{pedidoView.idFilter}"/>
                             </div>
 
                             <div>
                                 <p:outputLabel value="Cliente" for="clientFilter"/>
-                                <p:inputText required="#{orderView.clientFilterSelected}" id="clientFilter"
-                                             value="#{orderView.clientFilter}"/>
+                                <p:inputText required="#{pedidoView.clientFilterSelected}" id="clientFilter"
+                                             value="#{pedidoView.clientFilter}"/>
                             </div>
 
                             <div>
                                 <p:outputLabel value="Usuário" for="userFilter"/>
-                                <p:inputText required="#{orderView.userFilterSelected}" id="userFilter"
-                                             value="#{orderView.userFilter}"/>
+                                <p:inputText required="#{pedidoView.userFilterSelected}" id="userFilter"
+                                             value="#{pedidoView.userFilter}"/>
                             </div>
 
                             <div>
                                 <p:outputLabel value="Mesa" for="tableFilter"/>
-                                <p:inputText required="#{orderView.tableFilterSelected}" id="tableFilter"
-                                             value="#{orderView.tableFilter}"/>
+                                <p:inputText required="#{pedidoView.tableFilterSelected}" id="tableFilter"
+                                             value="#{pedidoView.tableFilter}"/>
                             </div>
                         </div>
 
                         <div>
-                            <p:commandButton icon="fa fa-search" action="#{orderController.search()}"
+                            <p:commandButton icon="fa fa-search" action="#{pedidoController.search()}"
                                              update="ordersTable orderItemsTable"/>
                         </div>
                     </div>
@@ -65,10 +73,10 @@
             </div>
 
             <div style="width: 100%;">
-                <!--@elvariable id="order" type="br.uem.apoioarestaurante.metadata.entities.Order"-->
-                <p:dataTable styleClass="dataTable" id="ordersTable" var="order"
-                             value="#{orderView.orders}"
-                             selectionMode="single" selection="#{orderView.selectedOrder}" rowKey="#{order.id}"
+                <!--@elvariable id="pedido" type="br.uem.apoioarestaurante.metadata.entities.Pedido"-->
+                <p:dataTable styleClass="dataTable" id="ordersTable" var="pedido"
+                             value="#{pedidoView.pedidos}"
+                             selectionMode="single" selection="#{pedidoView.selectedPedido}" rowKey="#{pedido.id}"
                              paginator="true"
                              paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                              rows="10" resizableColumns="true">
@@ -81,37 +89,37 @@
                     </f:facet>
 
                     <p:column headerText="ID">
-                        <h:outputText value="#{order.id}"/>
+                        <h:outputText value="#{pedido.id}"/>
                     </p:column>
 
                     <p:column headerText="Tipo">
-                        <h:outputText value="#{order.type.textValue}"/>
+                        <h:outputText value="#{pedido.tipo.textValue}"/>
                     </p:column>
 
                     <p:column headerText="Usuário">
-                        <h:outputText value="#{order.user.name}"/>
+                        <h:outputText value="#{pedido.usuario.nome}"/>
                     </p:column>
 
                     <p:column headerText="Cliente">
-                        <h:outputText value="#{order.client.name}"/>
+                        <h:outputText value="#{pedido.cliente.nome}"/>
                     </p:column>
 
                     <p:column headerText="Mesa">
-                        <h:outputText value="#{order.table}"/>
+                        <h:outputText value="#{pedido.mesa}"/>
                     </p:column>
 
                     <p:column headerText="Preço total">
-                        <h:outputText value="#{order.totalPrice}"/>
+                        <h:outputText value="#{pedido.total}"/>
                     </p:column>
 
                     <p:column headerText="Data início">
-                        <h:outputText value="#{order.initDate}">
+                        <h:outputText value="#{pedido.dataInicio}">
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
                         </h:outputText>
                     </p:column>
 
                     <p:column headerText="Data fim">
-                        <h:outputText value="#{order.finishDate}">
+                        <h:outputText value="#{pedido.dataFim}">
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
                         </h:outputText>
                     </p:column>
@@ -119,8 +127,8 @@
             </div>
 
             <div style="width: 100%;">
-                <p:dataTable styleClass="dataTable" id="orderItemsTable" var="orderItem"
-                             value="#{orderView.selectedOrder.items}" paginator="true"
+                <p:dataTable styleClass="dataTable" id="orderItemsTable" var="itemPedido"
+                             value="#{pedidoView.selectedPedido.items}" paginator="true"
                              paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                              rows="10" resizableColumns="true">
                     <f:facet name="header">
@@ -128,35 +136,35 @@
                     </f:facet>
 
                     <p:column headerText="ID">
-                        <h:outputText value="#{orderItem.id}"/>
+                        <h:outputText value="#{itemPedido.id}"/>
                     </p:column>
 
                     <p:column headerText="ID Pedido">
-                        <h:outputText value="#{orderItem.order.id}"/>
+                        <h:outputText value="#{itemPedido.pedido.id}"/>
                     </p:column>
 
                     <p:column headerText="Produto">
-                        <h:outputText value="#{orderItem.product.description}"/>
+                        <h:outputText value="#{itemPedido.produto.descricao}"/>
                     </p:column>
 
                     <p:column headerText="Quantidade">
-                        <h:outputText value="#{orderItem.productQtt}"/>
+                        <h:outputText value="#{itemPedido.qtdProduto}"/>
                     </p:column>
 
                     <p:column headerText="Total">
-                        <h:outputText value="#{orderItem.price}"/>
+                        <h:outputText value="#{itemPedido.preco}"/>
                     </p:column>
                 </p:dataTable>
             </div>
 
             <div style="float: right; padding-top: 20px;">
-                <p:commandButton value="Novo" id="new" action="#{orderController.newOrder()}"
+                <p:commandButton value="Novo" id="new" action="#{pedidoController.newOrder()}"
                                  style="margin-right:20px;" icon="fa fa-plus-square"/>
-                <p:commandButton value="Editar" id="edit" action="#{orderController.editOrder()}"
+                <p:commandButton value="Editar" id="edit" action="#{pedidoController.editOrder()}"
                                  style="margin-right:20px;" icon="fa fa-edit"/>
-                <p:commandButton value="Deletar" id="delete" action="#{orderController.deleteOrder()}"
+                <p:commandButton value="Deletar" id="delete" action="#{pedidoController.deleteOrder()}"
                                  style="margin-right:20px;" icon="fa fa-remove"/>
-                <p:commandButton value="Fechar" id="close" action="#{orderController.closeOrder()}"
+                <p:commandButton value="Fechar" id="close" action="#{pedidoController.closeOrder()}"
                                  style="margin-right:20px;" icon="fa fa-check"/>
             </div>
         </div>

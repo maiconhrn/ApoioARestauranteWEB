@@ -2,28 +2,28 @@ package br.uem.apoioarestaurante.dao;
 
 import br.uem.apoioarestaurante.dao.generic.impl.HibernateBasicGenericDAO;
 import br.uem.apoioarestaurante.exceptions.DAOException;
-import br.uem.apoioarestaurante.metadata.entities.User;
+import br.uem.apoioarestaurante.metadata.entities.Usuario;
 
 /**
  * @author Maicon
  */
-public class UserDAO extends HibernateBasicGenericDAO<User> {
+public class UsuarioDAO extends HibernateBasicGenericDAO<Usuario> {
 
-    private static UserDAO ourInstance = new UserDAO();
+    private static UsuarioDAO ourInstance = new UsuarioDAO();
 
-    public static UserDAO getInstance() {
+    public static UsuarioDAO getInstance() {
         return ourInstance;
     }
 
-    private UserDAO() {
-        super(User.class);
+    private UsuarioDAO() {
+        super(Usuario.class);
     }
 
-    public User findById(Long id) {
+    public Usuario findById(Long id) {
         try {
             requireOpenSession();
 
-            return getSession().get(User.class, id);
+            return getSession().get(Usuario.class, id);
         } catch (DAOException e) {
             e.printStackTrace();
 

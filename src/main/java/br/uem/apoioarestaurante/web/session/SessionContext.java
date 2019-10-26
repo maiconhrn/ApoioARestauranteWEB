@@ -1,6 +1,6 @@
 package br.uem.apoioarestaurante.web.session;
 
-import br.uem.apoioarestaurante.metadata.entities.User;
+import br.uem.apoioarestaurante.metadata.entities.Usuario;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -28,12 +28,12 @@ public class SessionContext {
         }
     }
 
-    public User getLoggedUser() {
-        return (User) getAttribute("loggedUser");
+    public Usuario getLoggedUser() {
+        return (Usuario) getAttribute("loggedUser");
     }
 
-    public void setLoggedUser(User user) {
-        setAttribute("loggedUser", user);
+    public void setLoggedUser(Usuario usuario) {
+        setAttribute("loggedUser", usuario);
     }
 
     public void invalidateSession() {

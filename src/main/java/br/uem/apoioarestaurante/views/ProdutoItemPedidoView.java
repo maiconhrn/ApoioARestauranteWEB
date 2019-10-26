@@ -1,11 +1,11 @@
 package br.uem.apoioarestaurante.views;
 
-import br.uem.apoioarestaurante.controllers.OrderItemProductController;
-import br.uem.apoioarestaurante.metadata.entities.Product;
-import br.uem.apoioarestaurante.models.OrderModel;
+import br.uem.apoioarestaurante.controllers.ProdutoItemPedidoController;
+import br.uem.apoioarestaurante.metadata.entities.Produto;
+import br.uem.apoioarestaurante.models.PedidoModel;
 
 import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -16,25 +16,25 @@ import java.util.List;
  * @author Maicon
  */
 @Named
-@ViewScoped
-public class OrderItemProductView implements Serializable {
+@SessionScoped
+public class ProdutoItemPedidoView implements Serializable {
 
     @Inject
-    private OrderItemProductController orderItemProductController;
+    private ProdutoItemPedidoController produtoItemPedidoController;
 
     @Inject
-    private OrderModel orderModel;
+    private PedidoModel pedidoModel;
 
     private boolean idFilterSelected;
     private boolean descriptionFilterSelected;
     private String idFilter;
     private String descriptionFilter;
-    private List<Product> products = new ArrayList<>();
-    private Product selectedProduct;
+    private List<Produto> produtos = new ArrayList<>();
+    private Produto selectedProduto;
 
     @PostConstruct
     public void init() {
-        products = new ArrayList<>();
+        produtos = new ArrayList<>();
     }
 
     public boolean isIdFilterSelected() {
@@ -69,19 +69,19 @@ public class OrderItemProductView implements Serializable {
         this.descriptionFilter = descriptionFilter;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<Produto> getProdutos() {
+        return produtos;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 
-    public Product getSelectedProduct() {
-        return selectedProduct;
+    public Produto getSelectedProduto() {
+        return selectedProduto;
     }
 
-    public void setSelectedProduct(Product selectedProduct) {
-        this.selectedProduct = selectedProduct;
+    public void setSelectedProduto(Produto selectedProduto) {
+        this.selectedProduto = selectedProduto;
     }
 }
