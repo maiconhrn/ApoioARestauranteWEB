@@ -1,0 +1,22 @@
+package br.uem.apoioarestaurante.utils;
+
+import javax.faces.context.FacesContext;
+import java.util.Map;
+
+/**
+ * @author Maicon
+ */
+public class FacesUtil {
+
+    public static String LOGIN = "/security/login?faces-redirect=true";
+    public static String HOME = "/restricted/home?faces-redirect=true";
+    public static String ORDER = "/restricted/order?faces-redirect=true";
+    public static String ORDER_MAINTENANCE = "/restricted/order-maintenance?faces-redirect=true";
+    public static String ORDER_ITEM_PRODUCT = "/restricted/order-item-product?faces-redirect=true";
+
+    public static String getParam(String paramName) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
+        return paramMap.get(paramName);
+    }
+}

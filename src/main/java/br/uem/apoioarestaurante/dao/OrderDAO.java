@@ -4,6 +4,7 @@ import br.uem.apoioarestaurante.dao.generic.impl.HibernateBasicGenericDAO;
 import br.uem.apoioarestaurante.exceptions.DAOException;
 import br.uem.apoioarestaurante.metadata.entities.Client;
 import br.uem.apoioarestaurante.metadata.entities.Order;
+import br.uem.apoioarestaurante.metadata.entities.Product;
 import br.uem.apoioarestaurante.metadata.entities.User;
 import br.uem.apoioarestaurante.metadata.types.OrderType;
 
@@ -22,8 +23,12 @@ public class OrderDAO extends HibernateBasicGenericDAO<Order> {
         return ourInstance;
     }
 
+    private ProductDAO productDAO;
+
     private OrderDAO() {
         super(Order.class);
+
+        productDAO = ProductDAO.getInstance();
     }
 
     public List<Order> findByOrderType(OrderType orderType) {
@@ -48,7 +53,7 @@ public class OrderDAO extends HibernateBasicGenericDAO<Order> {
         }
     }
 
-    public List<Order> seachByFilters(OrderType orderType, boolean byId, long orderId, boolean byClient, long clientId, boolean byUser, long userId, boolean byTable, int table) {
+    public List<Order> findOrdersByFilters(OrderType orderType, boolean byId, long orderId, boolean byClient, long clientId, boolean byUser, long userId, boolean byTable, int table) {
         try {
             requireOpenSession();
 
@@ -86,5 +91,15 @@ public class OrderDAO extends HibernateBasicGenericDAO<Order> {
 
             return new ArrayList<>();
         }
+    }
+
+    public List<Product> findProductsByFilters(boolean byId, long producId, boolean byDescription, String description) {
+        productDAO.connect();
+
+        List<Product> products = productDAO.findProductsByFilters(byId, producId, byDescription, description);
+
+        productDAO.disconnect();
+
+        return products != null ? products : new ArrayList<>();
     }
 }

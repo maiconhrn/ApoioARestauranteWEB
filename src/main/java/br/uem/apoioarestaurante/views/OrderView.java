@@ -23,13 +23,14 @@ public class OrderView implements Serializable {
     @Inject
     private OrderController orderController;
 
+    @Inject
     private OrderModel orderModel;
 
     private boolean idFilterSelected;
     private boolean clientFilterSelected;
     private boolean userFilterSelected;
     private boolean tableFilterSelected;
-    private OrderType type = OrderType.DELIVERY;
+    private OrderType type;
     private List<Order> orders = new ArrayList<>();
     private Order selectedOrder;
     private String idFilter;
@@ -39,9 +40,6 @@ public class OrderView implements Serializable {
 
     @PostConstruct
     public void init() {
-        orderModel = new OrderModel();
-        orderController.setOrderModel(orderModel);
-
         type = OrderType.BOTH;
         orders = new ArrayList<>();
     }
@@ -136,21 +134,5 @@ public class OrderView implements Serializable {
 
     public void setTableFilter(String tableFilter) {
         this.tableFilter = tableFilter;
-    }
-
-    public OrderController getOrderController() {
-        return orderController;
-    }
-
-    public void setOrderController(OrderController orderController) {
-        this.orderController = orderController;
-    }
-
-    public OrderModel getOrderModel() {
-        return orderModel;
-    }
-
-    public void setOrderModel(OrderModel orderModel) {
-        this.orderModel = orderModel;
     }
 }

@@ -1,0 +1,45 @@
+.order-maintenance-container {
+    height: 100%;
+    width: 100%;
+}
+
+.order-maintenance-container .order-info {
+    width: 70%;
+    margin-left: 5px;
+    float: left;
+    min-height: 102px;
+}
+
+.order-maintenance-container .order-info .data {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.order-maintenance-container .order-info .data > div {
+    padding-right: 10px;
+    min-width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 10px;
+}
+
+.order-maintenance-container .order-info .data > div > label {
+    float: left;
+}
+
+.order-maintenance-container .types {
+    width: 28%;
+    margin-right: 5px;
+    height: 102px;
+    float: right;
+}
+
+.order-maintenance-container .dataTable {
+    padding-bottom: 17px;
+    max-height: 500px;
+    margin-left: 5px;
+    margin-right: 5px;
+    min-height: 120px;
+}

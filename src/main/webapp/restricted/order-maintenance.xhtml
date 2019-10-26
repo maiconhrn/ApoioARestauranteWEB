@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+<link type="text/css" rel="stylesheet" href="../style/order-maintenance.css"/>
+<ui:decorate template="main-template.xhtml">
+    <h:form id="orderMaintenance">
+
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{orderMaintenanceView.init()}"/>
+        </f:metadata>
+
+        <div class="order-maintenance-container">
+            <div style="min-height: 120px; width: 100%;">
+                <p:panel id="orderData" header="Dados do Pedido" styleClass="order-info">
+                    <div class="data">
+                        <div>
+                            <p:outputLabel value="ID" for="idFilter"/>
+                            <p:inputText id="idFilter" disabled="true" value="#{orderMaintenanceView.order.id}"/>
+                        </div>
+                        <div>
+                            <p:outputLabel value="Cliente" for="clientFilter"/>
+                            <p:selectOneMenu id="clientFilter" autoWidth="false"
+                                             value="#{orderMaintenanceView.order.client}"
+                                             effect="fade" var="c" filter="true" filterMatchMode="startsWith"
+                                             converter="personConverter"
+                                             required="#{orderMaintenanceView.order.type.textValue == 'Delivery'}">
+                                <f:selectItem itemLabel="Selecione um" itemValue=""/>
+                                <f:selectItems value="#{orderMaintenanceView.clients}" var="client"
+                                               itemLabel="#{client.name}"
+                                               itemValue="#{client}"/>
+                                <p:column>
+                                    <h:outputText value="#{c.name}"/>
+                                </p:column>
+                            </p:selectOneMenu>
+                        </div>
+                        <div>
+                            <p:outputLabel value="Usuário" for="userFilter"/>
+                            <p:selectOneMenu id="userFilter" autoWidth="false"
+                                             value="#{orderMaintenanceView.order.user}"
+                                             effect="fade" var="u" filter="true" filterMatchMode="startsWith"
+                                             converter="personConverter" required="true">
+                                <f:selectItem itemLabel="Selecione um" itemValue=""/>
+                                <f:selectItems value="#{orderMaintenanceView.users}" var="user"
+                                               itemLabel="#{user.name}"
+                                               itemValue="#{user}"/>
+                                <p:column>
+                                    <h:outputText value="#{u.name}"/>
+                                </p:column>
+                            </p:selectOneMenu>
+                        </div>
+                        <div>
+                            <p:outputLabel value="Mesa" for="tableFilter"/>
+                            <p:inputText id="tableFilter"
+                                         required="#{orderMaintenanceView.order.type.textValue == 'Local'}"
+                                         value="#{orderMaintenanceView.order.table}"/>
+                        </div>
+                        <div>
+                            <p:outputLabel style="padding-right: 10px" value="Data de abertura" for="initDate"/>
+                            <p:datePicker id="initDate" value="#{orderMaintenanceView.order.initDate}"
+                                          showButtonBar="true"
+                                          showTime="true" pattern="dd/MM/yyyy" showIcon="true" required="true"
+                                          autocomplete="off" locale="br" mindate="#{orderMaintenanceView.minDate}"
+                                          readonlyInput="true"/>
+                        </div>
+                    </div>
+                </p:panel>
+
+                <p:panel id="type" header="Tipo" styleClass="types">
+                    <p:selectOneRadio value="#{orderMaintenanceView.order.type}" unselectable="true" layout="grid"
+                                      columns="2">
+
+                        <p:ajax event="valueChange"
+                                update="orderMaintenance:orderData"/>
+
+                        <f:selectItems value="#{orderMaintenanceView.types}" var="type" itemValue="#{type}"
+                                       itemLabel="#{type.textValue}"/>
+                    </p:selectOneRadio>
+                </p:panel>
+            </div>
+
+            <div style="width: 100%;">
+                <p:panel id="orderItems" header="Itens do Pedido">
+                    <!--@elvariable id="orderItem" type="br.uem.apoioarestaurante.metadata.entities.OrderItem"-->
+                    <p:dataTable styleClass="dataTable" id="orderItemsTable" var="orderItem"
+                                 selectionMode="single" selection="#{orderMaintenanceView.selectedOrderItem}"
+                                 rowKey="#{orderItem.price}" paginator="true"
+                                 value="#{orderMaintenanceView.order.items}"
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                 rows="10" resizableColumns="true" editable="true" editMode="cell">
+
+                        <p:ajax event="cellEdit" listener="#{orderMaintenanceView.onProductQttEdit}"/>
+
+                        <p:column headerText="ID">
+                            <h:outputText value="#{orderItem.id}"/>
+                        </p:column>
+
+                        <p:column headerText="ID Pedido">
+                            <h:outputText value="#{orderItem.order.id}"/>
+                        </p:column>
+
+                        <p:column headerText="Produto">
+                            <h:outputText value="#{orderItem.product.description}"/>
+                        </p:column>
+
+                        <p:column headerText="Quantidade">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{orderItem.productQtt}"/></f:facet>
+                                <f:facet name="input"><p:inputText id="modelInput"
+                                                                   value="#{orderItem.productQtt}"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Total">
+                            <h:outputText value="#{orderItem.price}"/>
+                        </p:column>
+                    </p:dataTable>
+
+                    <div style="padding-top: 20px;">
+                        <p:commandButton value="Adicionar" id="new"
+                                         action="#{orderMaintenanceController.newOrderItem()}"
+                                         style="margin-right:20px;" icon="fa fa-plus-square"/>
+                        <p:commandButton value="Remover" id="edit"
+                                         action="#{orderMaintenanceController.deleteOrderItem()}"
+                                         update="orderMaintenance:orderItems"
+                                         style="margin-right:20px;" icon="fa fa-edit"/>
+                    </div>
+                </p:panel>
+            </div>
+
+            <div style="float: right; padding-top: 20px;">
+                <p:commandButton value="Salvar" id="save" action="#{orderMaintenanceController.save()}"
+                                 style="margin-right:20px;" icon="fa fa-save"/>
+                <p:commandButton value="Cancelar" id="cancel" action="#{orderMaintenanceController.cancel()}"
+                                 style="margin-right:20px;" icon="fa fa-ban"/>
+            </div>
+        </div>
+    </h:form>
+</ui:decorate>
+</html>

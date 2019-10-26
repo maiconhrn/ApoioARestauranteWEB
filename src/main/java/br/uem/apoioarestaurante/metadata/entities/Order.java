@@ -4,6 +4,7 @@ import br.uem.apoioarestaurante.metadata.types.OrderType;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -58,8 +59,9 @@ public class Order implements Serializable {
     private List<OrderItem> items;
 
     public Order() {
-        this.initDate = new Date();
+        this.items = new ArrayList<>();
         this.active = true;
+        this.totalPrice = 0D;
     }
 
     public Long getId() {

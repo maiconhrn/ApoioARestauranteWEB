@@ -112,7 +112,7 @@ public class OrderDAOTest {
         orderDAO.disconnect();
 
         orderDAO.connect();
-        List<Order> orders = orderDAO.seachByFilters(OrderType.BOTH, true, 1L, false, 0, false, 0, false, 0);
+        List<Order> orders = orderDAO.findOrdersByFilters(OrderType.BOTH, true, 1L, false, 0, false, 0, false, 0);
         orderDAO.disconnect();
         assertNotNull(orders);
     }

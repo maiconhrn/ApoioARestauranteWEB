@@ -1,23 +1,23 @@
-.order-container {
+.order-item-product-container {
     height: 100%;
     width: 100%;
 }
 
-.order-container .filters-select {
-    width: 70%;
+.order-item-product-container .filters-select {
+    width: 100%;
     margin-left: 5px;
     float: left;
     min-height: 102px;
 }
 
-.order-container .types {
+.order-item-product-container .types {
     width: 28%;
     margin-right: 5px;
     min-height: 102px;
     float: right;
 }
 
-.order-container .dataTable {
+.order-item-product-container .dataTable {
     padding-bottom: 17px;
     max-height: 500px;
     margin-left: 5px;
@@ -25,26 +25,26 @@
     min-height: 120px;
 }
 
-.order-container .search-panel {
+.order-item-product-container .search-panel {
     margin-left: 5px;
     margin-right: 5px;
     min-height: 102px;
 }
 
-.order-container .search-panel .search {
+.order-item-product-container .search-panel .search {
     display: flex;
     justify-content: center;
 }
 
-.order-container .search-panel .search .filters {
+.order-item-product-container .search-panel .search .filters {
     display: flex;
     float: left;
 }
 
-.order-container .search-panel .search .filters div {
+.order-item-product-container .search-panel .search .filters div {
     padding-right: 15px;
 }
 
-.order-container .search-panel .search .filters div label {
+.order-item-product-container .search-panel .search .filters div label {
     padding-right: 10px;
 }

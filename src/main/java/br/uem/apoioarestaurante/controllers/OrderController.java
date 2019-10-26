@@ -2,9 +2,12 @@ package br.uem.apoioarestaurante.controllers;
 
 import br.uem.apoioarestaurante.metadata.entities.Order;
 import br.uem.apoioarestaurante.models.OrderModel;
+import br.uem.apoioarestaurante.utils.FacesUtil;
 import br.uem.apoioarestaurante.views.OrderView;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -21,27 +24,12 @@ public class OrderController implements Serializable {
     @Inject
     private OrderView orderView;
 
+    @Inject
     private OrderModel orderModel;
-
-    public OrderView getOrderView() {
-        return orderView;
-    }
-
-    public void setOrderView(OrderView orderView) {
-        this.orderView = orderView;
-    }
-
-    public OrderModel getOrderModel() {
-        return orderModel;
-    }
-
-    public void setOrderModel(OrderModel orderModel) {
-        this.orderModel = orderModel;
-    }
 
     public void search() {
 
-        List<Order> res = orderModel.seachByFilters(
+        List<Order> res = orderModel.findOrdersByFilters(
                 orderView.getType(),
                 orderView.isIdFilterSelected(),
                 Long.parseLong(orderView.getIdFilter().equals("") ? "0" : orderView.getIdFilter()),
@@ -56,12 +44,20 @@ public class OrderController implements Serializable {
         orderView.setSelectedOrder(null);
     }
 
-    public void newOrder() {
-
+    public String newOrder() {
+        return FacesUtil.ORDER_MAINTENANCE + "&type=create";
     }
 
-    public void editOrder() {
+    public String editOrder() {
+        if (orderView.getSelectedOrder() != null) {
+            return FacesUtil.ORDER_MAINTENANCE + "&type=edit&id=" + orderView.getSelectedOrder().getId();
+        }
 
+        FacesContext.getCurrentInstance()
+                .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                        "Aviso!", "É necessário selecionar um Pedido na tabela para essa ação."));
+
+        return "";
     }
 
     public void deleteOrder() {

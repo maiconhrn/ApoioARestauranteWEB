@@ -6,12 +6,13 @@ import br.uem.apoioarestaurante.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author Maicon
  */
-public class HibernateBasicGenericDAO<T> implements BasicGenericDAO<T> {
+public class HibernateBasicGenericDAO<T> implements BasicGenericDAO<T>, Serializable {
 
     private Class<T> entityClass;
     private Session session;
@@ -20,11 +21,11 @@ public class HibernateBasicGenericDAO<T> implements BasicGenericDAO<T> {
         this.entityClass = entityClass;
     }
 
-    public Class<T> getEntityClass() {
+    protected Class<T> getEntityClass() {
         return entityClass;
     }
 
-    public Session getSession() {
+    protected Session getSession() {
         return session;
     }
 

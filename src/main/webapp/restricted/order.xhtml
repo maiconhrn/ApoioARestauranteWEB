@@ -10,7 +10,7 @@
 <ui:decorate template="main-template.xhtml">
     <h:form id="ordersForm">
         <div class="order-container">
-            <div style="height: 120px; width: 100%;">
+            <div style="min-height: 120px; width: 100%;">
                 <p:panel id="filters" header="Filtros" styleClass="filters-select">
                     <p:selectBooleanCheckbox value="#{orderView.idFilterSelected}" itemLabel="ID"/>
                     <p:selectBooleanCheckbox value="#{orderView.clientFilterSelected}" itemLabel="Cliente"/>
@@ -21,34 +21,38 @@
                 <p:panel id="type" header="Tipo" styleClass="types">
                     <p:selectOneRadio value="#{orderView.type}" unselectable="true" layout="grid"
                                       columns="2">
-                        <f:selectItems value="${orderView.types}" var="type" itemValue="#{type}"
+                        <f:selectItems value="#{orderView.types}" var="type" itemValue="#{type}"
                                        itemLabel="#{type.textValue}"/>
                     </p:selectOneRadio>
                 </p:panel>
             </div>
 
-            <div style="height: 120px; width: 100%;">
+            <div style="min-height: 120px; width: 100%;">
                 <p:panel id="seach" header="Pesquisa" styleClass="search-panel">
                     <div class="search">
                         <div class="filters">
                             <div>
                                 <p:outputLabel value="ID" for="idFilter"/>
-                                <p:inputText id="idFilter" value="${orderView.idFilter}"/>
+                                <p:inputText required="#{orderView.idFilterSelected}" id="idFilter"
+                                             value="#{orderView.idFilter}"/>
                             </div>
 
                             <div>
                                 <p:outputLabel value="Cliente" for="clientFilter"/>
-                                <p:inputText id="clientFilter" value="${orderView.clientFilter}"/>
+                                <p:inputText required="#{orderView.clientFilterSelected}" id="clientFilter"
+                                             value="#{orderView.clientFilter}"/>
                             </div>
 
                             <div>
                                 <p:outputLabel value="Usuário" for="userFilter"/>
-                                <p:inputText id="userFilter" value="${orderView.userFilter}"/>
+                                <p:inputText required="#{orderView.userFilterSelected}" id="userFilter"
+                                             value="#{orderView.userFilter}"/>
                             </div>
 
                             <div>
                                 <p:outputLabel value="Mesa" for="tableFilter"/>
-                                <p:inputText id="tableFilter" value="${orderView.tableFilter}"/>
+                                <p:inputText required="#{orderView.tableFilterSelected}" id="tableFilter"
+                                             value="#{orderView.tableFilter}"/>
                             </div>
                         </div>
 
@@ -101,11 +105,15 @@
                     </p:column>
 
                     <p:column headerText="Data início">
-                        <h:outputText value="#{order.initDate}"/>
+                        <h:outputText value="#{order.initDate}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                        </h:outputText>
                     </p:column>
 
                     <p:column headerText="Data fim">
-                        <h:outputText value="#{order.finishDate}"/>
+                        <h:outputText value="#{order.finishDate}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                        </h:outputText>
                     </p:column>
                 </p:dataTable>
             </div>
