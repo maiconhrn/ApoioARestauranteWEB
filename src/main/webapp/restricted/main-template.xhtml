@@ -6,10 +6,30 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Apoio A Restaurante</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            outline: 0;
+            box-sizing: border-box;
+        }
+
+        html, body, #root {
+            height: 100%;
+        }
+
+        body {
+            background: #f5f5f5;
+            font-size: 12px;
+        }
+
+        body, input, button {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
     <link type="text/css" rel="stylesheet" href="../style/main.css"/>
     <script type="text/javascript">
         PrimeFaces.locales['br'] = {
@@ -71,11 +91,10 @@
                     </p:panelMenu>
                     <p:panelMenu style="width:200px">
                         <p:submenu label="Relatórios">
-
-                            <p:menuitem value="Relatorio de Lucro"
-                                        url="/apoio-a-restaurante/restricted/relatorioClientes.xhtml"/>
-                            <p:menuitem value="Relatorio de Clientes"
-                                        url="/apoio-a-restaurante/restricted/relatorioClientes.xhtml"/>
+                            <p:menuitem value="Relatorio Movimentação de Estoque"
+                                        url="/apoio-a-restaurante/restricted/relatorio-movimentacao-estoque.xhtml"/>
+                            <p:menuitem value="Relatorio Histórico de Pedidos"
+                                        url="/apoio-a-restaurante/restricted/relatorio-historico-pedidos.xhtml"/>
                         </p:submenu>
                     </p:panelMenu>
                 </h:form>

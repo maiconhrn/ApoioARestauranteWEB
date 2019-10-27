@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+>
+<link type="text/css" rel="stylesheet" href="../style/relatorio-historico-pedidos.css"/>
+<ui:decorate template="main-template.xhtml">
+    <h:form id="movimentacaoEstoque">
+        <div class="historico-pedidos-container">
+            <div style="min-height: 120px; width: 100%;">
+                <p:panel id="orderData" header="Filtros Relatório Histórico de Pedidos" styleClass="relatorio-info">
+                    <div class="data">
+                        <div>
+                            <p:outputLabel style="padding-right: 10px" value="A partir de" for="beginDate"/>
+                            <p:datePicker id="beginDate" value="#{relatorioHistoricoPedidosView.beginFilter}"
+                                          showButtonBar="true"
+                                          showTime="true" pattern="dd/MM/yyyy" showIcon="true" required="true"
+                                          autocomplete="off" locale="br"
+                                          readonlyInput="true"/>
+                        </div>
+
+                        <div>
+                            <p:outputLabel style="padding-right: 10px" value="Até" for="endDate"/>
+                            <p:datePicker id="endDate" value="#{relatorioHistoricoPedidosView.endFilter}"
+                                          showButtonBar="true"
+                                          showTime="true" pattern="dd/MM/yyyy" showIcon="true" required="true"
+                                          autocomplete="off" locale="br"
+                                          readonlyInput="true"/>
+                        </div>
+                    </div>
+                </p:panel>
+            </div>
+
+            <div style="float: right; padding-top: 20px;">
+                <p:commandButton value="Gerar relatório" id="generate" action="#{relatorioHistoricoPedidosController.generate()}"
+                                 style="margin-right:20px;" icon="fa fa-save"/>
+                <p:commandButton value="Cancelar" id="cancel" action="#{relatorioHistoricoPedidosController.cancel()}"
+                                 immediate="true"
+                                 style="margin-right:20px;" icon="fa fa-ban"/>
+            </div>
+        </div>
+    </h:form>
+</ui:decorate>
+</html>
