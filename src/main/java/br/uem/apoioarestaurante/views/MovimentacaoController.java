@@ -13,7 +13,7 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean
 @SessionScoped
-public class MovimentacaoProdutoBean {
+public class MovimentacaoController {
     
     private int codigoProduto;
     private double quantidade;

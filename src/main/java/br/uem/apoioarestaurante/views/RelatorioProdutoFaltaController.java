@@ -15,7 +15,7 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean
 @SessionScoped
-public class RelatorioProdutoFaltaBean {
+public class RelatorioProdutoFaltaController {
     
     private Date dataInicial;
     private Date dataFinal;

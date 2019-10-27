@@ -18,7 +18,7 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean
 @SessionScoped
-public class ManterProdutoBean {
+public class ManterProdutoController {
     
     private ProdutoModel produto;
     private ProdutoModel produtoSelecionado;
