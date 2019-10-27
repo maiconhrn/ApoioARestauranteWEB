@@ -1,5 +1,5 @@
 
-package br.uem.apoioarestaurante.views;
+package br.uem.apoioarestaurante.controllers;
 
 import br.uem.apoioarestaurante.models.ProdutoModel;
 import java.util.Date;

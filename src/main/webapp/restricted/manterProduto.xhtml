@@ -11,7 +11,7 @@
         <h:form>
              <p:tabView >                 
                 <p:tab title="Consulta" >
-                    <p:dataTable id="tabelaConsulta" var="produto" value="#{manterProdutoBean.produtos}" selectionMode="single" selection="#{manterProdutoBean.produtoSelecionado}" rowKey="#{produto.codigo}">
+                    <p:dataTable id="tabelaConsulta" value="#{manterProdutoController.produtos}" var="produto" >
                         <f:facet name="header">
                             Selecione o Produto Desejado
                         </f:facet>
@@ -35,28 +35,28 @@
                     <p:panelGrid columns="1" layout="grid" > 
                         <p:row >
                             <p:outputLabel for="descricaoConsulta" value="Descrição: " style="text-align: center; float: left;"/> 
-                            <p:inputText id="descricaoConsulta" value="#{carroBean.carro.modelo}" style="text-align: left; float: left; width: 50%;"></p:inputText>
+                            <p:inputText id="descricaoConsulta" value="#{manterProdutoController.produto.descricao}" style="text-align: left; float: left; width: 50%;"></p:inputText>
                             <p:outputLabel for="umConsulta" value="UM: " /> 
-                            <p:inputText id="umConsulta" value="#{carroBean.carro.modelo}" style="text-align: center; float: none; width: 10%;"></p:inputText>
+                            <p:inputText id="umConsulta" value="#{manterProdutoController.produto.unidadeMedida}" style="text-align: center; float: none; width: 10%;"></p:inputText>
                         </p:row>  
                         <p/>
                         <p:row>
                             <p:outputLabel for="tipoConsulta" value="Tipo: " style="text-align: center; float: left;"/>                             
-                            <p:selectOneMenu id="tipoConsulta" value="#{manterProdutoBean.console}" style="width:100px; float: left">
+                            <p:selectOneMenu id="tipoConsulta" value="#{manterProdutoController.consoleTipo}" style="width:100px; float: left">
                                 <f:selectItem itemLabel="Selecione1" itemValue="" />
                                 <f:selectItem itemLabel="Manufaturado" itemValue="Xbox One" />
                                 <f:selectItem itemLabel="Revenda" itemValue="PS4" />
                                 <f:selectItem itemLabel="Materia Prima" itemValue="Wii U" />
                             </p:selectOneMenu>                            
                             <p:outputLabel for="precoCompraConsulta" value="Preco de Compra: " style="text-align: center; float: none;"/> 
-                            <p:inputNumber id="precoCompraConsulta" value="#{manterProdutoBean.produto.precoCompra}"  symbol="R$ " decimalSeparator="," thousandSeparator="." style="text-align: center; float: none; width: 10%;" ></p:inputNumber>
+                            <p:inputNumber id="precoCompraConsulta" value="#{manterProdutoController.produto.precoCompra}"  symbol="R$ " decimalSeparator="," thousandSeparator="." style="text-align: center; float: none; width: 10%;" ></p:inputNumber>
                             <p:outputLabel for="precoVendaConsulta" value=" Preco de Venda: " style="text-align: center; float: none;"/> 
-                            <p:inputNumber id="precoVendaConsulta" value="#{manterProdutoBean.produto.precoVenda}" symbol="R$ " decimalSeparator="," thousandSeparator="." style="text-align: center; float: none; width: 10%;" ></p:inputNumber>
+                            <p:inputNumber id="precoVendaConsulta" value="#{manterProdutoController.produto.precoVenda}" symbol="R$ " decimalSeparator="," thousandSeparator="." style="text-align: center; float: none; width: 10%;" ></p:inputNumber>
                         </p:row> 
                         <p/>
                         <p:row>
                             <p:outputLabel for="fornecedorConsulta" value="Fornecedor: " style="text-align: center; float: left;"/> 
-                            <p:inputText id="fornecedorConsulta" value="#{carroBean.carro.modelo}" style="text-align: left; float: left; width: 50%"></p:inputText>
+                            <p:inputText id="fornecedorConsulta" value="#{manterProdutoController.produto.fornecedor}" style="text-align: left; float: left; width: 50%"></p:inputText>
                         </p:row>
                                                  
                     </p:panelGrid>
@@ -66,42 +66,42 @@
                         <f:facet name="header">
                             <p/>
                             <p:outputLabel for="codigoCadastro" value="Código:  " style="text-align: left; float: none; width: 10%;"/> 
-                            <p:inputMask id="codigoCadastro" value="#{carroBean.carro.modelo}" mask="999999"   style="text-align: center; float: none; width: 10%;"></p:inputMask>
-                            <p:commandButton value="Gerar Código" action="#{relatorioProdutoFaltaBean.gerarRelatorio()}" update="@form"  style="text-align: center; float: none;"></p:commandButton>
+                            <p:inputMask id="codigoCadastro" value="#{manterProdutoController.produto.codigo}" mask="999999"   style="text-align: center; float: none; width: 10%;"></p:inputMask>
+                            <p:commandButton value="Gerar Código" action="#{manterProdutoController.gerarCodigo()}" update="@form"  style="text-align: center; float: none;"></p:commandButton>
                             <p/>
                         </f:facet> 
                         <p/>
                         <p:row >
                             <p:outputLabel for="descricaoCadastro" value="Descrição: " style="text-align: center; float: left;"/> 
-                            <p:inputText id="descricaoCadastro" value="#{carroBean.carro.modelo}" style="text-align: left; float: left; width: 50%;"></p:inputText>
+                            <p:inputText id="descricaoCadastro" value="#{manterProdutoController.produto.descricao}" style="text-align: left; float: left; width: 50%;"></p:inputText>
                             <p:outputLabel for="umCadastro" value="UM: " /> 
-                            <p:inputText id="umCadastro" value="#{carroBean.carro.modelo}" style="text-align: center; float: none; width: 10%;"></p:inputText>
+                            <p:inputText id="umCadastro" value="#{manterProdutoController.produto.unidadeMedida}" style="text-align: center; float: none; width: 10%;"></p:inputText>
                         </p:row>  
                         <p/>
                         <p:row>
                             <p:outputLabel for="tipoCadastro" value="Tipo: " style="text-align: center; float: left;"/>                             
-                            <p:selectOneMenu id="tipoCadastro" value="#{manterProdutoBean.console}" style="width:100px; float: left">
+                            <p:selectOneMenu id="tipoCadastro" value="#{manterProdutoController.consoleTipo}" style="width:100px; float: left">
                                 <f:selectItem itemLabel="Selecione" itemValue="" />
-                                <f:selectItem itemLabel="Manufaturado" itemValue="Xbox One" />
-                                <f:selectItem itemLabel="Revenda" itemValue="PS4" />
-                                <f:selectItem itemLabel="Materia Prima" itemValue="Wii U" />
+                                <f:selectItem itemLabel="Manufaturado" itemValue="Manufaturado" />
+                                <f:selectItem itemLabel="Revenda" itemValue="Revenda" />
+                                <f:selectItem itemLabel="Materia Prima" itemValue="MateriaPrima" />
                             </p:selectOneMenu>                            
                             <p:outputLabel for="precoCompraCadastro" value="Preco de Compra: " style="text-align: center; float: none;"/> 
-                            <p:inputNumber id="precoCompraCadastro" value="#{manterProdutoBean.produto.precoCompra}"  symbol="R$ " decimalSeparator="," thousandSeparator="." style="text-align: center; float: none; width: 10%;" ></p:inputNumber>                            
+                            <p:inputNumber id="precoCompraCadastro" value="#{manterProdutoController.produto.precoCompra}"  symbol="R$ " decimalSeparator="," thousandSeparator="." style="text-align: center; float: none; width: 10%;" ></p:inputNumber>                            
                             <p:outputLabel for="precoVendaCadastro" value=" Preco de Venda: " style="text-align: center; float: none;"/> 
-                            <p:inputNumber id="precoVendaCadastro" value="#{manterProdutoBean.produto.precoVenda}" symbol="R$ " decimalSeparator="," thousandSeparator="." style="text-align: center; float: none; width: 10%;" ></p:inputNumber> 
+                            <p:inputNumber id="precoVendaCadastro" value="#{manterProdutoController.produto.precoVenda}" symbol="R$ " decimalSeparator="," thousandSeparator="." style="text-align: center; float: none; width: 10%;" ></p:inputNumber> 
                         </p:row> 
                         <p/>
                         <p:row>
                             <p:outputLabel for="fornecedorCadastro" value="Fornecedor: " style="text-align: center; float: left;"/> 
-                            <p:inputText id="fornecedorCadastro" value="#{carroBean.carro.modelo}" style="text-align: left; float: left; width: 50%"></p:inputText>
+                            <p:inputText id="fornecedorCadastro" value="#{manterProdutoController.produto.fornecedor}" style="text-align: left; float: left; width: 50%"></p:inputText>
                         </p:row>
                         <p/>
                         
                         <f:facet name="footer" >
                             <p:row >
                                 <p/>
-                                <p:commandButton value="Salvar Produto" action="#{relatorioProdutoFaltaBean.gerarRelatorio()}" update="@form"  style="text-align: center; float: none;width: 100%"></p:commandButton>
+                                <p:commandButton value="Salvar Produto" action="#{manterProdutoController.adicionar()}" update="@form"  style="text-align: center; float: none;width: 100%"></p:commandButton>
                                 <p/>
                             </p:row>
                         </f:facet> 
@@ -113,21 +113,21 @@
                         <f:facet name="header">
                             <p/>
                             <p:outputLabel for="codigoAlteracoes" value="Código:  " style="text-align: left; float: none; width: 10%;"/> 
-                            <p:inputMask id="codigoAlteracoes" value="#{carroBean.carro.modelo}" mask="999999"   style="text-align: center; float: none; width: 10%;"></p:inputMask>
+                            <p:inputMask id="codigoAlteracoes" value="#{manterProdutoController.produto.codigo}" mask="999999"   style="text-align: center; float: none; width: 10%;"></p:inputMask>
                             <p:commandButton value="Carregar Produto" action="#{relatorioProdutoFaltaBean .gerarRelatorio()}" update="@form"  style="text-align: center; float: none;"></p:commandButton>
                             <p/>
                         </f:facet> 
                         <p/>
                         <p:row >
                             <p:outputLabel for="descricaoAlteracoes" value="Descrição: " style="text-align: center; float: left;"/> 
-                            <p:inputText id="descricaoAlteracoes" value="#{carroBean.carro.modelo}" style="text-align: left; float: left; width: 50%;"></p:inputText>
+                            <p:inputText id="descricaoAlteracoes" value="#{manterProdutoController.produto.descricao}" style="text-align: left; float: left; width: 50%;"></p:inputText>
                             <p:outputLabel for="umAlteracoes" value="UM: " /> 
-                            <p:inputText id="umAlteracoes" value="#{carroBean.carro.modelo}" style="text-align: center; float: none; width: 10%;"></p:inputText>
+                            <p:inputText id="umAlteracoes" value="#{manterProdutoController.produto.unidadeMedida}" style="text-align: center; float: none; width: 10%;"></p:inputText>
                         </p:row>  
                         <p/>
                         <p:row>
                             <p:outputLabel for="tipoAlteracoes" value="Tipo: " style="text-align: center; float: left;"/>                             
-                            <p:selectOneMenu id="tipoAlteracoes" value="#{manterProdutoBean.console}" style="width:100px; float: left">
+                            <p:selectOneMenu id="tipoAlteracoes" value="#{manterProdutoController.consoleTipo}" style="width:100px; float: left">
                                 <f:selectItem itemLabel="Selecione1" itemValue="" />
                                 <f:selectItem itemLabel="Manufaturado" itemValue="Xbox One" />
                                 <f:selectItem itemLabel="Revenda" itemValue="PS4" />
@@ -135,15 +135,15 @@
                             </p:selectOneMenu>
                             
                             <p:outputLabel for="precoCompraAlteracoes" value="Preco de Compra: " style="text-align: center; float: none;"/> 
-                            <p:inputNumber id="precoCompraAlteracoes" value="#{manterProdutoBean.produto.precoCompra}"  symbol="R$ " decimalSeparator="," thousandSeparator="." style="text-align: center; float: none; width: 10%;" ></p:inputNumber>
+                            <p:inputNumber id="precoCompraAlteracoes" value="#{manterProdutoController.produto.precoCompra}"  symbol="R$ " decimalSeparator="," thousandSeparator="." style="text-align: center; float: none; width: 10%;" ></p:inputNumber>
                             
                             <p:outputLabel for="precoVendaAlteracoes" value=" Preco de Venda: " style="text-align: center; float: none;"/> 
-                            <p:inputNumber id="precoVendaAlteracoes" value="#{manterProdutoBean.produto.precoVenda}" symbol="R$ " decimalSeparator="," thousandSeparator="." style="text-align: center; float: none; width: 10%;" ></p:inputNumber>                
+                            <p:inputNumber id="precoVendaAlteracoes" value="#{manterProdutoController.produto.precoVenda}" symbol="R$ " decimalSeparator="," thousandSeparator="." style="text-align: center; float: none; width: 10%;" ></p:inputNumber>                
                         </p:row> 
                         <p/>
                         <p:row>
                             <p:outputLabel for="fornecedorAlteracoes" value="Fornecedor: " style="text-align: center; float: left;"/> 
-                            <p:inputText id="fornecedorAlteracoes" value="#{carroBean.carro.modelo}" style="text-align: left; float: left; width: 50%"></p:inputText>
+                            <p:inputText id="fornecedorAlteracoes" value="#{manterProdutoController.produto.fornecedor}" style="text-align: left; float: left; width: 50%"></p:inputText>
                         </p:row>
                         <p/>                        
                         <f:facet name="footer" >
@@ -157,7 +157,7 @@
                     </p:panelGrid>
                 </p:tab>                 
                 <p:tab title="Exclusão">
-                    <p:dataTable id="tabelaProdutosExclusao" var="produto" value="#{manterProdutoBean.produtos}" selectionMode="single" selection="#{manterProdutoBean.produtoSelecionado}" rowKey="#{produto.codigo}">
+                    <p:dataTable id="tabelaProdutosExclusao" value="#{manterProdutoController.produtos}" var="produto">
                         <f:facet name="header">
                             Selecione o Produto Desejado para a Exclusão
                         </f:facet>

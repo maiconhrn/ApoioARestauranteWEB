@@ -1,12 +1,16 @@
 
 package br.uem.apoioarestaurante.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Filipe Carvalho <filipekof97@gmail.com>
  */
 
-public class ProdutoModel {
+public class ProdutoModel implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
     
     private int codigo;
     private String descricao;

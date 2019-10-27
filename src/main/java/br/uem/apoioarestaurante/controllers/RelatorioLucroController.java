@@ -1,4 +1,4 @@
-package br.uem.apoioarestaurante.views;
+package br.uem.apoioarestaurante.controllers;
 
 import java.util.Date;
 import javax.faces.bean.ManagedBean;

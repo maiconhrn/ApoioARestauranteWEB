@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.uem.apoioarestaurante.views;
+package br.uem.apoioarestaurante.controllers;
 
 import br.uem.apoioarestaurante.models.ProdutoModel;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -18,19 +19,33 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean
 @SessionScoped
-public class ManterProdutoController {
+public class ManterProdutoController{
     
-    private ProdutoModel produto;
+    
     private ProdutoModel produtoSelecionado;
-    private List<ProdutoModel> produtos = new ArrayList<>();
-    private String console;
+    private String consoleTipo;
+    
+    private ProdutoModel produto = new ProdutoModel();
+    private List<ProdutoModel> produtos = new ArrayList<>();   
+    
+    
+    public void adicionar(){
+        produtos.add( produto);
+        produto = new ProdutoModel();
+    }
+    
+    public void gerarCodigo(){
+        produto.setCodigo(1);
+    }
+            
+    
 
-    public String getConsole() {
-        return console;
+    public String getConsoleTipo() {
+        return consoleTipo;
     }
 
-    public void setConsole(String console) {
-        this.console = console;
+    public void setConsoleTipo(String console) {
+        this.consoleTipo = console;
     }
     
 
