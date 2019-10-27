@@ -61,10 +61,32 @@ public class PedidoController implements Serializable {
     }
 
     public void deleteOrder() {
+        Pedido pedidoFromView = pedidoView.getSelectedPedido();
 
+        if (pedidoFromView != null) {
+            boolean res = pedidoModel.delete(pedidoFromView);
+
+            if (res) {
+                pedidoView.getPedidos().remove(pedidoFromView);
+
+                FacesContext.getCurrentInstance()
+                        .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                "Sucesso!", "O Pedido foi removido!"));
+            }
+
+            return;
+        }
+
+        FacesContext.getCurrentInstance()
+                .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                        "Aviso!", "É necessário selecionar um Pedido na tabela para essa ação."));
     }
 
     public void closeOrder() {
 
+    }
+
+    public Pedido findById(Long id) {
+        return pedidoModel.findById(id);
     }
 }

@@ -17,6 +17,8 @@
         <property name="hibernate.connection.autocommit">false</property>
 
         <mapping class="br.uem.apoioarestaurante.metadata.entities.Produto"/>
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.Estoque"/>
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.MovimentoEstoque"/>
         <mapping class="br.uem.apoioarestaurante.metadata.entities.Pedido"/>
         <mapping class="br.uem.apoioarestaurante.metadata.entities.Cliente"/>
         <mapping class="br.uem.apoioarestaurante.metadata.entities.Usuario"/>

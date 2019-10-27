@@ -1,8 +1,11 @@
 package br.uem.apoioarestaurante.metadata.entities;
 
+import br.uem.apoioarestaurante.metadata.types.ProdutoTipo;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author Maicon
@@ -28,13 +31,16 @@ public class Produto implements Serializable {
     private String fornecedor;
 
     @Column(name = "tipo")
-    private String tipo;
+    private ProdutoTipo tipo;
 
     @Column(name = "preco_venda")
     private Double precoVenda;
 
     @Column(name = "ativo")
     private Boolean ativo;
+
+    @OneToOne(mappedBy = "produto")
+    private Estoque estoque;
 
     public Produto() {
         this.dataCadastro = new Date();
@@ -69,11 +75,11 @@ public class Produto implements Serializable {
         this.fornecedor = fornecedor;
     }
 
-    public String getTipo() {
+    public ProdutoTipo getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(ProdutoTipo tipo) {
         this.tipo = tipo;
     }
 
@@ -91,5 +97,33 @@ public class Produto implements Serializable {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public Estoque getEstoque() {
+        return estoque;
+    }
+
+    public void setEstoque(Estoque estoque) {
+        this.estoque = estoque;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Produto produto = (Produto) o;
+        return Objects.equals(id, produto.id) &&
+                Objects.equals(descricao, produto.descricao) &&
+                Objects.equals(dataCadastro, produto.dataCadastro) &&
+                Objects.equals(fornecedor, produto.fornecedor) &&
+                tipo == produto.tipo &&
+                Objects.equals(precoVenda, produto.precoVenda) &&
+                Objects.equals(ativo, produto.ativo) &&
+                Objects.equals(estoque, produto.estoque);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, descricao, dataCadastro, fornecedor, tipo, precoVenda, ativo, estoque);
     }
 }

@@ -7,6 +7,7 @@ import br.uem.apoioarestaurante.metadata.types.PedidoTipo;
 
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -22,12 +23,14 @@ public class PedidoDAO extends HibernateBasicGenericDAO<Pedido> {
 
     private ProdutoDAO produtoDAO;
     private ItemPedidoDAO itemPedidoDAO;
+    private EstoqueDAO estoqueDAO;
 
     private PedidoDAO() {
         super(Pedido.class);
 
         produtoDAO = ProdutoDAO.getInstance();
         itemPedidoDAO = ItemPedidoDAO.getInstance();
+        estoqueDAO = EstoqueDAO.getInstance();
     }
 
     public List<Pedido> findByOrderType(PedidoTipo pedidoTipo) {
@@ -38,7 +41,7 @@ public class PedidoDAO extends HibernateBasicGenericDAO<Pedido> {
             CriteriaQuery<Pedido> criteriaQuery = cb.createQuery(Pedido.class);
             Root<Pedido> root = criteriaQuery.from(Pedido.class);
 
-            List<Predicate> predicates = new ArrayList<>();
+            List<Predicate> predicates = new ArrayList<>(Arrays.asList(cb.equal(root.get("ativo"), true)));
 
             if (pedidoTipo != PedidoTipo.BOTH) {
                 predicates.add(cb.equal(root.get("tipo"), pedidoTipo));
@@ -60,7 +63,7 @@ public class PedidoDAO extends HibernateBasicGenericDAO<Pedido> {
             CriteriaQuery<Pedido> criteriaQuery = cb.createQuery(Pedido.class);
             Root<Pedido> root = criteriaQuery.from(Pedido.class);
 
-            List<Predicate> predicates = new ArrayList<>();
+            List<Predicate> predicates = new ArrayList<>(Arrays.asList(cb.equal(root.get("ativo"), true)));
 
             if (pedidoTipo != PedidoTipo.BOTH) {
                 predicates.add(cb.equal(root.get("tipo"), pedidoTipo));
@@ -110,5 +113,29 @@ public class PedidoDAO extends HibernateBasicGenericDAO<Pedido> {
         itemPedidoDAO.disconnect();
 
         return res;
+    }
+
+    public MovimentoEstoque saveMovimentoEstoque(MovimentoEstoque movimentoEstoque) {
+        estoqueDAO.connect();
+
+        MovimentoEstoque res = estoqueDAO.saveMovimentoEstoque(movimentoEstoque);
+
+        estoqueDAO.update(movimentoEstoque.getEstoque());
+
+        estoqueDAO.disconnect();
+
+        return res;
+    }
+
+    public Pedido findById(Long id) {
+        try {
+            requireOpenSession();
+
+            return getSession().get(Pedido.class, id);
+        } catch (DAOException e) {
+            e.printStackTrace();
+
+            return null;
+        }
     }
 }

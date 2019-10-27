@@ -6,6 +6,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author Maicon
@@ -47,5 +48,20 @@ public abstract class Pessoa implements Serializable {
 
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pessoa pessoa = (Pessoa) o;
+        return Objects.equals(cpf, pessoa.cpf) &&
+                Objects.equals(nome, pessoa.nome) &&
+                Objects.equals(dataNascimento, pessoa.dataNascimento);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cpf, nome, dataNascimento);
     }
 }

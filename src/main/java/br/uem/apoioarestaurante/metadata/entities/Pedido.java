@@ -2,12 +2,14 @@ package br.uem.apoioarestaurante.metadata.entities;
 
 import br.uem.apoioarestaurante.metadata.types.PedidoStatusTipo;
 import br.uem.apoioarestaurante.metadata.types.PedidoTipo;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Maicon
@@ -45,7 +47,7 @@ public class Pedido implements Serializable {
     @Column(name = "status")
     private PedidoStatusTipo status;
 
-    @Column(name = "active")
+    @Column(name = "ativo")
     private Boolean ativo;
 
     @ManyToOne
@@ -57,6 +59,7 @@ public class Pedido implements Serializable {
     private Cliente cliente;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Where(clause = "ativo = true")
     private List<ItemPedido> items;
 
     public Pedido() {
@@ -165,5 +168,26 @@ public class Pedido implements Serializable {
 
             this.setTotal(this.getTotal() + i.getPreco());
         });
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pedido pedido = (Pedido) o;
+        return Objects.equals(id, pedido.id) &&
+                tipo == pedido.tipo &&
+                Objects.equals(total, pedido.total) &&
+                Objects.equals(dataInicio, pedido.dataInicio) &&
+                Objects.equals(dataFim, pedido.dataFim) &&
+                Objects.equals(mesa, pedido.mesa) &&
+                Objects.equals(balcao, pedido.balcao) &&
+                status == pedido.status &&
+                Objects.equals(ativo, pedido.ativo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, tipo, total, dataInicio, dataFim, mesa, balcao, status, ativo);
     }
 }

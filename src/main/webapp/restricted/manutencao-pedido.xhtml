@@ -88,7 +88,7 @@
                     <!--@elvariable id="itemPedido" type="br.uem.apoioarestaurante.metadata.entities.ItemPedido"-->
                     <p:dataTable styleClass="dataTable" id="orderItemsTable" var="itemPedido"
                                  selectionMode="single" selection="#{manutencaoPedidoView.selectedItemPedido}"
-                                 rowKey="#{itemPedido.preco}" paginator="true"
+                                 rowKey="#{itemPedido.produto.id}" paginator="true"
                                  value="#{manutencaoPedidoView.pedido.items}"
                                  paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                  rows="10" resizableColumns="true" editable="true" editMode="cell">
@@ -127,7 +127,7 @@
                         <p:commandButton value="Remover" id="remove"
                                          action="#{manutencaoPedidoController.deleteOrderItem()}"
                                          update="orderMaintenance:orderItems"
-                                         style="margin-right:20px;" icon="fa fa-edit"/>
+                                         style="margin-right:20px;" icon="fa fa-remove"/>
                     </div>
                 </p:panel>
             </div>
@@ -137,6 +137,7 @@
                                  update="orderMaintenance:orderData orderMaintenance:orderItems"
                                  style="margin-right:20px;" icon="fa fa-save"/>
                 <p:commandButton value="Cancelar" id="cancel" action="#{manutencaoPedidoController.cancel()}"
+                                 immediate="true"
                                  style="margin-right:20px;" icon="fa fa-ban"/>
             </div>
         </div>

@@ -2,6 +2,7 @@ package br.uem.apoioarestaurante.metadata.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @author Maicon
@@ -79,5 +80,23 @@ public class ItemPedido implements Serializable {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ItemPedido that = (ItemPedido) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(qtdProduto, that.qtdProduto) &&
+                Objects.equals(preco, that.preco) &&
+                Objects.equals(pedido, that.pedido) &&
+                Objects.equals(produto, that.produto) &&
+                Objects.equals(ativo, that.ativo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, qtdProduto, preco, pedido, produto, ativo);
     }
 }

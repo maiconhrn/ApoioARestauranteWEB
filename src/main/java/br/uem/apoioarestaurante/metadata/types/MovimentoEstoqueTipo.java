@@ -3,15 +3,13 @@ package br.uem.apoioarestaurante.metadata.types;
 /**
  * @author Maicon
  */
-public enum PedidoTipo {
-    LOCAL("Local"),
-    DELIVERY("Delivery"),
-    //only for filter, dont use as a tipo of an Pedido
-    BOTH("Ambos");
+public enum MovimentoEstoqueTipo {
+    IN("Entrada"),
+    OUT("Saída");
 
     private String textValue;
 
-    PedidoTipo(String textValue) {
+    MovimentoEstoqueTipo(String textValue) {
         this.textValue = textValue;
     }
 

@@ -1,9 +1,9 @@
 package br.uem.apoioarestaurante.models;
 
 import br.uem.apoioarestaurante.dao.PedidoDAO;
-import br.uem.apoioarestaurante.metadata.entities.ItemPedido;
-import br.uem.apoioarestaurante.metadata.entities.Pedido;
-import br.uem.apoioarestaurante.metadata.entities.Produto;
+import br.uem.apoioarestaurante.exceptions.EstoqueException;
+import br.uem.apoioarestaurante.metadata.entities.*;
+import br.uem.apoioarestaurante.metadata.types.MovimentoEstoqueTipo;
 import br.uem.apoioarestaurante.metadata.types.PedidoTipo;
 import br.uem.apoioarestaurante.views.PedidoView;
 
@@ -66,9 +66,54 @@ public class PedidoModel implements Serializable {
         return pedido;
     }
 
-    public ItemPedido update(ItemPedido itemPedido) {
-        pedidoDAO.updateItemPedido(itemPedido);
+    public ItemPedido update(ItemPedido itemPedido) throws Exception {
+        Estoque estoque = itemPedido.getProduto().getEstoque();
+
+        MovimentoEstoque movimentoEstoque = null;
+        try {
+            if (estoque != null) {
+                movimentoEstoque = estoque.novaMovimentacaoEstoque(
+                        itemPedido.getAtivo() ? MovimentoEstoqueTipo.OUT : MovimentoEstoqueTipo.IN,
+                        itemPedido.getQtdProduto(),
+                        itemPedido.getPedido().getUsuario());
+
+                pedidoDAO.saveMovimentoEstoque(movimentoEstoque);
+            }
+
+            pedidoDAO.updateItemPedido(itemPedido);
+        } catch (EstoqueException e) {
+            e.printStackTrace();
+
+            throw new Exception(e);
+        }
 
         return itemPedido;
+    }
+
+    public boolean delete(Pedido pedido) {
+        pedidoDAO.connect();
+
+        pedido.getItems().forEach(i -> i.setAtivo(false));
+        pedido.setAtivo(false);
+
+        Pedido res = pedidoDAO.update(pedido);
+
+        pedidoDAO.disconnect();
+
+        return res != null;
+    }
+
+    public Pedido findById(Long id) {
+        if (id == null) {
+            return null;
+        }
+
+        pedidoDAO.connect();
+
+        Pedido res = pedidoDAO.findById(id);
+
+        pedidoDAO.disconnect();
+
+        return res;
     }
 }

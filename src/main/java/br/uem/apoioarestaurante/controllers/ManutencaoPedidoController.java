@@ -36,7 +36,6 @@ public class ManutencaoPedidoController implements Serializable {
         ItemPedido itemPedido = manutencaoPedidoView.getSelectedItemPedido();
 
         if (itemPedido != null) {
-            itemPedido.setPedido(null);
             itemPedido.setAtivo(false);
             pedido.getItems().remove(itemPedido);
             pedido.refreshTotal();
@@ -62,19 +61,25 @@ public class ManutencaoPedidoController implements Serializable {
 
     public void save() {
         Pedido pedidoView = manutencaoPedidoView.getPedido();
-        List<ItemPedido> itemPedidosRemoved = manutencaoPedidoView.getItemPedidosRemoved();
+        List<ItemPedido> itensPedido = manutencaoPedidoView.getItemPedidosRemoved();
+        itensPedido.addAll(manutencaoPedidoView.getItemsNewOrUpdated());
+
         Pedido pedidoSaved;
         if (pedidoView != null) {
             pedidoSaved = (pedidoView.getId() != null && pedidoView.getId() != 0D)
                     ? pedidoModel.update(pedidoView)
                     : pedidoModel.save(pedidoView);
 
-            itemPedidosRemoved.forEach(i -> {
+            itensPedido.forEach(i -> {
                 if (i != null && i.getId() != null) {
-                    pedidoModel.update(i);
+                    try {
+                        pedidoModel.update(i);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             });
-            itemPedidosRemoved.clear();
+            itensPedido.clear();
 
             showSaveSuccess(pedidoSaved);
         }

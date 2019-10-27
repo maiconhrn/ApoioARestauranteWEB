@@ -1,8 +1,11 @@
 package br.uem.apoioarestaurante.metadata.entities;
 
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "aar_usuario")
@@ -24,6 +27,7 @@ public class Usuario extends Pessoa implements Serializable {
     private Boolean ativo;
 
     @OneToMany(mappedBy = "usuario")
+    @Where(clause = "ativo = true")
     private List<Pedido> pedidos;
 
     public Usuario() {
@@ -64,5 +68,21 @@ public class Usuario extends Pessoa implements Serializable {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Usuario usuario = (Usuario) o;
+        return Objects.equals(id, usuario.id) &&
+                Objects.equals(login, usuario.login) &&
+                Objects.equals(ativo, usuario.ativo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), id, login, ativo);
     }
 }

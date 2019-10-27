@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class ManutencaoPedidoView implements Serializable {
     private List<Cliente> clientes;
     private List<Usuario> usuarios;
     private List<ItemPedido> itemPedidosRemoved;
+    private List<ItemPedido> itemsNewOrUpdated;
 
     private Pedido pedido;
     private ItemPedido selectedItemPedido;
@@ -58,10 +60,16 @@ public class ManutencaoPedidoView implements Serializable {
         pedido = new Pedido();
         pedido.setTipo(PedidoTipo.LOCAL);
         itemPedidosRemoved = new ArrayList<>();
+        itemsNewOrUpdated = new ArrayList<>();
     }
 
-    private void initForEditOrder(String orderId) {
-        //tratar para buscar os dados do pedido com o id == orderId
+    private void initForEditOrder(String id) {
+        clientes = clienteController.findAllClients();
+        usuarios = usuarioController.findAllUser();
+
+        pedido = pedidoController.findById(Long.parseLong(id));
+        itemPedidosRemoved = new ArrayList<>();
+        itemsNewOrUpdated = new ArrayList<>();
     }
 
     @PostConstruct
@@ -82,8 +90,11 @@ public class ManutencaoPedidoView implements Serializable {
     }
 
     public void onProductQttEdit(CellEditEvent event) {
-        Object oldValue = event.getOldValue();
-        Object newValue = event.getNewValue();
+        ItemPedido itemPedido = pedido.getItems().stream().filter(i -> i.getProduto().getId() == Long.parseLong(event.getRowKey())).findFirst().orElse(null);
+
+        if (itemPedido != null && !itemsNewOrUpdated.contains(itemPedido)) {
+            itemsNewOrUpdated.add(itemPedido);
+        }
 
         pedido.refreshTotal();
     }
@@ -113,7 +124,11 @@ public class ManutencaoPedidoView implements Serializable {
     }
 
     public PedidoTipo[] getTypes() {
-        return PedidoTipo.values();
+        List<PedidoTipo> tipos = new ArrayList<>(Arrays.asList(PedidoTipo.values()));
+
+        tipos.remove(PedidoTipo.BOTH);
+
+        return tipos.toArray(new PedidoTipo[0]);
     }
 
     public Date getMinDate() {
@@ -138,5 +153,13 @@ public class ManutencaoPedidoView implements Serializable {
 
     public void setItemPedidosRemoved(List<ItemPedido> itemPedidosRemoved) {
         this.itemPedidosRemoved = itemPedidosRemoved;
+    }
+
+    public List<ItemPedido> getItemsNewOrUpdated() {
+        return itemsNewOrUpdated;
+    }
+
+    public void setItemsNewOrUpdated(List<ItemPedido> itemsNewOrUpdated) {
+        this.itemsNewOrUpdated = itemsNewOrUpdated;
     }
 }

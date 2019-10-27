@@ -2,6 +2,7 @@ package br.uem.apoioarestaurante.dao;
 
 import br.uem.apoioarestaurante.metadata.entities.*;
 import br.uem.apoioarestaurante.metadata.types.PedidoTipo;
+import br.uem.apoioarestaurante.metadata.types.ProdutoTipo;
 import org.junit.Test;
 
 import java.text.ParseException;
@@ -24,6 +25,7 @@ public class PedidoDAOTest {
         UsuarioDAO usuarioDAO = UsuarioDAO.getInstance();
         ClienteDAO clienteDAO = ClienteDAO.getInstance();
         ProdutoDAO produtoDAO = ProdutoDAO.getInstance();
+        EstoqueDAO estoqueDAO = EstoqueDAO.getInstance();
 
         Usuario usuario = new Usuario();
         usuario.setNome("José Carlos Almirante");
@@ -47,15 +49,21 @@ public class PedidoDAOTest {
         clienteDAO.save(cliente);
         clienteDAO.disconnect();
 
+        Estoque estoque1 = new Estoque();
         Produto produto1 = new Produto();
         produto1.setDescricao("Coca cola 600ml");
-        produto1.setTipo("Revenda");
+        produto1.setTipo(ProdutoTipo.RESALE);
         produto1.setPrecoVenda(4.5D);
         produto1.setFornecedor("Coca Cola Brasil");
+        produto1.setEstoque(estoque1);
+
+        estoque1.setProduto(produto1);
+        estoque1.setQtdMinima(50);
+        estoque1.setQtdEmEstoque(100);
 
         Produto produto2 = new Produto();
         produto2.setDescricao("Baião de 2 250g");
-        produto2.setTipo("A la carte");
+        produto2.setTipo(ProdutoTipo.MANUFACTURED);
         produto2.setPrecoVenda(35D);
         produto2.setFornecedor("Fabricação própria");
 
@@ -63,6 +71,10 @@ public class PedidoDAOTest {
         produtoDAO.save(produto1);
         produtoDAO.save(produto2);
         produtoDAO.disconnect();
+
+        estoqueDAO.connect();
+        estoqueDAO.save(estoque1);
+        estoqueDAO.disconnect();
 
         ItemPedido item1 = new ItemPedido();
         item1.setProduto(produto1);
