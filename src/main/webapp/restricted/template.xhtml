@@ -2,7 +2,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
- 
+
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>APOIO A RESTAURANTE</title>
@@ -17,34 +17,34 @@
                 <p:layoutUnit position="north" size="100">  
                     <!--h:graphicImage url="imagem de logo" style="width: 100%; object-fit: cover; height: 100%" /-->
                 </p:layoutUnit>  
- 
+
                 <p:layoutUnit position="west" size="220">  
-                    
-                        <h:form>
-                            <p:panelMenu style="width:200px">
-                                <p:submenu label="Inicio">
-                                    <p:menuitem value="Inicio" url="/ApoioARestauranteWEB/home.xhtml"/>
-                                </p:submenu>
-                            </p:panelMenu>
-                            <p:panelMenu style="width:200px">
-                                <p:submenu label="Gerir">
-                                    <p:menuitem value="Usuarios" url="/ApoioARestauranteWEB/restricted/usuarios.xhtml"/>
-                                    <p:menuitem value="Contas a Pagar" url="/ApoioARestauranteWEB/restricted/ContasAPagar.xhtml"/>
 
-                                </p:submenu>
-                            </p:panelMenu>
-                            <p:panelMenu style="width:200px">
-                                <p:submenu label="Pedidos">
+                    <h:form>
+                        <p:panelMenu style="width:200px">
+                            <p:submenu label="Inicio">
+                                <p:menuitem value="Inicio" url="/ApoioARestauranteWEB/home.xhtml"/>
+                            </p:submenu>
+                        </p:panelMenu>
+                        <p:panelMenu style="width:200px">
+                            <p:submenu label="Gerir">
+                                <p:menuitem value="Usuarios" url="/ApoioARestauranteWEB/restricted/usuarios.xhtml"/>
+                                <p:menuitem value="Contas a Pagar" url="/ApoioARestauranteWEB/restricted/ContasAPagar.xhtml"/>
 
-                                </p:submenu>
-                            </p:panelMenu>
-                            <p:panelMenu style="width:200px">
-                                <p:submenu label="Relatórios">
+                            </p:submenu>
+                        </p:panelMenu>
+                        <p:panelMenu style="width:200px">
+                            <p:submenu label="Pedidos">
 
-                                </p:submenu>
-                            </p:panelMenu>
-                        </h:form>
-                  
+                            </p:submenu>
+                        </p:panelMenu>
+                        <p:panelMenu style="width:200px">
+                            <p:submenu label="Relatórios">
+
+                            </p:submenu>
+                        </p:panelMenu>
+                    </h:form>
+
                 </p:layoutUnit>  
                 <p:layoutUnit position="center">  
                     <ui:insert>

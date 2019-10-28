@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -27,11 +28,12 @@ public class ContasAPagar implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
     @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date data;
     @Column(nullable = false)
     private float valor;
     @Column(nullable = false)
-    private String descrição;
+    private String descricao;
     @Column(nullable = false)
     private String produto;
     @Column(nullable = false)
@@ -43,7 +45,7 @@ public class ContasAPagar implements Serializable{
     public ContasAPagar() {
         this.data = data;
         this.valor = valor;
-        this.descrição = descrição;
+        this.descricao = descricao;
         this.produto = produto;
         this.qtd = qtd;
         this.ativo = ativo;
@@ -74,11 +76,11 @@ public class ContasAPagar implements Serializable{
     }
 
     public String getDescrição() {
-        return descrição;
+        return descricao;
     }
 
-    public void setDescrição(String descrição) {
-        this.descrição = descrição;
+    public void setDescrição(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getProduto() {

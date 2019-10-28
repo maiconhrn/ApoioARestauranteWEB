@@ -7,6 +7,7 @@ package br.uem.apoioarestaurante.views;
 
 import br.uem.apoioarestaurante.dao.generic.impl.ContasAPagarDAO;
 import br.uem.apoioarestaurante.models.ContasAPagar;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,6 +24,7 @@ import org.primefaces.event.SelectEvent;
  *
  * @author Master
  */
+
 @Named(value = "contasAPagar")
 @Dependent
 public class ContasAPagarView {
@@ -139,31 +141,40 @@ public class ContasAPagarView {
         this.maxDate = maxDate;
     }
 
-    public void Novo(){
+    public void inserirContasAPagar(){
         contaAPagarDAO.connect();
         contaAPagar.setAtivo(Boolean.TRUE);   
         contaAPagarDAO.save(contaAPagar);
         contaAPagarDAO.disconnect();
-        contaAPagarDAO = new ContasAPagarDAO();
+        contaAPagar = new ContasAPagar();
     }
     
-    public void Alterar(){
+    public void alterarContasAPagar(){
         contaAPagarDAO.connect();
         contaAPagarDAO.update(contaAPagar);
         contaAPagarDAO.disconnect();
-        contaAPagarDAO = new ContasAPagarDAO();
+        contaAPagar = new ContasAPagar();
     }
     
-    public void Deletar(){
+    public void excluirContasAPagar(){
         contaAPagarDAO.connect();
         contaAPagarDAO.delete(contaAPagar);
         contaAPagarDAO.disconnect();
-        contaAPagarDAO = new ContasAPagarDAO();
+        contaAPagar = new ContasAPagar();
     }
     
-    public void MudarStatus(){
+    public void listarContasAPagar() throws SQLException {
+        contaAPagar = null;
+        contaAPagarDAO.connect();
+        contaAPagar = (ContasAPagar) contaAPagarDAO.listAll();
+        contaAPagarDAO.disconnect();
+    }
+    public void limparDados(){
+        contaAPagar = new ContasAPagar();
     }
     
-    public void Voltar(){
+    public String retornar() throws SQLException{
+        listarContasAPagar();
+        return"contasAPagar";
     }
 }
