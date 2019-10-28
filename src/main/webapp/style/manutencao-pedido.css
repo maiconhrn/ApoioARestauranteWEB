@@ -1,6 +1,13 @@
 .order-maintenance-container {
     height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.order-maintenance-container > div {
+    margin-top: 10px;
+    flex: 1;
 }
 
 .order-maintenance-container .order-info {

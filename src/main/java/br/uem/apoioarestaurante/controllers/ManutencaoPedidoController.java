@@ -80,6 +80,8 @@ public class ManutencaoPedidoController implements Serializable {
                 }
             });
             itensPedido.clear();
+            manutencaoPedidoView.getItemPedidosRemoved().clear();
+            manutencaoPedidoView.getItemsNewOrUpdated().clear();
 
             showSaveSuccess(pedidoSaved);
         }

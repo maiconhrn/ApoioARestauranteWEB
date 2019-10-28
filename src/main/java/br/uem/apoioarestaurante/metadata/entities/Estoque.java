@@ -122,6 +122,11 @@ public class Estoque implements Serializable {
         movimentoEstoque.setUsuario(usuario);
 
         this.setQtdEmEstoque(tipo == MovimentoEstoqueTipo.IN ? this.getQtdEmEstoque() + qtd : this.getQtdEmEstoque() - qtd);
+        if (tipo == MovimentoEstoqueTipo.IN) {
+            this.setUltimaEntrada(new Date());
+        } else {
+            this.setUltimaSaida(new Date());
+        }
 
         return movimentoEstoque;
     }
