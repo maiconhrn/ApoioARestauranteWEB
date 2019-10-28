@@ -24,32 +24,31 @@ import javax.persistence.TemporalType;
 @Table(name = "contasAPagar")
 public class ContasAPagar implements Serializable{
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
+    
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date data;
+    private Date dataPag;
+    
     @Column(nullable = false)
     private float valor;
+    
     @Column(nullable = false)
     private String descricao;
+    
     @Column(nullable = false)
     private String produto;
+    
     @Column(nullable = false)
     private int qtd;
+    
     @Column(name = "Ativo")
     private Boolean ativo;
-    
 
-    public ContasAPagar() {
-        this.data = data;
-        this.valor = valor;
-        this.descricao = descricao;
-        this.produto = produto;
-        this.qtd = qtd;
-        this.ativo = ativo;
-    }
 
     public Boolean getAtivo() {
         return ativo;
@@ -58,15 +57,23 @@ public class ContasAPagar implements Serializable{
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
     }
+
+    public Date getDataPag() {
+        return dataPag;
+    }
+
+    public void setDataPag(Date dataPag) {
+        this.dataPag = dataPag;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
     
-    public Date getData() {
-        return data;
-    }
-
-    public void setData(Date data) {
-        this.data = data;
-    }
-
     public float getValor() {
         return valor;
     }
@@ -101,10 +108,6 @@ public class ContasAPagar implements Serializable{
     
     public Long getID() {
         return ID;
-    }
-
-    public void setID(Long ID) {
-        this.ID = ID;
     }
     
 }
