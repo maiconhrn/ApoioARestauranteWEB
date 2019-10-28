@@ -21,12 +21,10 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "Permissao")
-@Inheritance(strategy=InheritanceType.JOINED)
-public class Permissao implements Serializable{
+@Inheritance(strategy = InheritanceType.JOINED)
+public class GrupoPermissao implements Serializable{
 
     private static final long serialVersionUID = 1L;
        
@@ -42,21 +40,20 @@ public class Permissao implements Serializable{
     @Column
     private String observacao;
     
-    @ManyToMany (fetch = FetchType.LAZY,cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinTable(
-            name="grupopermissao_permissao",
-            joinColumns = @JoinColumn(name="permissao_ID"),
-            inverseJoinColumns = @JoinColumn(name="grupopermissao_ID"))
-    private List<GrupoPermissao> grupo;
+    @ManyToMany (fetch = FetchType.EAGER ,cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinTable( name="grupopermissao_permissao",
+            joinColumns=@JoinColumn(name="grupopermissao_ID"),
+            inverseJoinColumns=@JoinColumn(name="permissao_ID"))
+    private List<Permissao> permissoes;
 
-    public Permissao(Long id, String descricao, String observacao, List<GrupoPermissao> grupo) {
+    public GrupoPermissao(Long id, String descricao, String observacao, List<Permissao> permissoes) {
         this.id = id;
         this.descricao = descricao;
         this.observacao = observacao;
-        this.grupo = grupo;
+        this.permissoes = permissoes;
     }
 
-    public Permissao() {
+    public GrupoPermissao() {
     }
 
     public Long getId() {
@@ -79,12 +76,11 @@ public class Permissao implements Serializable{
         this.observacao = observacao;
     }
 
-    public List<GrupoPermissao> getGrupo() {
-        return grupo;
+    public List<Permissao> getPermissoes() {
+        return permissoes;
     }
 
-    public void setGrupo(List<GrupoPermissao> grupo) {
-        this.grupo = grupo;
+    public void setPermissoes(List<Permissao> permissoes) {
+        this.permissoes = permissoes;
     }
-
 }

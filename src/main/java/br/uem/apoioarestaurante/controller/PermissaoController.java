@@ -1,4 +1,4 @@
-package br.uem.apoioarestaurante.views;
+package br.uem.apoioarestaurante.controller;
 
 
 import br.uem.apoioarestaurante.dao.generic.impl.PermissaoDAO;
@@ -19,13 +19,13 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean
 @SessionScoped
-public class PermissaoBean {
+public class PermissaoController {
  
     private Permissao per;
     private PermissaoDAO perDAO;
     private List<Permissao> permissoes;
             
-    public PermissaoBean() {
+    public PermissaoController() {
         per = new Permissao();
         perDAO = new PermissaoDAO();
         permissoes = null;

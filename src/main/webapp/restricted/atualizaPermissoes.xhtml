@@ -15,19 +15,19 @@
                     <h:outputLabel for="login1" value="Código:" style="font-weight:bold; text-align:center;"/>
                 </div>
                 <div class="ui-g-12 ui-md-6 ui-lg-3">
-                    <p:inputText id="login1" value="#{permissaoBean.per.id}" disabled="true" required="true" label="Código" style="width: 100%; " />
+                    <p:inputText id="login1" value="#{permissaoController.per.id}" disabled="true" required="true" label="Código" style="width: 100%; " />
                 </div>
                 <div class="ui-g-12 ui-md-6 ui-lg-1">
                     <h:outputLabel for="login3" value="Descrição:" style="font-weight:bold"/>
                 </div>
                 <div class="ui-g-12 ui-md-6 ui-lg-7">
-                    <p:inputText id="login3" value="#{permissaoBean.per.descricao}" required="true" label="Descrição" style="width: 98%;"/>
+                    <p:inputText id="login3" value="#{permissaoController.per.descricao}" required="true" label="Descrição" style="width: 98%;"/>
                 </div>
                 <div class="ui-g-12 ui-md-6 ui-lg-1">
                     <h:outputLabel for="login2" value="Observações:" style="font-weight:bold"/>
                 </div>
                 <div class="ui-g-12 ui-md-6 ui-lg-11">
-                    <p:inputText id="login2" value="#{permissaoBean.per.observacao}" required="true" label="Observações" style="width: 99%;"/>
+                    <p:inputText id="login2" value="#{permissaoController.per.observacao}" required="true" label="Observações" style="width: 99%;"/>
                 </div>
             </div>
 
@@ -35,15 +35,15 @@
                 <div class="ui-g-12 ui-md-6 ui-lg-6"></div>
                 
                 <div class="ui-g-12 ui-md-6 ui-lg-2">
-                    <p:commandButton icon="fa fa-fw fa-save" value="ALTERAR" actionListener="#{permissaoBean.alterarPermissao(permissaoBean.per)}" action="#{permissaoBean.retornar()}" update=":frm1"  style=" height:30px; width: 100%; text-align:center;" />
+                    <p:commandButton icon="fa fa-fw fa-save" value="ALTERAR" actionListener="#{permissaoController.alterarPermissao(permissaoController.per)}" action="#{permissaoController.retornar()}" update=":frm1"  style=" height:30px; width: 100%; text-align:center;" />
                 </div>
                 
                 <div class="ui-g-12 ui-md-6 ui-lg-2">
-                    <p:commandButton icon="fa fa-fw fa-trash" value="EXCLUIR" actionListener="#{permissaoBean.excluirPermissao(permissaoBean.per)}" action="#{permissaoBean.retornar()}" update=":frm1"  style=" height:30px; width: 100%; text-align:center;" />
+                    <p:commandButton icon="fa fa-fw fa-trash" value="EXCLUIR" actionListener="#{permissaoController.excluirPermissao(permissaoController.per)}" action="#{permissaoController.retornar()}" update=":frm1"  style=" height:30px; width: 100%; text-align:center;" />
                 </div>
                 
                 <div class="ui-g-12 ui-md-6 ui-lg-2">
-                    <p:commandButton icon="fa fa-fw fa-close" value="CANCELAR" actionListener="#{permissaoBean.limparDados()}" action="permissoes" update=":frm1"  style=" height:30px; width: 100%; text-align:center;" />
+                    <p:commandButton icon="fa fa-fw fa-close" value="CANCELAR" actionListener="#{permissaoController.limparDados()}" action="permissoes" update=":frm1"  style=" height:30px; width: 100%; text-align:center;" />
                 </div>
             </div>
         </h:form>

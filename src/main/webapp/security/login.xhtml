@@ -21,7 +21,7 @@
                             <p:outputLabel for="login" value="Login:" style="font-weight:bold"/>
                         </div>
                         <div class="ui-g-12 ui-md-6 ui-lg-6" style="border-right: 20px;">
-                            <p:inputText id="login" value="#{usuariosBean.usuario.login}" required="true" label="Login"/>
+                            <p:inputText id="login" value="#{usuariosController.usuario.login}" required="true" label="Login"/>
                         </div>
                         <div class="ui-g-12 ui-md-6 ui-lg-1"></div>
                         <div class="ui-g-12 ui-md-6 ui-lg-5">
@@ -29,7 +29,7 @@
                         </div>
                         
                         <div class="ui-g-12 ui-md-6 ui-lg-6" style="border-right: 20px;">
-                            <p:password id="senha" value="#{usuariosBean.usuario.password}" />
+                            <p:password id="senha" value="#{usuariosController.usuario.password}" />
                         </div>
                     </div>
                     
@@ -37,7 +37,7 @@
                     <div class="ui-g">
 
                         <div class="ui-g-12 ui-md-6 ui-lg-6">
-                            <p:commandButton id="bot3" value="ENTRAR" icon="fa fa-fw fa-save"  action="#{usuariosBean.envia(usuariosBean.usuario.login, usuariosBean.usuario.password)}" update="@all" style="height: 30px;  text-align:center; width: 100%; margin-right: 20px;"/>
+                            <p:commandButton id="bot3" value="ENTRAR" icon="fa fa-fw fa-save"  action="#{usuariosController.envia(usuariosController.usuario.login, usuariosController.usuario.password)}" update="@all" style="height: 30px;  text-align:center; width: 100%; margin-right: 20px;"/>
 
                         </div>
                         <div class="ui-g-12 ui-md-6 ui-lg-6">

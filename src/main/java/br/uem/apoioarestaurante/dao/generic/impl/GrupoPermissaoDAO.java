@@ -1,7 +1,7 @@
 package br.uem.apoioarestaurante.dao.generic.impl;
 
 
-import br.uem.apoioarestaurante.models.Grupopermissao;
+import br.uem.apoioarestaurante.models.GrupoPermissao;
 
 /**
  *     Universidade Estadual de Maringá
@@ -11,7 +11,7 @@ import br.uem.apoioarestaurante.models.Grupopermissao;
  */
 
 
-public class GrupoPermissaoDAO extends HibernateBasicGenericDAO<Grupopermissao>{
+public class GrupoPermissaoDAO extends HibernateBasicGenericDAO<GrupoPermissao>{
 
     
     private static GrupoPermissaoDAO ourInstance = new GrupoPermissaoDAO();
@@ -19,6 +19,6 @@ public class GrupoPermissaoDAO extends HibernateBasicGenericDAO<Grupopermissao>{
     public static  GrupoPermissaoDAO getInstance() { return ourInstance;}
     
     public GrupoPermissaoDAO(){
-        super(Grupopermissao.class);
+        super(GrupoPermissao.class);
     }
 }

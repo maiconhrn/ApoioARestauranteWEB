@@ -1,4 +1,4 @@
-package br.uem.apoioarestaurante.views;
+package br.uem.apoioarestaurante.controller;
 
 
 import br.uem.apoioarestaurante.dao.generic.impl.ClienteDAO;
@@ -19,13 +19,13 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean
 @SessionScoped
-public class ClienteBean {
+public class ClienteController {
  
     private Cliente cli;
     private ClienteDAO cliDAO;
     private List<Cliente> clientes;
             
-    public ClienteBean() {
+    public ClienteController() {
         cli = new Cliente();
         cliDAO = new ClienteDAO();
         clientes = null;
@@ -66,7 +66,6 @@ public class ClienteBean {
         for (int i = 0; i < clientes.size(); i++) {
             clien = clientes.get(i);
             if (clien.getName().startsWith(nome)) {
-                System.out.println(clien.getName());
                 resultado.add(clien);
             }
         }

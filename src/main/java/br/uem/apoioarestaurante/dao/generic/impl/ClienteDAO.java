@@ -21,15 +21,4 @@ public class ClienteDAO extends HibernateBasicGenericDAO<Cliente>{
     public ClienteDAO(){
         super(Cliente.class);
     }
-/*
-    public List<Cliente> listarTodos() {
-        return listar(Cliente.class);
-    }
-    
-    
-    
-    
-    public List<Cliente> procuraCPF(String nome){
-        return  procuraPorNome(Cliente.class,"cpf", nome);
-    }*/
 }

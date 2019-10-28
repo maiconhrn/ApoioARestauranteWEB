@@ -15,7 +15,7 @@
                     <h:outputLabel for="login3" value="Descrição:" style="font-weight:bold"/>
                 </div>
                 <div class="ui-g-12 ui-md-6 ui-lg-10">
-                    <p:inputText id="login3" value="#{permissaoBean.per.descricao}" required="true" label="Descrição" style="width: 99%;"/>
+                    <p:inputText id="login3" value="#{permissaoController.per.descricao}" required="true" label="Descrição" style="width: 99%;"/>
                 </div>
                 <br/>
                 <br/>
@@ -23,17 +23,17 @@
                     <h:outputLabel value="Observações:" style="font-weight:bold;"/>
                 </div>
                 <div class="ui-g-12 ui-md-6 ui-lg-10">
-                    <p:inputText value="#{permissaoBean.per.observacao}" required="true" label="Observações" style="width: 99%;"/>
+                    <p:inputText value="#{permissaoController.per.observacao}" required="true" label="Observações" style="width: 99%;"/>
                 </div>
             </div>
 
             <div class="ui-g" style="padding-top: 30px; padding-bottom: 30px;">
                 <div class="ui-g-12 ui-md-6 ui-lg-8"></div>
                 <div class="ui-g-12 ui-md-6 ui-lg-2">
-                    <p:commandButton icon="fa fa-fw fa-save" value="SALVAR" actionListener="#{permissaoBean.inserirPermissao(permissaoBean.per)}" action="#{permissaoBean.retornar()}" update=":frm1"  style=" height:30px; width: 100%; text-align:center;" />
+                    <p:commandButton icon="fa fa-fw fa-save" value="SALVAR" actionListener="#{permissaoController.inserirPermissao(permissaoController.per)}" action="#{permissaoController.retornar()}" update=":frm1"  style=" height:30px; width: 100%; text-align:center;" />
                 </div>
                 <div class="ui-g-12 ui-md-6 ui-lg-2">
-                    <p:commandButton icon="fa fa-fw fa-close" value="CANCELAR" actionListener="#{permissaoBean.limparDados()}" action="permissoes" update=":frm1"  style=" height:30px; width: 100%; text-align:center;" />
+                    <p:commandButton icon="fa fa-fw fa-close" value="CANCELAR" actionListener="#{permissaoController.limparDados()}" action="permissoes" update=":frm1"  style=" height:30px; width: 100%; text-align:center;" />
                 </div>
             </div>
         </h:form>

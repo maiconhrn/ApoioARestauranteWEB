@@ -11,6 +11,7 @@ import java.util.List;
 /**
  * @author Maicon
  */
+
 public class HibernateBasicGenericDAO<T> implements BasicGenericDAO<T> {
 
     private Class<T> entityClass;
