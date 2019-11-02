@@ -20,8 +20,23 @@ public class Cliente extends Pessoa implements Serializable {
     @Column(name = "telefone")
     private String telefone;
 
-    @Column(name = "endereco")
-    private String endereco;
+    @Column(name = "rua")
+    private String rua;
+
+    @Column(name = "numero")
+    private Integer numero;
+
+    @Column(name = "complemento")
+    private String complemento;
+
+    @Column(name = "bairro")
+    private String bairro;
+
+    @Column(name = "cidade")
+    private String cidade;
+
+    @Column(name = "estado")
+    private String estado;
 
     @Column(name = "ativo")
     private Boolean ativo;
@@ -46,14 +61,6 @@ public class Cliente extends Pessoa implements Serializable {
         this.telefone = telefone;
     }
 
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
     public List<Pedido> getPedidos() {
         return pedidos;
     }
@@ -70,20 +77,73 @@ public class Cliente extends Pessoa implements Serializable {
         this.ativo = ativo;
     }
 
+    public String getRua() {
+        return rua;
+    }
+
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Cliente cliente = (Cliente) o;
-        return Objects.equals(id, cliente.id) &&
+        return numero == cliente.numero &&
+                Objects.equals(id, cliente.id) &&
                 Objects.equals(telefone, cliente.telefone) &&
-                Objects.equals(endereco, cliente.endereco) &&
+                Objects.equals(rua, cliente.rua) &&
+                Objects.equals(complemento, cliente.complemento) &&
+                Objects.equals(bairro, cliente.bairro) &&
+                Objects.equals(cidade, cliente.cidade) &&
+                Objects.equals(estado, cliente.estado) &&
                 Objects.equals(ativo, cliente.ativo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), id, telefone, endereco, ativo);
+        return Objects.hash(super.hashCode(), id, telefone, rua, numero, complemento, bairro, cidade, estado, ativo);
     }
 }

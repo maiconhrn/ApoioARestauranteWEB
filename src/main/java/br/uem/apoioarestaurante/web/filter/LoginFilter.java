@@ -1,6 +1,12 @@
 package br.uem.apoioarestaurante.web.filter;
 
+
+import br.uem.apoioarestaurante.metadata.entities.Usuario;
+
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -16,21 +22,21 @@ public class LoginFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
-//        User user = null;
-//        HttpSession sess = ((HttpServletRequest) request).getSession(false);
-//
-//        if (sess != null) {
-//            user = (User) sess.getAttribute("loggedUser");
-//        }
-//
-//        if (user == null) {
-//            String contextPath = ((HttpServletRequest) request)
-//                    .getContextPath();
-//            ((HttpServletResponse) response).sendRedirect(contextPath
-//                    + "/security/login.xhtml");
-//        } else {
+        Usuario user = null;
+        HttpSession sess = ((HttpServletRequest) request).getSession(false);
+
+        if (sess != null) {
+            user = (Usuario) sess.getAttribute("loggedUser");
+        }
+
+        if (user == null) {
+            String contextPath = ((HttpServletRequest) request)
+                    .getContextPath();
+            ((HttpServletResponse) response).sendRedirect(contextPath
+                    + "/security/login.xhtml");
+        } else {
             chain.doFilter(request, response);
-//        }
+        }
     }
 
     @Override

@@ -42,7 +42,10 @@ public class PedidoDAOTest {
         cliente.setNome("Agostinho Carrara");
         cliente.setCpf("12365484452");
         cliente.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("12/01/1971"));
-        cliente.setEndereco("Rua Street, 2424");
+        cliente.setCidade("Maringá");
+        cliente.setEstado("Paraná");
+        cliente.setBairro("Barrão");
+        cliente.setNumero(24);
         cliente.setTelefone("4412345678");
 
         clienteDAO.connect();

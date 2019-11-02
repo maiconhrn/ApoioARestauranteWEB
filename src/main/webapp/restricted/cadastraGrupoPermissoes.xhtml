@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="main-template.xhtml">
+
+    <p:fieldset legend="Cadastro de Grupo de Permissões" style=" border: 1px solid black; ">
+        <h:form id="frm1">
+            <div class="ui-g" style="padding-top: 30px;">
+                <div class="ui-g-12 ui-md-6 ui-lg-2">
+                    <h:outputLabel for="login3" value="Descrição:" style="font-weight:bold"/>
+                </div>
+                <div class="ui-g-12 ui-md-6 ui-lg-10">
+                    <p:inputText id="login3" value="#{grupoPermissaoController.gruper.descricao}" required="true" label="Descrição" style="width: 99%;"/>
+                </div>
+                <br/>
+                <br/>
+                <div class="ui-g-12 ui-md-6 ui-lg-2">
+                    <h:outputLabel value="Observações:" style="font-weight:bold;"/>
+                </div>
+                <div class="ui-g-12 ui-md-6 ui-lg-10">
+                    <p:inputText value="#{grupoPermissaoController.gruper.observacao}" required="true" label="Observações" style="width: 99%;"/>
+                </div>
+            </div>
+
+
+            <div class="ui-g" style="padding-top: 30px;">
+                <div class="ui-g-12 ui-md-6 ui-lg-6">
+                    <p:growl id="ms1" showDetail="true"/>
+                    <p:dataTable id="gper1" var="grupo" value="#{grupoPermissaoController.gruper.permissoes}" >
+                        <f:facet name="header" >
+                            Grupo
+                            <!--div class="ui-g" >
+                                <div class="ui-g-12 ui-md-6 ui-lg-4"></div>
+                                <div class="ui-g-12 ui-md-6 ui-lg-4" style="align-self: center; ">
+                                    
+                                </div>
+                                <div class="ui-g-12 ui-lg-4">
+                                    <p:commandButton icon="ui-icon-refresh" value="Atualizar" action="{grupoPermissaoBean.listarGrupoPermissoes()}" update=":frm1"  style=" height:30px; width: 100px; text-align:center;" />
+                                </div>
+                            </div-->
+                        </f:facet>
+                        <p:column headerText="Código" style="height: 30px; width: 50px; text-align:center;">
+                            <h:outputText value="#{grupo.id}"  />
+                        </p:column>
+
+                        <p:column headerText="Descrição" style="height: 30px; width: 100px; text-align:center;">
+                            <h:outputText value="#{grupo.descricao}" />
+                        </p:column>
+
+                        <p:column headerText="Observações" style="height: 30px; width: 100px; text-align:center;">
+                            <h:outputText value="#{grupo.observacao}" />
+                        </p:column>
+
+                        <p:column  style="height: 30px; width: 30px; text-align:center;">
+                            <p:commandButton value="DEL" action="#{grupoPermissaoController.apagaPermissao(grupo)}" update=":frm1"  style=" height:30px; width: 100%; text-align:center; " />
+                        </p:column>
+                    </p:dataTable>
+                </div>
+
+
+                <div class="ui-g-12 ui-lg-6">
+                    <p:growl id="ms2" showDetail="true"/>
+                    <p:dataTable id="per2" var="permissao" value="#{permissaoController.permissoes}" >
+                        <f:facet name="header" >
+                            Permissoes Disponiveis
+                            <!--div class="ui-g" >
+                                <div class="ui-g-12 ui-md-6 ui-lg-4"></div>
+                                <div class="ui-g-12 ui-md-6 ui-lg-4" style="align-self: center; ">
+                                    
+                                </div>
+                                <div class="ui-g-12 ui-lg-4">
+                                    <p:commandButton icon="ui-icon-refresh" value="Atualizar" action="{permissaoBean.listarPermissoes()}" update=":frm1"  style=" height:30px; width: 100px; text-align:center;" />
+                                </div>
+                            </div-->
+                        </f:facet>
+
+                        <p:column  style="height: 30px; width: 30px; text-align:center;">
+                            <p:commandButton value="ADD" action="#{grupoPermissaoController.adicionaPermissao(permissao, grupoPermissaoController.gruper)}" update=":frm1"  style=" height:30px; width: 100%; text-align:center; " />
+                        </p:column>
+
+                        <p:column headerText="Código" style="height: 30px; width: 50px; text-align:center;">
+                            <h:outputText value="#{permissao.id}" />
+                        </p:column>
+
+                        <p:column headerText="Descrição" style="height: 30px; width: 100px; text-align:center;">
+                            <h:outputText value="#{permissao.descricao}" />
+                        </p:column>
+
+                        <p:column headerText="Observações" style="height: 30px; width: 100px; text-align:center;">
+                            <h:outputText value="#{permissao.observacao}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </div>
+            </div>
+
+            <div class="ui-g" style="padding-top: 30px; padding-bottom: 30px;">
+                <div class="ui-g-12 ui-md-6 ui-lg-8"></div>
+                <div class="ui-g-12 ui-md-6 ui-lg-2">
+                    <p:commandButton icon="ui-icon-refresh" value="SALVAR" action="#{grupoPermissaoController.inserirGruposPermissao(grupoPermissaoController.gruper)}" update=":frm1"  style=" height:30px; width: 100%; text-align:center;" />
+                </div>
+                <div class="ui-g-12 ui-md-6 ui-lg-2">
+                    <p:commandButton icon="ui-icon-refresh" value="CANCELAR" actionListener="#{grupoPermissaoController.limparDados()}" action="grupoPermissoes" update=":frm1"  style=" height:30px; width: 100%; text-align:center;" />
+                </div>
+            </div>
+        </h:form>
+    </p:fieldset>
+</ui:decorate>
+

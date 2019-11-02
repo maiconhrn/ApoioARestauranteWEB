@@ -40,12 +40,12 @@
     </welcome-file-list>
 
     <!--  login filter -->
-    <filter>
+    <!--filter>
         <filter-name>LoginFilter</filter-name>
         <filter-class>br.uem.apoioarestaurante.web.filter.LoginFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>LoginFilter</filter-name>
         <url-pattern>/restricted/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping-->
 </web-app>

@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template = "main-template.xhtml">
+
+    <h:form id="cadcli">
+        <p:growl id="msgs" showDetail="true" />
+
+        <p:panel  id="basic" header="Cliente"  style="height: 500px; width: 340px; text-align:center;" >
+                <!--h:panelGrid id="grid" columns="2"  cellpadding="3"-->
+                <div class="ui-g" style="border-right: 20px;">
+
+                    <div class="ui-g-12 ui-md-6 ui-lg-5">
+                        <h:outputLabel for="name" value="Nome:" style="font-weight:bold; float: left; border-right: 20px;"/>
+                    </div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-6" style="border-right: 20px;">
+                        <p:inputText id="name" value="#{clienteBean.cli.nome}"  required="true" label="Nome" style=" width: 100%; padding-right: 20px;"/>
+                        <p:message for="name" />
+                        <h:outputText value="#{validationView.text}" />
+                    </div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-1"></div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-5">
+                        <p:outputLabel for="cpf" value="CPF:" style="font-weight:bold; float: left;"/>
+                    </div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                        <p:inputMask id="cpf" value="#{clienteBean.cli.cpf}" mask="999.999.999-99" required="true"  style="width: 100%; padding-right: 20px;"/>
+                        <p:message for="cpf"/>
+                        <h:outputText value="#{validationView.text}" />     
+                    </div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-1"></div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-5">
+                        <h:outputLabel for="telefone" value="Telefone:" style="font-weight:bold; float: left;"/>
+                    </div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                        <p:inputMask id="telefone" value="#{clienteBean.cli.telefone01}" mask="(99)99999-9999" style="width: 100%; padding-right: 20px;"/>
+                        <p:message for="telefone" />
+                        <h:outputText value="#{validationView.text}"/>
+                    </div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-1"></div>
+                
+
+                    <div class="ui-g-12 ui-md-6 ui-lg-5">
+                        <h:outputLabel for="rua" value="Rua:" style="font-weight:bold; float: left;"/>
+                    </div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                        <p:inputText id="rua" value="#{clienteBean.cli.rua}" required="true" label="Rua" style="width: 100%; padding-right: 20px;"/>
+                        <p:message for="rua" />
+                        <h:outputText value="#{validationView.text}" />
+                    </div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-1"></div>
+
+                    <div class="ui-g-12 ui-md-6 ui-lg-5">
+                        <h:outputLabel for="numero" value="Número:" style="font-weight:bold; float: left;"/>
+                    </div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                        <p:inputText id="numero" value="#{clienteBean.cli.numero}" style="width: 100%; padding-right: 20px;">
+                            <p:keyFilter regEx="/[\d\-]/"/>
+                            <f:convertNumber />
+                        </p:inputText>
+                        <p:message for="numero" />
+                        <h:outputText value="#{validationView.text}" />
+                    </div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-1"></div>
+
+                    <div class="ui-g-12 ui-md-6 ui-lg-5">
+                        <h:outputLabel for="complemento" value="Complemento:" style="font-weight:bold; float: left;"/>
+                    </div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                        <p:inputText id="complemento" value="#{clienteBean.cli.complemento}" required="true" label="Complemento" style="width: 100%; padding-right: 20px;"/>
+                        <p:message for="complemento" />
+                        <h:outputText value="#{validationView.text}" />
+                    </div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-1"></div>
+
+                    <div class="ui-g-12 ui-md-6 ui-lg-5">
+                        <h:outputLabel for="bairro" value="Bairro:" style="font-weight:bold; float: left;"/>
+                    </div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                        <p:inputText id="bairro" value="#{clienteBean.cli.bairro}" required="true" label="Bairro" style="width: 100%; padding-right: 20px;"/>
+                        <p:message for="bairro" />
+                        <h:outputText value="#{validationView.text}" />
+                    </div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-1"></div>
+
+                    <div class="ui-g-12 ui-md-6 ui-lg-5">
+                        <h:outputLabel for="cidade" value="Cidade:" style="font-weight:bold; float: left;"/>
+                    </div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                        <p:inputText id="cidade" value="#{clienteBean.cli.cidade}" required="true" label="Cidade" style="width: 100%; padding-right: 20px;"/>
+                        <p:message for="cidade" />
+                        <h:outputText value="#{validationView.text}" />
+                    </div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-1"></div>
+
+                    <div class="ui-g-12 ui-md-6 ui-lg-5">
+                        <h:outputLabel for="estado" value="Estado:" style="font-weight:bold; float: left;"/>
+                    </div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                        <p:inputText id="estado" value="#{clienteBean.cli.estado}" required="true" label="Estado" style="width: 100%; padding-right: 20px;"/>
+                        <p:message for="estado" />
+                        <h:outputText value="#{validationView.text}" />
+                    </div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-1"></div>
+
+                    <div class="ui-g-12 ui-md-6 ui-lg-5">
+                        <p:outputLabel for="mask" value="Data de Nasc:" style="font-weight:bold; float: left;" />
+                    </div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                        <p:calendar id="mask" value="#{clienteBean.cli.dataNascimento}" pattern="dd-MM-yyyy" mask="true" required="true" label="Data Nasc" style=" width: 100%; padding-right: 20px;"/>
+                        <p:message for="mask"/>
+                        <h:outputText value="#{validationView.text}" />
+                    </div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-1"></div>
+                </div>
+            <!--/h:panelGrid-->
+            <br></br>
+            <div class="ui-g">
+                
+                <div class="ui-g-12 ui-md-6 ui-lg-6">
+                    <p:commandButton id="bot3" value="Salvar" icon="fa fa-fw fa-save" actionListener="#{clienteBean.inserirCliente(clienteBean.cli)}" action="#{clienteBean.retornar()}" update=":cadcli" style="height: 30px;  text-align:center; width: 100%; margin-right: 20px;background-color:#98FB98;"/>
+                    
+                </div>
+                <div class="ui-g-12 ui-md-6 ui-lg-6">
+                    <p:commandButton value="Cancelar" icon="fa fa-fw fa-close" actionListener="#{clienteBean.limparDados()}" action="clientes"  update=":cadcli" style="height: 30px;  text-align:center; width: 100%; margin-right: 20px;background-color:#98FB98;"/>
+                </div>
+                
+            </div>
+
+        </p:panel>
+    </h:form>
+</ui:decorate>
+
