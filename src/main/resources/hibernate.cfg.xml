@@ -26,5 +26,6 @@
         <mapping class="br.uem.apoioarestaurante.metadata.entities.Pessoa"/>
         <mapping class="br.uem.apoioarestaurante.models.Permissao"/>
         <mapping class="br.uem.apoioarestaurante.models.GrupoPermissao"/>
+	<mapping class="br.uem.apoioarestaurante.models.ContasAPagar"/>
     </session-factory>
 </hibernate-configuration>
