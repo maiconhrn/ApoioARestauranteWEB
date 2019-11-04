@@ -85,11 +85,11 @@ public class Cliente extends Pessoa implements Serializable {
         this.rua = rua;
     }
 
-    public int getNumero() {
+    public Integer getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(Integer numero) {
         this.numero = numero;
     }
 

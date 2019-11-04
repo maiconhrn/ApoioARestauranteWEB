@@ -48,7 +48,7 @@ public class UsuarioController implements Serializable {
                     FacesContext fc = FacesContext.getCurrentInstance();
                     HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
                     session.setAttribute("loggedUser", usuario);
-                    return "/restricted/home.xhtml";
+                    return "/restricted/home.xhtml?faces-redirect=true";
                 }
             }
         }

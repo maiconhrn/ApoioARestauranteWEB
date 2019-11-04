@@ -19,11 +19,11 @@
                     <h:outputText value="Login" />  
                     <p:inputText value="#{usuariosView.usuario.login}"/>
                     <h:outputText value="Senha" />  
-                    <p:password value="#{usuariosView.usuario.password}"/>
+                    <p:password value="#{usuariosView.usuario.senha}"/>
 
                 </h:panelGrid>                
                 <p:separator />
-                <p:commandButton value="Logar" action="#{usuariosView.envia(usuariosView.usuario.login, usuariosView.usuario.password)}" update="@all"/>
+                <p:commandButton value="Logar" action="#{usuariosView.envia(usuariosView.usuario.login, usuariosView.usuario.senha)}" update="@all"/>
                 
             </p:dialog> 
         </h:form>
