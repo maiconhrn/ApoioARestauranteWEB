@@ -9,17 +9,23 @@
                 name="hibernate.connection.url">jdbc:mysql://localhost:3306/apoio_a_restaurante?useSSL=false
         </property>
         <property name="hibernate.connection.username">root</property>
-        <!--property name="hibernate.connection.password">Coxinha123</property-->
+<!--        <property name="hibernate.connection.password">Coxinha123</property>-->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
         <property name="hbm2ddl.auto">update</property>
         <property name="hibernate.connection.autocommit">false</property>
-        
-        <mapping class="br.uem.apoioarestaurante.models.Cliente"/>
-        <mapping class="br.uem.apoioarestaurante.metadata.entities.Person"/>
+
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.Produto"/>
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.Estoque"/>
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.MovimentoEstoque"/>
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.Pedido"/>
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.Cliente"/>
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.Usuario"/>
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.ItemPedido"/>
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.Pessoa"/>
         <mapping class="br.uem.apoioarestaurante.models.Permissao"/>
         <mapping class="br.uem.apoioarestaurante.models.GrupoPermissao"/>
-        <mapping class="br.uem.apoioarestaurante.models.Usuarios"/>
+	<mapping class="br.uem.apoioarestaurante.models.ContasAPagar"/>
     </session-factory>
 </hibernate-configuration>

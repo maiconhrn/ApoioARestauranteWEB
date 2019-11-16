@@ -1,0 +1,50 @@
+.order-item-product-container {
+    height: 100%;
+    width: 100%;
+}
+
+.order-item-product-container .filters-select {
+    width: 100%;
+    margin-left: 5px;
+    float: left;
+    min-height: 102px;
+}
+
+.order-item-product-container .types {
+    width: 28%;
+    margin-right: 5px;
+    min-height: 102px;
+    float: right;
+}
+
+.order-item-product-container .dataTable {
+    padding-bottom: 17px;
+    max-height: 500px;
+    margin-left: 5px;
+    margin-right: 5px;
+    min-height: 120px;
+}
+
+.order-item-product-container .search-panel {
+    margin-left: 5px;
+    margin-right: 5px;
+    min-height: 102px;
+}
+
+.order-item-product-container .search-panel .search {
+    display: flex;
+    justify-content: center;
+}
+
+.order-item-product-container .search-panel .search .filters {
+    display: flex;
+    float: left;
+}
+
+.order-item-product-container .search-panel .search .filters div {
+    padding-right: 15px;
+}
+
+.order-item-product-container .search-panel .search .filters div label {
+    padding-right: 10px;
+}

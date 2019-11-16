@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             xmlns:p="http://primefaces.org/ui"
+             template="main-template.xhtml"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <h1 class="aw-page-title">Atualizar Usuários</h1>
+
+    <h:form id="frm">
+        <p:separator></p:separator>
+
+        <div class="ui-fluid">
+            <p:fieldset legend="Dados básicos" style="height: 350px; width: 500px; border: 1px solid black; padding: 20px; margin: auto;">
+                <p:panelGrid columns="2" layout="grid" styleClass="panelgrid-noborder">
+                    <p:outputLabel value="Nome" for="nome" />
+                    <p:inputText id="nome" required="true" value="#{usuariosView.usuario.nome}"/>
+
+                    <p:outputLabel value="CPF" for="cpf" />
+                    <p:inputMask id="cpf" required="true" mask="999.999.999-99"  value="#{usuariosView.usuario.cpf}"/>
+
+                    <p:outputLabel value="Data de nascimento"/>
+                    <p:calendar id="mask" value="#{usuariosView.usuario.dataNascimento}" pattern="dd-MM-yyyy" mask="true" required="true" label="Data Nasc"/>
+
+                    <p:outputLabel value="Login" for="login"/>
+                    <p:inputText id="login" required="true"  value="#{usuariosView.usuario.login}" />
+
+                    <p:outputLabel value="Senha" for="senha"  />
+                    <p:password id="senha" required="true" value="#{usuariosView.usuario.senha}"/>
+                </p:panelGrid>
+                <p:separator></p:separator>
+
+                <p:panelGrid columns="3" layout="grid" styleClass="panelgrid-noborder">
+                    <p:commandButton id="bot3" value="Atualizar" icon="fa fa-fw fa-save" actionListener="#{usuariosView.alterarUsuario(usuariosView.usuario)}" action="#{usuariosView.retornar()}" update="@all" style="height: 30px;  text-align:center; width: 100%; margin-right: 20px;"/>
+
+                    <p:commandButton id="bot4" value="Deletar" icon="fa fa-fw fa-trash" actionListener="#{usuariosView.excluirUsuario(usuariosView.usuario)}"  action="#{usuariosView.retornar()}"  update="@all" style="height: 30px;  text-align:center; width: 100%; padding-right: 20px;"/>
+
+                    <p:commandButton value="Cancelar" icon="fa fa-fw fa-close" actionListener="#{usuariosView.limparDados()}" action="usuarios"  update="@all" style="height: 30px;  text-align:center; width: 100%; margin-right: 20px;"/>
+                </p:panelGrid>
+            </p:fieldset>
+        </div>
+    </h:form>
+</ui:decorate>

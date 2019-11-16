@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Apoio A Restaurante</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            outline: 0;
+            box-sizing: border-box;
+        }
+
+        html, body, #root {
+            height: 100%;
+        }
+
+        body {
+            background: #f5f5f5;
+            font-size: 12px;
+        }
+
+        body, input, button {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <link type="text/css" rel="stylesheet" href="../style/main.css"/>
+    <link type="text/css" rel="stylesheet" href="../style/cadastroUsuario.css"/>
+    <script type="text/javascript">
+        PrimeFaces.locales['br'] = {
+            closeText: 'Fechar',
+            prevText: 'Anterior',
+            nextText: 'Próximo',
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+            weekHeader: 'Semana',
+            firstDayOfWeek: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: '',
+            timeOnlyTitle: 'Soment hora',
+            timeText: 'Tempo',
+            hourText: 'Hora',
+            minuteText: 'Minuto',
+            secondText: 'Segundo',
+            currentText: 'Data atual',
+            ampm: false,
+            month: 'Mês',
+            week: 'Semana',
+            day: 'Dia',
+            allDayText: 'Todo o dia'
+        };
+    </script>
+</h:head>
+<h:body>
+    <div align="center">
+        <p:layout style="min-width:1020px;max-width:2020px;min-height:950px">
+            <p:layoutUnit position="north" size="100">
+                <!--h:graphicImage url="imagem de logo" style="width: 100%; object-fit: cover; height: 100%" /-->
+            </p:layoutUnit>
+
+            <p:layoutUnit position="west" size="220">
+                <h:form>
+                    <p:panelMenu style="width:200px">
+                        <p:submenu label="Inicio">
+                            <p:menuitem value="Inicio" url="/ApoioARestauranteWEB/restricted/home.xhtml"/>
+                        </p:submenu>
+                    </p:panelMenu>
+                    <p:panelMenu style="width:200px">
+                        <p:submenu label="Gerir">
+                            <p:menuitem value="Usuarios" url="/ApoioARestauranteWEB/restricted/usuarios.xhtml"/>
+                            <p:menuitem value="Cliente" url="/ApoioARestauranteWEB/restricted/clientes.xhtml"/>
+                            <p:menuitem value="Permissões" url="/ApoioARestauranteWEB/restricted/permissoes.xhtml"/>
+                            <p:menuitem value="Grupo de Permissões" url="/ApoioARestauranteWEB/restricted/grupoPermissoes.xhtml"/>
+                            <p:menuitem value="Contas a Pagar" url="/ApoioARestauranteWEB/restricted/contasAPagar.xhtml"/>
+                            <p:menuitem value="Estoque" url="/ApoioARestauranteWEB/restricted/permissoes.xhtml"/>
+                            <p:menuitem value="Produtos" url="/ApoioARestauranteWEB/restricted/manterProduto.xhtml"/>
+                            <p:menuitem value="Movimentação de Produtos" url="/ApoioARestauranteWEB/restricted/movimentacaoProduto.xhtml"/>
+                        </p:submenu>
+                    </p:panelMenu>
+                    <p:panelMenu style="width:200px">
+                        <p:submenu label="Pedidos">
+                            <p:menuitem value="Pedido" url="/ApoioARestauranteWEB/restricted/pedido.xhtml"/>
+                        </p:submenu>
+                    </p:panelMenu>
+                    <p:panelMenu style="width:200px">
+                        <p:submenu label="Relatórios">
+                            <p:menuitem value="Relatorio Movimentação de Estoque" url="/ApoioARestauranteWEB/restricted/relatorio-movimentacao-estoque.xhtml"/>
+                            <p:menuitem value="Relatorio Histórico de Pedidos" url="/ApoioARestauranteWEB/restricted/relatorio-historico-pedidos.xhtml"/>
+                            <p:menuitem value="Relatorio de Lucro" url="/ApoioARestauranteWEB/restricted/relatorioClientes.xhtml"/>
+                            <p:menuitem value="Relatorio de Clientes" url="/ApoioARestauranteWEB/restricted/relatorioClientes.xhtml"/>
+                            <p:menuitem value="Relatorio de Lucro" url="/ApoioARestauranteWEB/restricted/relatorioLucro.xhtml"/>
+                            <p:menuitem value="Relatorio de Produtos em Falta" url="/ApoioARestauranteWEB/restricted/relatorioProdutosFalta.xhtml"/>
+                        </p:submenu>
+                    </p:panelMenu>
+                </h:form>
+
+            </p:layoutUnit>
+            <p:layoutUnit position="center">
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
+                <p:growl id="growl" showDetail="true" sticky="true">
+                    <p:autoUpdate/>
+                </p:growl>
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false"
+                          showHeader="false">
+                    <p:outputLabel value="Carregando..."/>
+                </p:dialog>
+                <ui:insert>
+                    O que estiver aqui será substituido!
+                </ui:insert>
+            </p:layoutUnit>
+        </p:layout>
+    </div>
+</h:body>
+</html>

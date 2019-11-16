@@ -5,20 +5,19 @@
              xmlns:p="http://primefaces.org/ui"
              xmlns:f="http://xmlns.jcp.org/jsf/core"
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-             template = "template.xhtml">
-
+             template = "main-template.xhtml">
+<link type="text/css" rel="stylesheet" href="../style/cliente.css"/>
     <h:form id="cadcli">
         <p:growl id="msgs" showDetail="true" />
 
         <p:panel  id="basic" header="Cliente"  style="height: 500px; width: 340px; text-align:center;" >
-                <!--h:panelGrid id="grid" columns="2"  cellpadding="3"-->
                 <div class="ui-g" style="border-right: 20px;">
 
                     <div class="ui-g-12 ui-md-6 ui-lg-5">
                         <h:outputLabel for="name" value="Nome:" style="font-weight:bold; float: left; border-right: 20px;"/>
                     </div>
                     <div class="ui-g-12 ui-md-6 ui-lg-6" style="border-right: 20px;">
-                        <p:inputText id="name" value="#{clienteController.cli.name}"  required="true" label="Nome" style=" width: 100%; padding-right: 20px;"/>
+                        <p:inputText id="name" value="#{clienteController.cli.nome}"  required="true" label="Nome" style=" width: 100%; padding-right: 20px;"/>
                         <p:message for="name" />
                         <h:outputText value="#{validationView.text}" />
                     </div>
@@ -36,7 +35,7 @@
                         <h:outputLabel for="telefone" value="Telefone:" style="font-weight:bold; float: left;"/>
                     </div>
                     <div class="ui-g-12 ui-md-6 ui-lg-6">
-                        <p:inputMask id="telefone" value="#{clienteController.cli.telefone01}" mask="(99)99999-9999" style="width: 100%; padding-right: 20px;"/>
+                        <p:inputMask id="telefone" value="#{clienteController.cli.telefone}" mask="(99)99999-9999" style="width: 100%; padding-right: 20px;"/>
                         <p:message for="telefone" />
                         <h:outputText value="#{validationView.text}"/>
                     </div>
@@ -47,7 +46,7 @@
                         <h:outputLabel for="rua" value="Rua:" style="font-weight:bold; float: left;"/>
                     </div>
                     <div class="ui-g-12 ui-md-6 ui-lg-6">
-                        <p:inputText id="rua" value="#{clienteController.cli.rua}" required="true" label="Rua" style="width: 100%; padding-right: 20px;"/>
+                        <p:inputText class="campos" id="rua" value="#{clienteController.cli.rua}" required="true" label="Rua" style="width: 100%; padding-right: 20px;"/>
                         <p:message for="rua" />
                         <h:outputText value="#{validationView.text}" />
                     </div>
@@ -110,7 +109,7 @@
                         <p:outputLabel for="mask" value="Data de Nasc:" style="font-weight:bold; float: left;" />
                     </div>
                     <div class="ui-g-12 ui-md-6 ui-lg-6">
-                        <p:calendar id="mask" value="#{clienteController.cli.birthDate}" pattern="dd-MM-yyyy" mask="true" required="true" label="Data Nasc" style=" width: 100%; padding-right: 20px;"/>
+                        <p:calendar class="campos" id="mask" value="#{clienteController.cli.dataNascimento}" pattern="dd-MM-yyyy" mask="true" required="true" label="Data Nasc" style=" width: 100%; padding-right: 20px; float: right"/>
                         <p:message for="mask"/>
                         <h:outputText value="#{validationView.text}" />
                     </div>

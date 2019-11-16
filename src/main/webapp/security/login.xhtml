@@ -1,52 +1,32 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
-             xmlns:h="http://xmlns.jcp.org/jsf/html"
-             xmlns:p="http://primefaces.org/ui"
-             xmlns:f="http://xmlns.jcp.org/jsf/core"
-             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-             template="template_1.xhtml">
- 
-    <body>
-        <div style="padding: 20px; margin: 200px auto;">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
 
-            <h:form id="log">
-                <p:growl id="msgs" showDetail="true" />
+        <link rel="stylesheet" href="resources/css/estilos.css"/>
+        <title>Tela de Login</title>
 
-                <p:panel  id="basic" header="Login"  style="height: 250px; width: 340px;" >
-                    <br></br>
-                    <div class="ui-g" style="border-right: 20px;">
+    </h:head>
+    <h:body>
+        <h:form id="formUsuario">
 
-                        <div class="ui-g-12 ui-md-6 ui-lg-5">
-                            <p:outputLabel for="login" value="Login:" style="font-weight:bold"/>
-                        </div>
-                        <div class="ui-g-12 ui-md-6 ui-lg-6" style="border-right: 20px;">
-                            <p:inputText id="login" value="#{usuariosController.usuario.login}" required="true" label="Login"/>
-                        </div>
-                        <div class="ui-g-12 ui-md-6 ui-lg-1"></div>
-                        <div class="ui-g-12 ui-md-6 ui-lg-5">
-                            <p:outputLabel for="senha" value="Senha:" style="font-weight:bold"/>
-                        </div>
-                        
-                        <div class="ui-g-12 ui-md-6 ui-lg-6" style="border-right: 20px;">
-                            <p:password id="senha" value="#{usuariosController.usuario.password}" />
-                        </div>
-                    </div>
-                    
-                    <br></br>
-                    <div class="ui-g">
+            <p:dialog header="Realizar o Login" visible="true" widgetVar="dlgNovo" resizable="false" id="dlgNovo"  
+                      showEffect="fade" hideEffect="explode" modal="true">    
 
-                        <div class="ui-g-12 ui-md-6 ui-lg-6">
-                            <p:commandButton id="bot3" value="ENTRAR" icon="fa fa-fw fa-save"  action="#{usuariosController.envia(usuariosController.usuario.login, usuariosController.usuario.password)}" update="@all" style="height: 30px;  text-align:center; width: 100%; margin-right: 20px;"/>
+                <h:panelGrid id="pgNovo" columns="2" cellpadding="4" style="margin:0 auto;">  
 
-                        </div>
-                        <div class="ui-g-12 ui-md-6 ui-lg-6">
-                            <p:commandButton value="CANCELAR" icon="fa fa-fw fa-close" update="@all" style="height: 30px;  text-align:center; width: 100%; margin-right: 20px;"/>
-                        </div>
+                    <h:outputText value="Login" />  
+                    <p:inputText value="#{usuariosView.usuario.login}"/>
+                    <h:outputText value="Senha" />  
+                    <p:password value="#{usuariosView.usuario.senha}"/>
 
-                    </div>
-                </p:panel>
-            </h:form>
-        </div>
-    </body>
-</ui:decorate>
+                </h:panelGrid>                
+                <p:separator />
+                <p:commandButton value="Logar" action="#{usuariosView.envia(usuariosView.usuario.login, usuariosView.usuario.senha)}" update="@all"/>
+                
+            </p:dialog> 
+        </h:form>
+
+    </h:body>
+</html>
+

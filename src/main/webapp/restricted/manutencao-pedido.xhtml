@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+<link type="text/css" rel="stylesheet" href="../style/manutencao-pedido.css"/>
+<ui:decorate template="main-template.xhtml">
+    <h:form id="orderMaintenance">
+
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{manutencaoPedidoView.init()}"/>
+        </f:metadata>
+
+        <div class="order-maintenance-container">
+            <div style="min-height: 120px; width: 100%;">
+                <p:panel id="orderData" header="Dados do Pedido" styleClass="order-info">
+                    <div class="data">
+                        <div>
+                            <p:outputLabel value="ID" for="idFilter"/>
+                            <p:inputText id="idFilter" disabled="true" value="#{manutencaoPedidoView.pedido.id}"/>
+                        </div>
+                        <div>
+                            <p:outputLabel value="Cliente" for="clientFilter"/>
+                            <p:selectOneMenu id="clientFilter" autoWidth="false"
+                                             value="#{manutencaoPedidoView.pedido.cliente}"
+                                             effect="fade" var="c" filter="true" filterMatchMode="startsWith"
+                                             converter="personConverter"
+                                             required="#{manutencaoPedidoView.pedido.tipo.textValue == 'Delivery'}">
+                                <f:selectItem itemLabel="Selecione um" itemValue=""/>
+                                <f:selectItems value="#{manutencaoPedidoView.clientes}" var="cliente"
+                                               itemLabel="#{cliente.nome}"
+                                               itemValue="#{cliente}"/>
+                                <p:column>
+                                    <h:outputText value="#{c.nome}"/>
+                                </p:column>
+                            </p:selectOneMenu>
+                        </div>
+                        <div>
+                            <p:outputLabel value="Usuário" for="userFilter"/>
+                            <p:selectOneMenu id="userFilter" autoWidth="false"
+                                             value="#{manutencaoPedidoView.pedido.usuario}"
+                                             effect="fade" var="u" filter="true" filterMatchMode="startsWith"
+                                             converter="personConverter" required="true">
+                                <f:selectItem itemLabel="Selecione um" itemValue=""/>
+                                <f:selectItems value="#{manutencaoPedidoView.usuarios}" var="usuario"
+                                               itemLabel="#{usuario.nome}"
+                                               itemValue="#{usuario}"/>
+                                <p:column>
+                                    <h:outputText value="#{u.nome}"/>
+                                </p:column>
+                            </p:selectOneMenu>
+                        </div>
+                        <div>
+                            <p:outputLabel value="Mesa" for="tableFilter"/>
+                            <p:inputText id="tableFilter"
+                                         required="#{manutencaoPedidoView.pedido.tipo.textValue == 'Local'}"
+                                         value="#{manutencaoPedidoView.pedido.mesa}"/>
+                        </div>
+                        <div>
+                            <p:outputLabel style="padding-right: 10px" value="Data de abertura" for="initDate"/>
+                            <p:datePicker id="initDate" value="#{manutencaoPedidoView.pedido.dataInicio}"
+                                          showButtonBar="true"
+                                          showTime="true" pattern="dd/MM/yyyy" showIcon="true" required="true"
+                                          autocomplete="off" locale="br" mindate="#{manutencaoPedidoView.minDate}"
+                                          readonlyInput="true"/>
+                        </div>
+                    </div>
+                </p:panel>
+
+                <p:panel id="type" header="Tipo" styleClass="types">
+                    <p:selectOneRadio value="#{manutencaoPedidoView.pedido.tipo}" unselectable="true" layout="grid"
+                                      columns="2">
+
+                        <p:ajax event="valueChange"
+                                update="orderMaintenance:orderData"/>
+
+                        <f:selectItems value="#{manutencaoPedidoView.types}" var="type" itemValue="#{type}"
+                                       itemLabel="#{type.textValue}"/>
+                    </p:selectOneRadio>
+                </p:panel>
+            </div>
+
+            <div style="width: 100%;">
+                <p:panel id="orderItems" header="Itens do Pedido">
+                    <!--@elvariable id="itemPedido" type="br.uem.apoioarestaurante.metadata.entities.ItemPedido"-->
+                    <p:dataTable styleClass="dataTable" id="orderItemsTable" var="itemPedido"
+                                 selectionMode="single" selection="#{manutencaoPedidoView.selectedItemPedido}"
+                                 rowKey="#{itemPedido.produto.id}" paginator="true"
+                                 value="#{manutencaoPedidoView.pedido.items}"
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                 rows="10" resizableColumns="true" editable="true" editMode="cell">
+
+                        <p:ajax event="cellEdit" listener="#{manutencaoPedidoView.onProductQttEdit}"/>
+
+                        <p:column headerText="ID">
+                            <h:outputText value="#{itemPedido.id}"/>
+                        </p:column>
+
+                        <p:column headerText="ID Pedido">
+                            <h:outputText value="#{itemPedido.pedido.id}"/>
+                        </p:column>
+
+                        <p:column headerText="Produto">
+                            <h:outputText value="#{itemPedido.produto.descricao}"/>
+                        </p:column>
+
+                        <p:column headerText="Quantidade">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{itemPedido.qtdProduto}"/></f:facet>
+                                <f:facet name="input"><p:inputText id="modelInput"
+                                                                   value="#{itemPedido.qtdProduto}"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Total">
+                            <h:outputText value="#{itemPedido.preco}"/>
+                        </p:column>
+                    </p:dataTable>
+
+                    <div style="padding-top: 20px;">
+                        <p:commandButton value="Adicionar" id="new"
+                                         action="#{manutencaoPedidoController.newOrderItem()}"
+                                         style="margin-right:20px;" icon="fa fa-plus-square"/>
+                        <p:commandButton value="Remover" id="remove"
+                                         action="#{manutencaoPedidoController.deleteOrderItem()}"
+                                         update="orderMaintenance:orderItems"
+                                         style="margin-right:20px;" icon="fa fa-remove"/>
+                    </div>
+                </p:panel>
+            </div>
+
+            <div style="float: right; padding-top: 20px;">
+                <p:commandButton value="Salvar" id="save" action="#{manutencaoPedidoController.save()}"
+                                 update="orderMaintenance:orderData orderMaintenance:orderItems"
+                                 style="margin-right:20px;" icon="fa fa-save"/>
+                <p:commandButton value="Cancelar" id="cancel" action="#{manutencaoPedidoController.cancel()}"
+                                 immediate="true"
+                                 style="margin-right:20px;" icon="fa fa-ban"/>
+            </div>
+        </div>
+    </h:form>
+</ui:decorate>
+</html>

@@ -6,13 +6,13 @@ import br.uem.apoioarestaurante.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author Maicon
  */
-
-public class HibernateBasicGenericDAO<T> implements BasicGenericDAO<T> {
+public class HibernateBasicGenericDAO<T> implements BasicGenericDAO<T>, Serializable {
 
     private Class<T> entityClass;
     private Session session;
@@ -21,7 +21,15 @@ public class HibernateBasicGenericDAO<T> implements BasicGenericDAO<T> {
         this.entityClass = entityClass;
     }
 
-    private void requireOpenSession() throws DAOException {
+    protected Class<T> getEntityClass() {
+        return entityClass;
+    }
+
+    protected Session getSession() {
+        return session;
+    }
+
+    protected void requireOpenSession() throws DAOException {
         if (this.session == null || !this.session.isOpen()) {
             throw new DAOException("This method call need an open session to work");
         }
@@ -71,7 +79,6 @@ public class HibernateBasicGenericDAO<T> implements BasicGenericDAO<T> {
 
         return t;
     }
-    
 
     @Override
     public T update(T t) {

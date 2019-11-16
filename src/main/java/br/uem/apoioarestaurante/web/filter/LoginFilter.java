@@ -1,6 +1,7 @@
 package br.uem.apoioarestaurante.web.filter;
 
-import br.uem.apoioarestaurante.models.Usuarios;
+
+import br.uem.apoioarestaurante.metadata.entities.Usuario;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -11,8 +12,8 @@ import java.io.IOException;
 /**
  * @author Maicon
  */
-
 public class LoginFilter implements Filter {
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -21,11 +22,11 @@ public class LoginFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
-        Usuarios user = null;
+        Usuario user = null;
         HttpSession sess = ((HttpServletRequest) request).getSession(false);
 
         if (sess != null) {
-            user = (Usuarios) sess.getAttribute("loggedUser");
+            user = (Usuario) sess.getAttribute("loggedUser");
         }
 
         if (user == null) {

@@ -1,0 +1,30 @@
+.movimentacao-estoque-container {
+    height: 100%;
+    width: 100%;
+}
+
+.movimentacao-estoque-container .relatorio-info {
+    width: 100%;
+    margin-left: 5px;
+    float: left;
+    min-height: 102px;
+}
+
+.movimentacao-estoque-container .relatorio-info .data {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.movimentacao-estoque-container .relatorio-info .data > div {
+    padding-right: 10px;
+    min-width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 10px;
+}
+
+.movimentacao-estoque-container .relatorio-info .data > div > label {
+    float: left;
+}

@@ -39,8 +39,8 @@
         <welcome-file>restricted/home.xhtml</welcome-file>
     </welcome-file-list>
 
-    <!--  login filter -->
-    <!--filter>
+    <!--  login filter >
+    <filter>
         <filter-name>LoginFilter</filter-name>
         <filter-class>br.uem.apoioarestaurante.web.filter.LoginFilter</filter-class>
     </filter>
