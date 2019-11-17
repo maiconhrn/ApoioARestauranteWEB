@@ -23,9 +23,11 @@ public class ProdutoDAO extends HibernateBasicGenericDAO<Produto> {
         return ourInstance;
     }
 
-    private ProdutoDAO() {
+    public ProdutoDAO() {
         super(Produto.class);
     }
+    
+    
 
     public List<Produto> findProductsByFilters(boolean byId, long producId, boolean byDescription, String description) {
         try {

@@ -2,30 +2,48 @@
 package br.uem.apoioarestaurante.models;
 
 import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author Filipe Carvalho <filipekof97@gmail.com>
  */
-
+@Entity
 public class ProdutoModel implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
-    private int codigo;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column
     private String descricao;
+    
+    @Column
     private String unidadeMedida;
+    
+    @Column
+    @Enumerated(EnumType.STRING)
     private TipoProdutoEnum tipo;
+    
+    @Column
     private double precoCompra;
+    
+    @Column
     private double precoVenda;
+    
+    @Column
     private String fornecedor;
 
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public Long getId() {
+        return id;
     }
 
     public String getDescricao() {
@@ -75,8 +93,5 @@ public class ProdutoModel implements Serializable {
     public void setFornecedor(String fornecedor) {
         this.fornecedor = fornecedor;
     }
-    
-    
-    
-    
+  
 }

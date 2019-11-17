@@ -5,48 +5,92 @@
  */
 package br.uem.apoioarestaurante.controllers;
 
+import br.uem.apoioarestaurante.dao.generic.impl.ProdutoDAO;
 import br.uem.apoioarestaurante.models.ProdutoModel;
-import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
-import javax.inject.Named;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author Filipe Carvalho <filipekof97@gmail.com>
  */
 
-@Named
+@ManagedBean
 @SessionScoped
-public class ManterProdutoController implements Serializable {
+public class ManterProdutoController{
     
     
     private ProdutoModel produtoSelecionado;
     private String consoleTipo;
     
     private ProdutoModel produto = new ProdutoModel();
-    private List<ProdutoModel> produtos = new ArrayList<>();   
+    private List<ProdutoModel> produtos = new ArrayList<>();
     
+    ProdutoDAO prodao;
     
-    public void adicionar(){
-        produtos.add( produto);
+    public ManterProdutoController() {
+        produto = new ProdutoModel();
+        prodao = new ProdutoDAO();
+        produtos = null;
+        prodao.connect();
+        produtos = prodao.listAll();
+        prodao.disconnect();
+        
+    }
+    
+    public void inserirProduto(ProdutoModel produ) throws SQLException, ClassNotFoundException {
+        
+        prodao.connect();
+        prodao.save(produ);
+        prodao.disconnect();
+        produto = new ProdutoModel();
+        
+    }
+    
+    public void alterarProduto(ProdutoModel produ) throws ClassNotFoundException, SQLException {
+        prodao.connect();
+        prodao.update(produ);
+        prodao.disconnect();
         produto = new ProdutoModel();
     }
     
-    public void gerarCodigo(){
-        produto.setCodigo(1);
+    public void excluirProduto(ProdutoModel produ) throws SQLException {
+        prodao.connect();
+        prodao.delete(produ);
+        prodao.disconnect();
+        produto = new ProdutoModel();
     }
-            
     
-
-    public String getConsoleTipo() {
-        return consoleTipo;
+    public void listarProdutos() throws SQLException {
+        produtos = null;
+        prodao.connect();
+        produtos = prodao.listAll();
+        prodao.disconnect();
     }
-
-    public void setConsoleTipo(String console) {
-        this.consoleTipo = console;
+    
+    public void buscarProduto(String desc) throws SQLException {
+        produtos = null;
+        ProdutoModel produ = new ProdutoModel();
+        List<ProdutoModel> resultado = new ArrayList<>();
+        prodao.connect();
+        produtos = prodao.listAll();
+        for (int i = 0; i < produtos.size(); i++) {
+            produ = produtos.get(i);
+            if (produ.getDescricao().startsWith(desc)) {
+                resultado.add(produ);
+            }
+        }
+        produtos.clear();
+        produtos = resultado;
+        prodao.disconnect();
+        produto = new ProdutoModel();
+    }
+    
+    public void limparCampos(){
+        produto = new ProdutoModel();
     }
     
 
@@ -57,8 +101,14 @@ public class ManterProdutoController implements Serializable {
     public void setProdutoSelecionado(ProdutoModel produtoSelecionado) {
         this.produtoSelecionado = produtoSelecionado;
     }
-    
-    
+
+    public String getConsoleTipo() {
+        return consoleTipo;
+    }
+
+    public void setConsoleTipo(String consoleTipo) {
+        this.consoleTipo = consoleTipo;
+    }
 
     public ProdutoModel getProduto() {
         return produto;
@@ -75,7 +125,13 @@ public class ManterProdutoController implements Serializable {
     public void setProdutos(List<ProdutoModel> produtos) {
         this.produtos = produtos;
     }
-    
-    
-    
+
+    public ProdutoDAO getProdao() {
+        return prodao;
+    }
+
+    public void setProdao(ProdutoDAO prodao) {
+        this.prodao = prodao;
+    }
+       
 }

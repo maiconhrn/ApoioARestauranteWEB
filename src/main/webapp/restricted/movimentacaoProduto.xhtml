@@ -13,8 +13,8 @@
                 <f:facet name="header">
                     <p/>
                     <p:outputLabel for="codigo" value="Código:" style="text-align: left; float: none; width: 10%;"/> 
-                    <p:inputMask id="codigo" value="#{movimentacaoProdutoController.codigoProduto}" mask="999999" required="true"  style="text-align: center; float: none; width: 10%;"></p:inputMask>
-                    <p:commandButton value="Carregar" action="#{movimentacaoProdutoController.CarregarProduto()}" update="@form"  style="text-align: center; float: none;"></p:commandButton>
+                    <p:inputMask id="codigo" value="#{movimentacaoController.codigoProduto}" mask="999999" required="true"  style="text-align: center; float: none; width: 10%;"></p:inputMask>
+                    <p:commandButton value="Carregar" action="#{movimentacaoController.CarregarProduto()}" update="@form"  style="text-align: center; float: none;"></p:commandButton>
                     <p/>
                 </f:facet> 
                 <p/>
