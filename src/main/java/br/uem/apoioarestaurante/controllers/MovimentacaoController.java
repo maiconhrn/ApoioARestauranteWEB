@@ -60,8 +60,8 @@ public class MovimentacaoController implements Serializable {
     }
 
 
-    public String CarregarProduto() {
-        return "/restricted/manterProduto.xhtml?faces-redirect=true";
+    public void CarregarProduto() {
+
     }
 
 }

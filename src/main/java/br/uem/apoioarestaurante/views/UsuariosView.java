@@ -27,7 +27,7 @@ public class UsuariosView {
         usuarios = usuDAO.listAll();
     }
 
-    public String envia(String nomeUsuario, String senha) {        
+    public String envia(String nomeUsuario, String senha) {
         usuDAO.connect();
         usuarios = usuDAO.listAll();
         usuDAO.disconnect();
@@ -45,7 +45,6 @@ public class UsuariosView {
                 }
             }
         }
-        
         return "";
     }
 
