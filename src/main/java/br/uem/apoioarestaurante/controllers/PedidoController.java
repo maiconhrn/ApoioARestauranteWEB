@@ -82,10 +82,6 @@ public class PedidoController implements Serializable {
                         "Aviso!", "É necessário selecionar um Pedido na tabela para essa ação."));
     }
 
-    public void closeOrder() {
-
-    }
-
     public Pedido findById(Long id) {
         return pedidoModel.findById(id);
     }

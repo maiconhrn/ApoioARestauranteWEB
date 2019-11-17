@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+<link type="text/css" rel="stylesheet" href="../style/manutencao-pedido.css"/>
+<ui:decorate template="main-template.xhtml">
+    <h:form id="orderMaintenance">
+
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{fecharPedidoView.init()}"/>
+        </f:metadata>
+
+        <div class="order-maintenance-container">
+            <div style="min-height: 120px; width: 100%;">
+                <p:panel id="orderData" header="Dados do Pedido" styleClass="order-info">
+                    <div class="filters">
+                        <div>
+                            <p:outputLabel value="ID" for="idFilter" style="float: left; padding-top: 20px; padding-left: 30px; padding-right: 30px;"/>
+                        </div>
+                        <div>
+                            <p:inputText id="idFilter" disabled="true" style="float: left; padding-left: 20px; margin-top:  20px;"
+                                         value="#{manutencaoPedidoView.pedido.id}"  />
+                        </div>
+                        
+                        <div>
+                            <p:outputLabel value="Total" for="tableFilter" style="float: left; padding-top: 20px; padding-left: 30px; padding-right: 30px;" />
+                        </div>
+                        <div>
+                            <p:inputText id="tableFilter" disabled="true" style="float: left; padding-left: 20px; margin-top:  20px;"
+                                         value="#{manutencaoPedidoView.pedido.total}"/>
+                        </div>
+
+                    </div>
+                </p:panel>
+
+                <p:panel id="type" header="Tipo" styleClass="types">
+                    <p:selectOneRadio value="{manutencaoPedidoView.pedido.tipo}" unselectable="true" layout="grid"
+                                      columns="2">
+
+                        <p:ajax event="valueChange"
+                                update="orderMaintenance:orderData"/>
+
+                        <f:selectItems value="#{manutencaoPedidoView.types}" var="type" itemValue="#{type}"
+                                       itemLabel="#{type.textValue}"/>
+                    </p:selectOneRadio>
+                </p:panel>
+            </div>
+
+            <div style="width: 100%;">
+                <p:panel id="orderItems" header="Itens do Pedido">
+                    <p:dataTable styleClass="dataTable" id="orderItemsTable" var="itemPedido"
+                                 selectionMode="single" selection="#{manutencaoPedidoView.selectedItemPedido}"
+                                 rowKey="#{itemPedido.produto.id}" paginator="true"
+                                 value="#{manutencaoPedidoView.pedido.items}"
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                 rows="10" resizableColumns="true" editable="true" editMode="cell">
+
+                        <p:ajax event="cellEdit" listener="#{manutencaoPedidoView.onProductQttEdit}"/>
+
+                        <p:column headerText="ID">
+                            <h:outputText value="#{itemPedido.id}"/>
+                        </p:column>
+
+                        <p:column headerText="ID Pedido">
+                            <h:outputText value="#{itemPedido.pedido.id}"/>
+                        </p:column>
+
+                        <p:column headerText="Produto">
+                            <h:outputText value="#{itemPedido.produto.descricao}"/>
+                        </p:column>
+
+                        <p:column headerText="Quantidade">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{itemPedido.qtdProduto}"/></f:facet>
+                                <f:facet name="input"><p:inputText id="modelInput"
+                                                                   value="#{itemPedido.qtdProduto}"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Total">
+                            <h:outputText value="#{itemPedido.preco}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+            </div>
+            <div style="min-height: 120px; width: 100%;">
+                <p:panel id="fecharPedido" header="Fechar Pedido" styleClass="order-info" style="width: 100%">
+                    <div class="filters">
+                        <div>
+                            <p:outputLabel value="Recebido" for="recFilter" style="float: left; padding-top: 20px; padding-left: 30px; padding-right: 30px;"/>
+                        </div>
+                        
+                        <div>
+                            <p:inputText id="recFilter" disabled="false" value="#{manutencaoPedidoView.pedido.id}" style="float: left; padding-left: 20px; margin-top:  20px;"/>
+                        </div>
+
+                        <div>
+                            <p:outputLabel value="Troco" for="trocoFilter" style="float: left; margin-top: 20px; padding-left: 30px; padding-right: 30px; "/>
+                        </div>
+                        
+                        <div>
+                            <p:inputText id="trocoFilter" disabled="true" style="float: left; padding-left: 20px; margin-top:  20px;"
+                                         value="{manutencaoPedidoView.pedido.total}"/>
+                        </div>
+                        
+                        <div style="float: right; padding-top: 20px;">
+                            <p:commandButton value="Fechar" id="close" action="{pedidoController.closeOrder()}"
+                                             style="margin-right:20px; width: 150px;" icon="fa fa-check"/>
+                        </div>
+                        
+                        <div style="float: right; padding-top: 20px;">
+                            <p:commandButton value="Cancelar" id="cancel" action="{pedidoController.closeOrder()}"
+                                             style="margin-right:20px; width: 150px;" icon="fa fa-ban"/>
+                        </div>
+
+                    </div>
+                </p:panel>
+            </div>
+
+        </div>
+    </h:form>
+</ui:decorate>
+</html>

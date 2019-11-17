@@ -23,11 +23,14 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author Maicon
+ * Universidade Estadual de Maringá
+ *
+ * Autor: José Gabriel Júnior       Ra: 54011
  */
+
 @Named
 @SessionScoped
-public class ManutencaoPedidoView implements Serializable {
+public class FecharPedidoView implements Serializable {
 
     @Inject
     private PedidoView pedidoView;
@@ -162,5 +165,4 @@ public class ManutencaoPedidoView implements Serializable {
     public void setItemsNewOrUpdated(List<ItemPedido> itemsNewOrUpdated) {
         this.itemsNewOrUpdated = itemsNewOrUpdated;
     }
-    
 }
