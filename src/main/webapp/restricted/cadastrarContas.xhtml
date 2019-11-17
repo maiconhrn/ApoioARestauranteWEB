@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             xmlns:p="http://primefaces.org/ui"
+             template="main-template.xhtml"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <h1 class="aw-page-title">Cadastro de Contas a Pagar</h1>
+
+    <h:form id="frm">
+        <p:separator></p:separator>
+
+        <div class="ui-fluid">
+            <p:fieldset legend="Dados da Conta" style="height: 250px; width: 500px; border: 1px solid black; padding: 20px; margin: auto;">
+                <p:panelGrid columns="2" layout="grid" styleClass="panelgrid-noborder">
+                    <p:outputLabel value="Descrição:" for="descricao" />
+                    <p:inputText id="descricao" required="true" value="#{contasAPagarView.conta.descricao}"/>
+                    
+                    <p:outputLabel value="Produto:" for="produto" />
+                    <p:inputText id="produto" required="true" value="#{contasAPagarView.conta.produto}"/>
+                    
+                    <p:outputLabel value="Valor:" for="valor" />
+                    <p:inputNumber id="valor" value="#{contasAPagarView.conta.valor}"  symbol="R$ " decimalSeparator="," thousandSeparator="." style="text-align: center; float: none; width: 10%;" ></p:inputNumber>
+
+                    <p:outputLabel value="Quantidade:" for="quantidade" />
+                    <p:inputText id="quantidade" value="#{contasAPagarView.conta.qtd}" style="width: 100%; padding-right: 20px;">
+                        <p:keyFilter regEx="/[\d\-]/"/>
+                        <f:convertNumber />
+                    </p:inputText>
+
+                    <p:outputLabel value="Data do Pagamento:" for="mask" />
+                    <p:calendar id="mask" value="#{contasAPagarView.conta.dataPag}" pattern="dd-MM-yyyy" mask="true" required="true"/>
+ 
+                </p:panelGrid>
+                <p:separator></p:separator>
+
+                <p:panelGrid columns="2" layout="grid" styleClass="panelgrid-noborder">
+                    <p:commandButton id="bot3" value="Salvar" icon="fa fa-fw fa-save" actionListener="#{contasAPagarView.inserirContasAPagar(contasAPagarView.conta)}" action="#{contasAPagarView.retornar()}" update="@all" style="height: 30px;  text-align:center; width: 100%; margin-right: 20px;"/>
+
+                    <p:commandButton value="Cancelar" icon="fa fa-fw fa-close" actionListener="#{contasAPagarView.limparDados()}" action="contasAPagar"  update="@all" style="height: 30px;  text-align:center; width: 100%; margin-right: 20px;"/>
+                </p:panelGrid>
+            </p:fieldset>
+        </div>
+    </h:form>
+</ui:decorate>
