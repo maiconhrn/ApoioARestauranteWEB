@@ -162,5 +162,4 @@ public class ManutencaoPedidoView implements Serializable {
     public void setItemsNewOrUpdated(List<ItemPedido> itemsNewOrUpdated) {
         this.itemsNewOrUpdated = itemsNewOrUpdated;
     }
-    
 }

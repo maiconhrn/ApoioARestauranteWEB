@@ -14,29 +14,29 @@
                 <h:panelGrid id="grid1" columns="2" cellpadding="5">
                     
                     <h:outputLabel  value="Nome:" style="font-weight:bold"/>
-                    <p:inputText id="nome" value="#{usuariosController.usuario.name}" required="true" label="Nome:"/>
+                    <p:inputText id="nome" value="#{usuarioController.usuario.nome}" required="true" label="Nome:"/>
                     
                     <h:outputLabel value="CPF:" style="font-weight:bold"/>v
-                    <p:inputMask id="cpf" value="#{usuariosController.usuario.cpf}" mask="999.999.999-99" required="true"  style="width: 100%; padding-right: 20px;"/>
+                    <p:inputMask id="cpf" value="#{usuarioController.usuario.cpf}" mask="999.999.999-99" required="true" style="width: 100%; padding-right: 20px;"/>
                     
                     <h:outputLabel value="Data:" style="font-weight:bold"/>
-                    <p:calendar id="mask" value="#{usuariosController.usuario.birthDate}" pattern="dd-MM-yyyy" mask="true" required="true" label="Data Nasc" style=" width: 100%; padding-right: 20px;"/>
+                    <p:calendar id="mask" value="#{usuarioController.usuario.dataNascimento}" pattern="dd-MM-yyyy" mask="true" required="true" label="Data Nasc" style=" width: 100%; padding-right: 20px;"/>
                     
                     <!--h:outputLabel for="usu4" value="Login:" style="font-weight:bold"/>
                     <p:inputText id="ativo" value="{usuariosBean.usuario.ativo}" required="true" label="Login"/-->
                     
                     <h:outputLabel for="usu5" value="Login:" style="font-weight:bold"/>
-                    <p:inputText id="usu5" value="#{usuariosController.usuario.login}" required="true" label="Login"/>
+                    <p:inputText id="usu5" value="#{usuarioController.usuario.login}" required="true" label="Login"/>
 
 
                     <h:outputLabel for="pwd1" value="Senha: *" />
-                    <p:password id="pwd1" value="#{usuariosController.usuario.password}" match="pwd2" label="Password 1" required="true" />
+                    <p:password id="pwd1" value="#{usuarioController.usuario.senha}" match="pwd2" label="Password 1" required="true" />
 
                     <h:outputLabel for="pwd2" value="Confirme a senha: *" />
-                    <p:password id="pwd2" value="#{usuariosController.usuario.password}" label="Password 2" required="true" />
+                    <p:password id="pwd2" value="#{usuarioController.usuario.senha}" label="Password 2" required="true" />
 
                 </h:panelGrid>
-                <p:commandButton value="Confirmar" action="#{usuariosController.inserirCliente(usuariosController.usuario)}" update="cadusu" style="height: 50px; width: 120px; text-align:center;"/>
+                <p:commandButton value="Confirmar" action="#{usuarioController.inserirCliente(usuarioController.usuario)}" update="cadusu" style="height: 50px; width: 120px; text-align:center;"/>
             </h:panelGrid>
         </p:panel>
     </h:form>

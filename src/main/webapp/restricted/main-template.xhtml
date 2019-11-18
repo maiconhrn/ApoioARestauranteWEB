@@ -31,7 +31,6 @@
         }
     </style>
     <link type="text/css" rel="stylesheet" href="../style/main.css"/>
-    <link type="text/css" rel="stylesheet" href="../style/cadastroUsuario.css"/>
     <script type="text/javascript">
         PrimeFaces.locales['br'] = {
             closeText: 'Fechar',
@@ -80,11 +79,14 @@
                             <p:menuitem value="Usuarios" url="/apoio-a-restaurante/restricted/usuarios.xhtml"/>
                             <p:menuitem value="Cliente" url="/apoio-a-restaurante/restricted/clientes.xhtml"/>
                             <p:menuitem value="Permissões" url="/apoio-a-restaurante/restricted/permissoes.xhtml"/>
-                            <p:menuitem value="Grupo de Permissões" url="/apoio-a-restaurante/restricted/grupoPermissoes.xhtml"/>
-                            <p:menuitem value="Contas a Pagar" url="/apoio-a-restaurante/restricted/contasAPagar.xhtml"/>
+                            <p:menuitem value="Grupo de Permissões"
+                                        url="/apoio-a-restaurante/restricted/grupoPermissoes.xhtml"/>
+                            <p:menuitem value="Contas a Pagar"
+                                        url="/apoio-a-restaurante/restricted/contasAPagar.xhtml"/>
                             <p:menuitem value="Estoque" url="/apoio-a-restaurante/restricted/permissoes.xhtml"/>
                             <p:menuitem value="Produtos" url="/apoio-a-restaurante/restricted/manterProduto.xhtml"/>
-                            <p:menuitem value="Movimentação de Produtos" url="/apoio-a-restaurante/restricted/movimentacaoProduto.xhtml"/>
+                            <p:menuitem value="Movimentação de Produtos"
+                                        url="/apoio-a-restaurante/restricted/movimentacaoProduto.xhtml"/>
                         </p:submenu>
                     </p:panelMenu>
                     <p:panelMenu style="width:200px">
@@ -94,12 +96,18 @@
                     </p:panelMenu>
                     <p:panelMenu style="width:200px">
                         <p:submenu label="Relatórios">
-                            <p:menuitem value="Relatorio Movimentação de Estoque" url="/apoio-a-restaurante/restricted/relatorio-movimentacao-estoque.xhtml"/>
-                            <p:menuitem value="Relatorio Histórico de Pedidos" url="/apoio-a-restaurante/restricted/relatorio-historico-pedidos.xhtml"/>
-                            <p:menuitem value="Relatorio de Lucro" url="/apoio-a-restaurante/restricted/relatorioClientes.xhtml"/>
-                            <p:menuitem value="Relatorio de Clientes" url="/apoio-a-restaurante/restricted/relatorioClientes.xhtml"/>
-                            <p:menuitem value="Relatorio de Lucro" url="/apoio-a-restaurante/restricted/relatorioLucro.xhtml"/>
-                            <p:menuitem value="Relatorio de Produtos em Falta" url="/apoio-a-restaurante/restricted/relatorioProdutosFalta.xhtml"/>
+                            <p:menuitem value="Relatorio Movimentação de Estoque"
+                                        url="/apoio-a-restaurante/restricted/relatorio-movimentacao-estoque.xhtml"/>
+                            <p:menuitem value="Relatorio Histórico de Pedidos"
+                                        url="/apoio-a-restaurante/restricted/relatorio-historico-pedidos.xhtml"/>
+                            <p:menuitem value="Relatorio de Lucro"
+                                        url="/apoio-a-restaurante/restricted/relatorioClientes.xhtml"/>
+                            <p:menuitem value="Relatorio de Clientes"
+                                        url="/apoio-a-restaurante/restricted/relatorioClientes.xhtml"/>
+                            <p:menuitem value="Relatorio de Lucro"
+                                        url="/apoio-a-restaurante/restricted/relatorioLucro.xhtml"/>
+                            <p:menuitem value="Relatorio de Produtos em Falta"
+                                        url="/apoio-a-restaurante/restricted/relatorioProdutosFalta.xhtml"/>
                         </p:submenu>
                     </p:panelMenu>
                 </h:form>
@@ -107,7 +115,7 @@
             </p:layoutUnit>
             <p:layoutUnit position="center">
                 <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
-                <p:growl id="growl" showDetail="true" sticky="true">
+                <p:growl id="growl" showDetail="true" autoUpdate="true" sticky="true">
                     <p:autoUpdate/>
                 </p:growl>
                 <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false"

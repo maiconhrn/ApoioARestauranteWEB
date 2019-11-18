@@ -30,7 +30,7 @@
                 </p:column>
 
                 <p:column headerText="Descrição" style="height: 30px; width: 100px; text-align:center;">
-                    <h:outputText value="#{cliente.name}" />
+                    <h:outputText value="#{cliente.nome}" />
                 </p:column>
 
                 <p:column headerText="CPF" style="height: 30px; width: 150px; text-align:center;">
@@ -38,7 +38,7 @@
                 </p:column>
                 
                 <p:column headerText="Data de Nasc" style="height: 30px; width: 150px; text-align:center;">>
-                    <h:outputText value="#{cliente.birthDate}">
+                    <h:outputText value="#{cliente.dataNascimento}">
                         <f:convertDateTime pattern="dd/MM/yyyy"/>
                     </h:outputText>
                 </p:column>
@@ -52,7 +52,7 @@
                 </p:column>
 
                 <p:column headerText="Telefone" style="height: 20px; width: 100px; text-align:center;">
-                    <h:outputText value="#{cliente.telefone01}" />
+                    <h:outputText value="#{cliente.telefone}" />
                 </p:column>
 
                 <p:column style="width:55px;"  >
@@ -64,10 +64,10 @@
 
             <div class="ui-g" style="padding-top: 30px; padding-bottom: 30px;">
                 <div class="ui-g-12 ui-md-6 ui-lg-8">
-                    <p:inputText id="login1" value="#{clienteController.cli.name}" required="false" style="height: 20px; width: 100%;" />
+                    <p:inputText id="login1" value="#{clienteController.cli.nome}" required="false" style="height: 20px; width: 100%;" />
                 </div>
                 <div class="ui-g-12 ui-md-6 ui-lg-2">
-                    <p:commandButton icon="fa fa-fw fa-search" value="BUSCAR" action="#{clienteController.buscarCliente(clienteController.cli.name)}"  update=":frm"  style=" height:100%; width: 100px; text-align:center; float: left;" />
+                    <p:commandButton icon="fa fa-fw fa-search" value="BUSCAR" action="#{clienteController.buscarCliente(clienteController.cli.nome)}"  update=":frm"  style=" height:100%; width: 100px; text-align:center; float: left;" />
                 </div>
 
             <!--div class="ui-g" style="padding-top: 30px; padding-bottom: 30px; border: 1px solid black;">

@@ -110,7 +110,7 @@
                         <p:outputLabel for="mask" value="Data de Nasc:" style="font-weight:bold; float: left;" />
                     </div>
                     <div class="ui-g-12 ui-md-6 ui-lg-6">
-                        <p:calendar id="mask" value="#{clienteController.cli.dataNascimento}" pattern="dd-MM-yyyy" mask="true" required="true" label="Data Nasc" style=" width: 100%;;"/>
+                        <p:calendar id="mask" value="#{clienteController.cli.dataNascimento}" pattern="dd-MM-yyyy" mask="true" required="true" label="Data Nasc" style=" width: 100%; padding-right: 20px;"/>
                         <p:message for="mask"/>
                         <h:outputText value="#{validationView.text}" />
                     </div>
