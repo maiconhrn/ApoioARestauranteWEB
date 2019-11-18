@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+          
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<link type="text/css" rel="stylesheet" href="../style/relatorio-movimentacao-estoque.css"/>
+<ui:decorate template="main-template.xhtml">
+    <h:form id="contasAPagar">
+        <div class="contas-a-pagar-container">
+            <div style="min-height: 120px; width: 100%;">
+                <p:panel id="listaData" style="padding-botton: 100px" header="Lista de Contas a Pagar" styleClass="relatorio-info">
+                    <div>
+                        <p:dataTable var="contas" value="#{contasAPagarView.contas}" >
+
+                            <p:column headerText="Código" style="height: 30px; width: 50px; text-align:center;">
+                                <h:outputText value="#{contas.ID}" />
+                            </p:column>
+
+                            <p:column headerText="Descrição" style="height: 30px; width: 100px; text-align:center;">
+                                <h:outputText value="#{contas.descricao}" />
+                            </p:column>
+
+                            <p:column headerText="Produto" style="height: 30px; width: 150px; text-align:center;">
+                                <h:outputText value="#{contas.produto}" />
+                            </p:column>
+
+                            <p:column headerText="Data do Pagamento" style="height: 30px; width: 150px; text-align:center;">>
+                                <h:outputText value="#{contas.dataPag}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="Quantidade" style="height: 30px; width: 150px; text-align:center;">
+                                <h:outputText value="#{contas.qtd}" />
+                            </p:column>
+
+                            <p:column headerText="Valor" style="height: 30px; width: 150px; text-align:center;">
+                                <h:outputText value="#{contas.valor}" />
+                            </p:column>
+
+                            <p:column headerText="Ativo" style="height: 30px; width: 150px; text-align:center;">
+                                <h:outputText value="#{contas.ativo}" />
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </p:panel>
+                
+                <p:panel id="contasAPagarData" header="Filtros Relatório Contas a Pagar" styleClass="relatorio-info">
+                    <div class="data">
+                        
+                      
+                        <div>
+                            <p:outputLabel style="padding-right: 0px" value="A partir de" for="beginDate"/>
+                            <p:datePicker id="beginDate" style="padding-right: 20px"  value="#{relatorioContasAPagarView.beginFilter}"
+                                          showButtonBar="true"
+                                          showTime="true" pattern="dd/MM/yyyy" showIcon="true" required="true"
+                                          autocomplete="off" locale="br"
+                                          readonlyInput="true"/>
+
+                            <p:outputLabel style="padding-right: 0px" value="Até" for="endDate"/>
+                            <p:datePicker id="endDate"  value="#{relatorioContasAPagarView.endFilter}"
+                                          showButtonBar="true"
+                                          showTime="true" pattern="dd/MM/yyyy" showIcon="true" required="true"
+                                          autocomplete="off" locale="br"
+                                          readonlyInput="true"/>
+                            
+                        </div>
+                        
+                    </div>
+                </p:panel>
+            </div>
+
+            <div style="float: right; padding-top: 20px;">
+                <p:commandButton value="Gerar relatório" id="generate" action="#{relatorioContasAPagarController.generate()}"
+                                 style="margin-right:20px;" icon="fa fa-file"/>
+                <p:commandButton value="Cancelar" id="cancel" action="#{relatorioContasAPagarController.cancel()}"
+                                 immediate="true"
+                                 style="margin-right:20px;" icon="fa fa-ban"/>
+            </div>
+        </div>
+    </h:form>
+</ui:decorate>
+</html>
