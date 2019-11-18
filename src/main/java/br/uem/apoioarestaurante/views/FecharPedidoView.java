@@ -1,16 +1,12 @@
 package br.uem.apoioarestaurante.views;
 
-import br.uem.apoioarestaurante.controllers.ClienteController;
 import br.uem.apoioarestaurante.controllers.PedidoController;
 import br.uem.apoioarestaurante.controllers.UsuarioController;
-import br.uem.apoioarestaurante.metadata.entities.Cliente;
-import br.uem.apoioarestaurante.metadata.entities.ItemPedido;
 import br.uem.apoioarestaurante.metadata.entities.Pedido;
 import br.uem.apoioarestaurante.metadata.entities.Usuario;
 import br.uem.apoioarestaurante.metadata.types.PedidoTipo;
 import br.uem.apoioarestaurante.models.PedidoModel;
 import br.uem.apoioarestaurante.utils.FacesUtil;
-import org.primefaces.event.CellEditEvent;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -39,9 +35,6 @@ public class FecharPedidoView implements Serializable {
     private PedidoController pedidoController;
 
     @Inject
-    private ClienteController clienteController;
-
-    @Inject
     private UsuarioController usuarioController;
 
     @Inject
@@ -49,73 +42,22 @@ public class FecharPedidoView implements Serializable {
 
     private Date minDate;
 
-    private List<Cliente> clientes;
     private List<Usuario> usuarios;
-    private List<ItemPedido> itemPedidosRemoved;
-    private List<ItemPedido> itemsNewOrUpdated;
 
     private Pedido pedido;
-    private ItemPedido selectedItemPedido;
 
-    private void initForCreateOrder() {
-        clientes = clienteController.findAllClients();
+    private void initForCloseOrder(String id) {
         usuarios = usuarioController.findAllUser();
-        pedido = new Pedido();
-        pedido.setTipo(PedidoTipo.LOCAL);
-        itemPedidosRemoved = new ArrayList<>();
-        itemsNewOrUpdated = new ArrayList<>();
-    }
-
-    private void initForEditOrder(String id) {
-        clientes = clienteController.findAllClients();
-        usuarios = usuarioController.findAllUser();
-
         pedido = pedidoController.findById(Long.parseLong(id));
-        itemPedidosRemoved = new ArrayList<>();
-        itemsNewOrUpdated = new ArrayList<>();
+
     }
 
     @PostConstruct
     public void init() {
-        String maintenanceType = FacesUtil.getParam("type");
-        String editing = FacesUtil.getParam("editing");
+        String closeType = FacesUtil.getParam("type");
+        String closing = FacesUtil.getParam("closing");
         String orderId = FacesUtil.getParam("id");
-
-        if (editing == null || editing.equals("false")) {
-            if (maintenanceType != null) {
-                if (maintenanceType.equals("create")) {
-                    initForCreateOrder();
-                } else if (maintenanceType.equals("edit")) {
-                    initForEditOrder(orderId);
-                }
-            }
-        }
-    }
-
-    public void onProductQttEdit(CellEditEvent event) {
-        ItemPedido itemPedido = pedido.getItems().stream().filter(i -> i.getProduto().getId() == Long.parseLong(event.getRowKey())).findFirst().orElse(null);
-
-        if (itemPedido != null && !itemsNewOrUpdated.contains(itemPedido)) {
-            itemsNewOrUpdated.add(itemPedido);
-        }
-
-        pedido.refreshTotal();
-    }
-
-    public List<Cliente> getClientes() {
-        return clientes;
-    }
-
-    public void setClientes(List<Cliente> clientes) {
-        this.clientes = clientes;
-    }
-
-    public List<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
+        initForCloseOrder(orderId);
     }
 
     public Pedido getPedido() {
@@ -142,27 +84,44 @@ public class FecharPedidoView implements Serializable {
         this.minDate = minDate;
     }
 
-    public ItemPedido getSelectedItemPedido() {
-        return selectedItemPedido;
+    public PedidoView getPedidoView() {
+        return pedidoView;
     }
 
-    public void setSelectedItemPedido(ItemPedido selectedItemPedido) {
-        this.selectedItemPedido = selectedItemPedido;
+    public void setPedidoView(PedidoView pedidoView) {
+        this.pedidoView = pedidoView;
     }
 
-    public List<ItemPedido> getItemPedidosRemoved() {
-        return itemPedidosRemoved;
+    public PedidoController getPedidoController() {
+        return pedidoController;
     }
 
-    public void setItemPedidosRemoved(List<ItemPedido> itemPedidosRemoved) {
-        this.itemPedidosRemoved = itemPedidosRemoved;
+    public void setPedidoController(PedidoController pedidoController) {
+        this.pedidoController = pedidoController;
     }
 
-    public List<ItemPedido> getItemsNewOrUpdated() {
-        return itemsNewOrUpdated;
+    public UsuarioController getUsuarioController() {
+        return usuarioController;
     }
 
-    public void setItemsNewOrUpdated(List<ItemPedido> itemsNewOrUpdated) {
-        this.itemsNewOrUpdated = itemsNewOrUpdated;
+    public void setUsuarioController(UsuarioController usuarioController) {
+        this.usuarioController = usuarioController;
     }
+
+    public PedidoModel getPedidoModel() {
+        return pedidoModel;
+    }
+
+    public void setPedidoModel(PedidoModel pedidoModel) {
+        this.pedidoModel = pedidoModel;
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+
 }

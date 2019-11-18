@@ -23,7 +23,7 @@
                         </div>
                         <div>
                             <p:inputText id="idFilter" disabled="true" style="float: left; padding-left: 20px; margin-top:  20px;"
-                                         value="#{manutencaoPedidoView.pedido.id}"  />
+                                         value="#{fecharPedidoView.pedido.id}"  />
                         </div>
                         
                         <div>
@@ -31,20 +31,16 @@
                         </div>
                         <div>
                             <p:inputText id="tableFilter" disabled="true" style="float: left; padding-left: 20px; margin-top:  20px;"
-                                         value="#{manutencaoPedidoView.pedido.total}"/>
+                                         value="#{fecharPedidoView.pedido.total}"/>
                         </div>
 
                     </div>
                 </p:panel>
 
                 <p:panel id="type" header="Tipo" styleClass="types">
-                    <p:selectOneRadio value="{manutencaoPedidoView.pedido.tipo}" unselectable="true" layout="grid"
+                    <p:selectOneRadio value="#{fecharPedidoView.pedido.tipo}" disabled="true" unselectable="true" layout="grid"
                                       columns="2">
-
-                        <p:ajax event="valueChange"
-                                update="orderMaintenance:orderData"/>
-
-                        <f:selectItems value="#{manutencaoPedidoView.types}" var="type" itemValue="#{type}"
+                        <f:selectItems value="#{fecharPedidoView.types}" var="type" itemValue="#{type}"
                                        itemLabel="#{type.textValue}"/>
                     </p:selectOneRadio>
                 </p:panel>
@@ -52,14 +48,10 @@
 
             <div style="width: 100%;">
                 <p:panel id="orderItems" header="Itens do Pedido">
-                    <p:dataTable styleClass="dataTable" id="orderItemsTable" var="itemPedido"
-                                 selectionMode="single" selection="#{manutencaoPedidoView.selectedItemPedido}"
+                    <p:dataTable styleClass="dataTable" id="orderItemsTable" var="itemPedido"                             
                                  rowKey="#{itemPedido.produto.id}" paginator="true"
-                                 value="#{manutencaoPedidoView.pedido.items}"
-                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                                 rows="10" resizableColumns="true" editable="true" editMode="cell">
-
-                        <p:ajax event="cellEdit" listener="#{manutencaoPedidoView.onProductQttEdit}"/>
+                                 value="#{fecharPedidoView.pedido.items}"
+                                 rows="10" resizableColumns="true" editable="false" >
 
                         <p:column headerText="ID">
                             <h:outputText value="#{itemPedido.id}"/>
@@ -74,11 +66,7 @@
                         </p:column>
 
                         <p:column headerText="Quantidade">
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{itemPedido.qtdProduto}"/></f:facet>
-                                <f:facet name="input"><p:inputText id="modelInput"
-                                                                   value="#{itemPedido.qtdProduto}"/></f:facet>
-                            </p:cellEditor>
+                            <h:outputText value="#{itemPedido.qtdProduto}"/>
                         </p:column>
 
                         <p:column headerText="Total">
@@ -91,29 +79,24 @@
                 <p:panel id="fecharPedido" header="Fechar Pedido" styleClass="order-info" style="width: 100%">
                     <div class="filters">
                         <div>
-                            <p:outputLabel value="Recebido" for="recFilter" style="float: left; padding-top: 20px; padding-left: 30px; padding-right: 30px;"/>
+                            <p:outputLabel value="Recebido :" for="recFilter" 
+                                           style="float: left; padding-top: 20px; padding-left: 30px; padding-right: 30px;"/>
                         </div>
                         
                         <div>
-                            <p:inputText id="recFilter" disabled="false" value="#{manutencaoPedidoView.pedido.id}" style="float: left; padding-left: 20px; margin-top:  20px;"/>
+                            <p:inputNumber id="recFilter" disabled="false" value="#{fecharPedidoController.recebido}" 
+                                         style="float: left; padding-left: 20px; margin-top:  20px;"/>
                         </div>
 
-                        <div>
-                            <p:outputLabel value="Troco" for="trocoFilter" style="float: left; margin-top: 20px; padding-left: 30px; padding-right: 30px; "/>
-                        </div>
-                        
-                        <div>
-                            <p:inputText id="trocoFilter" disabled="true" style="float: left; padding-left: 20px; margin-top:  20px;"
-                                         value="{manutencaoPedidoView.pedido.total}"/>
-                        </div>
+
                         
                         <div style="float: right; padding-top: 20px;">
-                            <p:commandButton value="Fechar" id="close" action="{pedidoController.closeOrder()}"
+                            <p:commandButton value="Fechar" id="close" action="#{fecharPedidoController.conta(fecharPedidoView.pedido.total)}" 
                                              style="margin-right:20px; width: 150px;" icon="fa fa-check"/>
                         </div>
                         
                         <div style="float: right; padding-top: 20px;">
-                            <p:commandButton value="Cancelar" id="cancel" action="{pedidoController.closeOrder()}"
+                            <p:commandButton value="Cancelar" id="cancel" action="#{fecharPedidoController.cancel()}"
                                              style="margin-right:20px; width: 150px;" icon="fa fa-ban"/>
                         </div>
 
