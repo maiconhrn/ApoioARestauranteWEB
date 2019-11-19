@@ -88,37 +88,37 @@
                         Pedidos
                     </f:facet>
 
-                    <p:column headerText="ID">
+                    <p:column headerText="ID" style="height: 30px; width: 10px; text-align:center;">
                         <h:outputText value="#{pedido.id}"/>
                     </p:column>
 
-                    <p:column headerText="Tipo">
+                    <p:column headerText="Tipo" style="height: 30px; width: 10px; text-align:center;">
                         <h:outputText value="#{pedido.tipo.textValue}"/>
                     </p:column>
 
-                    <p:column headerText="Usuário">
+                    <p:column headerText="Usuário" style="height: 30px; width: 30px; text-align:center;">
                         <h:outputText value="#{pedido.usuario.nome}"/>
                     </p:column>
 
-                    <p:column headerText="Cliente">
+                    <p:column headerText="Cliente" style="height: 30px; width: 30px; text-align:center;">
                         <h:outputText value="#{pedido.cliente.nome}"/>
                     </p:column>
 
-                    <p:column headerText="Mesa">
+                    <p:column headerText="Mesa" style="height: 30px; width: 10px; text-align:center;">
                         <h:outputText value="#{pedido.mesa}"/>
                     </p:column>
 
-                    <p:column headerText="Preço total">
+                    <p:column headerText="Preço total" style="height: 30px; width: 10px; text-align:center;">
                         <h:outputText value="#{pedido.total}"/>
                     </p:column>
 
-                    <p:column headerText="Data início">
+                    <p:column headerText="Data início" style="height: 30px; width: 10px; text-align:center;">
                         <h:outputText value="#{pedido.dataInicio}">
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
                         </h:outputText>
                     </p:column>
 
-                    <p:column headerText="Data fim">
+                    <p:column headerText="Data fim" style="height: 30px; width: 10px; text-align:center;">
                         <h:outputText value="#{pedido.dataFim}">
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
                         </h:outputText>
@@ -135,23 +135,23 @@
                         Itens do Pedido
                     </f:facet>
 
-                    <p:column headerText="ID">
+                    <p:column headerText="ID" style="height: 30px; width: 10px; text-align:center;">
                         <h:outputText value="#{itemPedido.id}"/>
                     </p:column>
 
-                    <p:column headerText="ID Pedido">
+                    <p:column headerText="ID Pedido" style="height: 30px; width: 10px; text-align:center;">
                         <h:outputText value="#{itemPedido.pedido.id}"/>
                     </p:column>
 
-                    <p:column headerText="Produto">
+                    <p:column headerText="Produto" style="height: 30px; width: 50px; text-align:center;">
                         <h:outputText value="#{itemPedido.produto.descricao}"/>
                     </p:column>
 
-                    <p:column headerText="Quantidade">
+                    <p:column headerText="Quantidade" style="height: 30px; width: 10px; text-align:center;">
                         <h:outputText value="#{itemPedido.qtdProduto}"/>
                     </p:column>
 
-                    <p:column headerText="Total">
+                    <p:column headerText="Total" style="height: 30px; width: 10px; text-align:center;">
                         <h:outputText value="#{itemPedido.preco}"/>
                     </p:column>
                 </p:dataTable>
