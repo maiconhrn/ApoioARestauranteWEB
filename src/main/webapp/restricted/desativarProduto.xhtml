@@ -37,17 +37,11 @@
                 <p:outputLabel for="dataCadastro" value="Data do Cadastro: " style="text-align: right; float: left; width: 100%;"/>                
                 <p:datePicker id="dataCadastro" value="#{manterProdutoController.produtoSelecionado.dataCadastro}" disabled="true" dateTemplate="dateTemplateFunc" />
 
-                <p:outputLabel for="tipoCadastro" value="Tipo        :" style="text-align: right; float: left; width: 100%;"/>  
-                <p:selectOneMenu id="tipoCadastro" value="#{manterProdutoController.consoleTipo}" disabled="true">
-                    <f:selectItem itemLabel="Selecione" itemValue="" />
-                    <f:selectItem itemLabel="Revenda" itemValue="Revenda" />
-                    <f:selectItem itemLabel="Manufaturado" itemValue="Manufaturado" />                            
-                    <f:selectItem itemLabel="Matéria prima" itemValue="Matéria prima" />
-                </p:selectOneMenu>     
+                <p:outputLabel for="tipoCadastro" value="Tipo        :" style="text-align: right; float: left; width: 100%;"/>
+                <p:inputText  id="tipoCadastro" value="#{manterProdutoController.produtoSelecionado.tipo.textValue}" disabled="true"  />                
 
                 <p:outputLabel for="status" value="Status: " style="text-align: right; float: left; width: 100%;"/> 
-                <p:inputText id="status" value="#{manterProdutoController.produtoSelecionado.ativo}" disabled="true"  />                         
-
+                <p:inputText id="status" value="#{manterProdutoController.produtoSelecionado.ativo ? 'Ativo' : 'Inativo'}" disabled="true"  /> 
 
             </h:panelGrid>              
             <p:commandButton value="Ativar / Desativar" action="#{manterProdutoController.ativarDesativarProduto(manterProdutoController.produtoSelecionado)}" update="@all" style="text-align: center; float: none; width: 100%;" ></p:commandButton>
