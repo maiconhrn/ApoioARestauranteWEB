@@ -142,12 +142,11 @@ public class Produto implements Serializable {
                 Objects.equals(fornecedor, produto.fornecedor) &&
                 tipo == produto.tipo &&
                 Objects.equals(precoVenda, produto.precoVenda) &&
-                Objects.equals(ativo, produto.ativo) &&
-                Objects.equals(estoque, produto.estoque);
+                Objects.equals(ativo, produto.ativo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, descricao, dataCadastro, fornecedor, tipo, precoVenda, ativo, estoque);
+        return Objects.hash(id, descricao, dataCadastro, fornecedor, tipo, precoVenda, ativo);
     }
 }
