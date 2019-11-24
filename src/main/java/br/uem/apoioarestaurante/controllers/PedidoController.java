@@ -1,6 +1,7 @@
 package br.uem.apoioarestaurante.controllers;
 
 import br.uem.apoioarestaurante.metadata.entities.Pedido;
+import br.uem.apoioarestaurante.metadata.types.PedidoStatusTipo;
 import br.uem.apoioarestaurante.models.PedidoModel;
 import br.uem.apoioarestaurante.utils.FacesUtil;
 import br.uem.apoioarestaurante.views.PedidoView;
@@ -81,9 +82,26 @@ public class PedidoController implements Serializable {
                 .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                         "Aviso!", "É necessário selecionar um Pedido na tabela para essa ação."));
     }
+    
+    public String closeOrder() {
+        
+        if (pedidoView.getSelectedPedido() != null && pedidoView.getSelectedPedido().getStatus()==PedidoStatusTipo.OPENED) {
+            
+            return FacesUtil.FECHAR_PEDIDO + "&type=edit&id=" + pedidoView.getSelectedPedido().getId();
+        }
+        else if (pedidoView.getSelectedPedido().getStatus() == PedidoStatusTipo.CLOSED) {
+            FacesContext.getCurrentInstance()
+                .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                        "Aviso!", "O pedido selecionado já se encontra fechado!"));
+            return "";
 
-    public void closeOrder() {
+        }
 
+        FacesContext.getCurrentInstance()
+                .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                        "Aviso!", "É necessário selecionar um Pedido na tabela para essa ação."));
+
+        return "";
     }
 
     public Pedido findById(Long id) {

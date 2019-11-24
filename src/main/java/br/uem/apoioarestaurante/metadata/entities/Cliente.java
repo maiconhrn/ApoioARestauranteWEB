@@ -1,5 +1,12 @@
 package br.uem.apoioarestaurante.metadata.entities;
 
+/**
+ *     Universidade Estadual de Maringá
+ * 
+ *  Autor: José Gabriel Júnior       Ra: 54011
+ * 
+ */
+
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;

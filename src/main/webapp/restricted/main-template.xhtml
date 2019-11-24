@@ -64,7 +64,7 @@
     <div align="center">
         <p:layout style="min-width:1020px;max-width:2020px;min-height:950px">
             <p:layoutUnit position="north" size="100">
-                <!--h:graphicImage url="imagem de logo" style="width: 100%; object-fit: cover; height: 100%" /-->
+                <!--<h:graphicImage url="https://www.logaster.com.br/blog/wp-content/uploads/2017/03/Logo-de-Restaurante-1.png" style="object-fit: cover; height: 100%" />-->
             </p:layoutUnit>
 
             <p:layoutUnit position="west" size="220">
@@ -76,22 +76,26 @@
                     </p:panelMenu>
                     <p:panelMenu style="width:200px">
                         <p:submenu label="Gerir">
-                            <p:menuitem value="Usuarios" url="/ApoioARestauranteWEB/restricted/usuarios.xhtml"/>
-                            <p:menuitem value="Cliente" url="/ApoioARestauranteWEB/restricted/clientes.xhtml"/>
-                            <p:menuitem value="Permissões" url="/ApoioARestauranteWEB/restricted/permissoes.xhtml"/>
+                            <p:menuitem value="Usuarios" 
+                                        url="/apoio-a-restaurante/restricted/usuarios.xhtml"/>
+                            <p:menuitem value="Cliente" 
+                                        url="/apoio-a-restaurante/restricted/clientes.xhtml"/>
+                            <p:menuitem value="Permissões" 
+                                        url="/apoio-a-restaurante/restricted/permissoes.xhtml"/>
                             <p:menuitem value="Grupo de Permissões"
                                         url="/ApoioARestauranteWEB/restricted/grupoPermissoes.xhtml"/>
                             <p:menuitem value="Contas a Pagar"
-                                        url="/ApoioARestauranteWEB/restricted/contasAPagar.xhtml"/>
-                            <p:menuitem value="Estoque" url="/ApoioARestauranteWEB/restricted/permissoes.xhtml"/>
-                            <p:menuitem value="Produtos" url="/ApoioARestauranteWEB/restricted/manterProdutos.xhtml"/>
+                                        url="/apoio-a-restaurante/restricted/contasAPagar.xhtml"/>
+                            <p:menuitem value="Estoque" 
+                                        url="/apoio-a-restaurante/restricted/permissoes.xhtml"/>
+                            <p:menuitem value="Produtos" 
+                                        url="/apoio-a-restaurante/restricted/manterProduto.xhtml"/>
                             <p:menuitem value="Movimentação de Produtos"
                                         url="/ApoioARestauranteWEB/restricted/movimentacaoProduto.xhtml"/>
                         </p:submenu>
                     </p:panelMenu>
                     <p:panelMenu style="width:200px">
                         <p:submenu label="Pedidos">
-                            <p:menuitem value="Pedido" url="/ApoioARestauranteWEB/restricted/pedido.xhtml"/>
                         </p:submenu>
                     </p:panelMenu>
                     <p:panelMenu style="width:200px">
@@ -107,7 +111,8 @@
                             <p:menuitem value="Relatorio de Lucro"
                                         url="/ApoioARestauranteWEB/restricted/relatorioLucro.xhtml"/>
                             <p:menuitem value="Relatorio de Produtos em Falta"
-                                        url="/ApoioARestauranteWEB/restricted/relatorioProdutosFalta.xhtml"/>
+                            <p:menuitem value="Pedido" 
+                                        url="/apoio-a-restaurante/restricted/pedido.xhtml"/>
                         </p:submenu>
                     </p:panelMenu>
                 </h:form>
@@ -130,3 +135,6 @@
     </div>
 </h:body>
 </html>
+                                        url="/apoio-a-restaurante/restricted/relatorioProdutosFalta.xhtml"/>
+                            <p:menuitem value="Relatorio Contas a Pagar"
+                                        url="/apoio-a-restaurante/restricted/relatorioContasAPagar.xhtml"/>
