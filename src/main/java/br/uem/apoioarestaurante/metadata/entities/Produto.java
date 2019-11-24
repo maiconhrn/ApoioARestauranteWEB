@@ -35,12 +35,18 @@ public class Produto implements Serializable {
 
     @Column(name = "preco_venda")
     private Double precoVenda;
+    
+    @Column(name = "preco_compra")
+    private Double precoCompra;
 
     @Column(name = "ativo")
     private Boolean ativo;
 
     @OneToOne(mappedBy = "produto")
     private Estoque estoque;
+    
+    @Column(name = "unidade_medida")
+    private String unidadeMedida; 
 
     public Produto() {
         this.dataCadastro = new Date();
@@ -106,6 +112,24 @@ public class Produto implements Serializable {
     public void setEstoque(Estoque estoque) {
         this.estoque = estoque;
     }
+
+    public Double getPrecoCompra() {
+        return precoCompra;
+    }
+
+    public void setPrecoCompra(Double precoCompra) {
+        this.precoCompra = precoCompra;
+    }
+
+    public String getUnidadeMedida() {
+        return unidadeMedida;
+    }
+
+    public void setUnidadeMedida(String unidadeMedida) {
+        this.unidadeMedida = unidadeMedida;
+    }   
+    
+    
 
     @Override
     public boolean equals(Object o) {

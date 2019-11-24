@@ -23,7 +23,7 @@ public class ProdutoDAO extends HibernateBasicGenericDAO<Produto> {
         return ourInstance;
     }
 
-    private ProdutoDAO() {
+    public ProdutoDAO() {
         super(Produto.class);
     }
 
