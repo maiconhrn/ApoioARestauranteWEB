@@ -89,13 +89,13 @@ public class PedidoController implements Serializable {
             
             return FacesUtil.FECHAR_PEDIDO + "&type=edit&id=" + pedidoView.getSelectedPedido().getId();
         }
-        /*else if (pedidoView.getSelectedPedido().getStatus() == PedidoStatusTipo.CLOSED) {
+        else if (pedidoView.getSelectedPedido().getStatus() == PedidoStatusTipo.CLOSED) {
             FacesContext.getCurrentInstance()
                 .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                         "Aviso!", "O pedido selecionado já se encontra fechado!"));
             return "";
 
-        }*/
+        }
         else{
         FacesContext.getCurrentInstance()
                 .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
