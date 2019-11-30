@@ -95,19 +95,19 @@
 
                         <p:ajax event="cellEdit" listener="#{manutencaoPedidoView.onProductQttEdit}"/>
 
-                        <p:column headerText="ID">
+                        <p:column headerText="ID" style="height: 30px; width: 10px; text-align:center;">
                             <h:outputText value="#{itemPedido.id}"/>
                         </p:column>
 
-                        <p:column headerText="ID Pedido">
+                        <p:column headerText="ID Pedido" style="height: 30px; width: 10px; text-align:center;">
                             <h:outputText value="#{itemPedido.pedido.id}"/>
                         </p:column>
 
-                        <p:column headerText="Produto">
+                        <p:column headerText="Produto" style="height: 30px; width: 70px; text-align:center;">
                             <h:outputText value="#{itemPedido.produto.descricao}"/>
                         </p:column>
 
-                        <p:column headerText="Quantidade">
+                        <p:column headerText="Quantidade" style="height: 30px; width: 10px; text-align:center;">
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{itemPedido.qtdProduto}"/></f:facet>
                                 <f:facet name="input"><p:inputText id="modelInput"
@@ -115,12 +115,12 @@
                             </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="Total">
+                        <p:column headerText="Total" style="height: 30px; width: 10px; text-align:center;">
                             <h:outputText value="#{itemPedido.preco}"/>
                         </p:column>
                     </p:dataTable>
 
-                    <div style="padding-top: 20px;">
+                    <div style="padding-top: 0px;">
                         <p:commandButton value="Adicionar" id="new"
                                          action="#{manutencaoPedidoController.newOrderItem()}"
                                          style="margin-right:20px;" icon="fa fa-plus-square"/>
@@ -130,7 +130,7 @@
                                          style="margin-right:20px;" icon="fa fa-remove"/>
                     </div>
                 </p:panel>
-            </div>
+            <!--</div>-->
 
             <div style="float: right; padding-top: 20px;">
                 <p:commandButton value="Salvar" id="save" action="#{manutencaoPedidoController.save()}"
@@ -139,6 +139,7 @@
                 <p:commandButton value="Cancelar" id="cancel" action="#{manutencaoPedidoController.cancel()}"
                                  immediate="true"
                                  style="margin-right:20px;" icon="fa fa-ban"/>
+            </div>
             </div>
         </div>
     </h:form>

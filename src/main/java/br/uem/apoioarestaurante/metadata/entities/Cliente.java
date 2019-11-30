@@ -1,5 +1,12 @@
 package br.uem.apoioarestaurante.metadata.entities;
 
+/**
+ *     Universidade Estadual de Maringá
+ * 
+ *  Autor: José Gabriel Júnior       Ra: 54011
+ * 
+ */
+
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -131,10 +138,10 @@ public class Cliente extends Pessoa implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Cliente cliente = (Cliente) o;
-        return numero == cliente.numero &&
-                Objects.equals(id, cliente.id) &&
+        return Objects.equals(id, cliente.id) &&
                 Objects.equals(telefone, cliente.telefone) &&
                 Objects.equals(rua, cliente.rua) &&
+                Objects.equals(numero, cliente.numero) &&
                 Objects.equals(complemento, cliente.complemento) &&
                 Objects.equals(bairro, cliente.bairro) &&
                 Objects.equals(cidade, cliente.cidade) &&

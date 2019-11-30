@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+<link type="text/css" rel="stylesheet" href="../style/manutencao-pedido.css"/>
+<ui:decorate template="main-template.xhtml">
+    <h:form id="orderMaintenance">
+
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{fecharPedidoView.init()}"/>
+        </f:metadata>
+
+        <div class="order-maintenance-container">
+            <div style="min-height: 120px; width: 100%;">
+                <p:panel id="orderData" header="Dados do Pedido" styleClass="order-info">
+                    <div class="filters">
+                        <div>
+                            <p:outputLabel value="ID" for="idFilter" style="float: left; padding-top: 20px; padding-left: 30px; padding-right: 30px;"/>
+                        </div>
+                        <div>
+                            <p:inputText id="idFilter" disabled="true" style="float: left; padding-left: 20px; margin-top:  20px;"
+                                         value="#{fecharPedidoView.pedido.id}"  />
+                        </div>
+                        
+                        <div>
+                            <p:outputLabel value="Total" for="tableFilter" style="float: left; padding-top: 20px; padding-left: 30px; padding-right: 30px;" />
+                        </div>
+                        <div>
+                            <p:inputText id="tableFilter" disabled="true" style="float: left; padding-left: 20px; margin-top:  20px;"
+                                         value="#{fecharPedidoView.pedido.total}"/>
+                        </div>
+
+                    </div>
+                </p:panel>
+
+                <p:panel id="type" header="Tipo" styleClass="types">
+                    <p:selectOneRadio value="#{fecharPedidoView.pedido.tipo}" disabled="true" unselectable="true" layout="grid"
+                                      columns="2">
+                        <f:selectItems value="#{fecharPedidoView.types}" var="type" itemValue="#{type}"
+                                       itemLabel="#{type.textValue}"/>
+                    </p:selectOneRadio>
+                </p:panel>
+            </div>
+
+            <div style="min-height: 120px; width: auto">
+                <p:panel id="orderItems" header="Itens do Pedido" styleClass="order-info" style="width: 100%" >
+                    <p:dataTable styleClass="dataTable" id="orderItemsTable" var="itemPedido"                             
+                                 rowKey="#{itemPedido.produto.id}" paginator="true"
+                                 value="#{fecharPedidoView.pedido.items}"
+                                 rows="10" resizableColumns="true" editable="false" >
+
+                        <p:column headerText="ID" style="height: 30px; width: 10px; text-align:center;">
+                            <h:outputText value="#{itemPedido.id}"/>
+                        </p:column>
+
+                        <p:column headerText="ID Pedido" style="height: 30px; width: 10px; text-align:center;">
+                            <h:outputText value="#{itemPedido.pedido.id}"/>
+                        </p:column>
+
+                        <p:column headerText="Produto" style="height: 30px; width: 50px; text-align:center;">
+                            <h:outputText value="#{itemPedido.produto.descricao}"/>
+                        </p:column>
+
+                        <p:column headerText="Quantidade" style="height: 30px; width: 10px; text-align:center;">
+                            <h:outputText value="#{itemPedido.qtdProduto}"/>
+                        </p:column>
+
+                        <p:column headerText="Total" style="height: 30px; width: 10px; text-align:center;">
+                            <h:outputText value="#{itemPedido.preco}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+                
+                <p:panel id="fecharPedido" header="Fechar Pedido" styleClass="order-info" style="width: 100%">
+                    <div class="filters">
+                        <div>
+                            <p:outputLabel value="Recebido :" for="recFilter" 
+                                           style="float: left; padding-top: 20px; padding-left: 30px; padding-right: 30px;"/>
+                        </div>
+                        
+                        <div>
+                            <p:inputNumber id="recFilter" disabled="false" value="#{fecharPedidoController.recebido}" 
+                                         style="float: left; padding-left: 20px; margin-top:  20px;"/>
+                        </div>
+
+
+                        
+                        <div style="float: right; padding-top: 20px;">
+                            <p:commandButton value="Fechar" id="close" action="#{fecharPedidoController.conta(fecharPedidoView.pedido.total)}" 
+                                             style="margin-right:20px; width: 150px;" icon="fa fa-check"/>
+                        </div>
+                        
+                        <div style="float: right; padding-top: 20px;">
+                            <p:commandButton value="Cancelar" id="cancel" action="#{fecharPedidoController.cancel()}"
+                                             style="margin-right:20px; width: 150px;" icon="fa fa-ban"/>
+                        </div>
+
+                    </div>
+                </p:panel>
+            </div>
+
+        </div>
+    </h:form>
+</ui:decorate>
+</html>
