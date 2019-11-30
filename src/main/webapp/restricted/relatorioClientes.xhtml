@@ -70,13 +70,13 @@
                     <p:inputText id="nome" value="#{clienteController.cli.nome}"  style="text-align: center; float: left; width: 100%;"/>
                 </div>
                 <div  class="ui-g-12 ui-md-6 ui-lg-4" >
-                    <p:commandButton icon="ui-icon-refresh" value="RELATORIO" action="gerenciaClientes" update=":frm"  style=" height:30px; width: 120px; text-align:center; float: right;" />
+                    <p:commandButton icon="fa fa-file" value="RELATORIO" action="#{relatorioClientesController.generate()}" update=":frm"  style=" height:30px; width: 120px; text-align:center; float: right;" />
                 </div>
                 <div  class="ui-g-12 ui-md-6 ui-lg-1" >
                     <p:outputLabel for="dataIn" value="Data Inícial:" style="font-weight:bold; float: left;"/>
                 </div>
                 <div  class="ui-g-12 ui-md-6 ui-lg-3" >
-                    <p:inputMask id="dataIn" value="A DEFINIR" mask="99/99/9999" required="true" style="text-align: center; float: left; width: 100%;"/>
+                    <p:inputMask id="dataIn" value="#{relatorioClientesView.inicio}" mask="99/99/9999" required="true" style="text-align: center; float: left; width: 100%;"/>
                     <p:message for="dataIn" />
                     <h:outputText value="#{validationView.text}" />
                 </div>
@@ -84,7 +84,7 @@
                     <p:outputLabel for="dataFim" value="Data Final:" style="font-weight:bold; float: left;"/>
                 </div>
                 <div  class="ui-g-12 ui-md-6 ui-lg-3" >
-                    <p:inputMask id="dataFim" value="A DEFINIR" mask="99/99/9999" required="true" style="text-align: center; float: left; width: 100%;"/>
+                    <p:inputMask id="dataFim" value="#{relatorioClientesView.fim}" mask="99/99/9999" required="true" style="text-align: center; float: left; width: 100%;"/>
                     <p:message for="dataFim" />
                     <h:outputText value="#{validationView.text}" />
                 </div>
