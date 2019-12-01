@@ -110,8 +110,8 @@ public class Estoque implements Serializable {
     }
 
     public MovimentoEstoque novaMovimentacaoEstoque(MovimentoEstoqueTipo tipo, int qtd, Usuario usuario) throws EstoqueException {
-        if (tipo == MovimentoEstoqueTipo.OUT && this.getQtdEmEstoque() <= 0) {
-            throw new EstoqueException("Não e possivel fazer baixa no estoque: quantidade de produtos no sistema é 0");
+        if (tipo == MovimentoEstoqueTipo.OUT && (this.getQtdEmEstoque() <= 0 || this.getQtdEmEstoque() - qtd < 0)) {
+            throw new EstoqueException("Não e possivel fazer baixa no estoque: quantidade em estoque não suportada");
         }
 
         MovimentoEstoque movimentoEstoque = new MovimentoEstoque();
@@ -122,10 +122,13 @@ public class Estoque implements Serializable {
         movimentoEstoque.setUsuario(usuario);
 
         this.setQtdEmEstoque(tipo == MovimentoEstoqueTipo.IN ? this.getQtdEmEstoque() + qtd : this.getQtdEmEstoque() - qtd);
+
+        Date today = new Date();
+
         if (tipo == MovimentoEstoqueTipo.IN) {
-            this.setUltimaEntrada(new Date());
+            this.setUltimaEntrada(today);
         } else {
-            this.setUltimaSaida(new Date());
+            this.setUltimaSaida(today);
         }
 
         return movimentoEstoque;

@@ -1,5 +1,6 @@
 package br.uem.apoioarestaurante.models;
 
+import br.uem.apoioarestaurante.dao.ItemPedidoDAO;
 import br.uem.apoioarestaurante.dao.PedidoDAO;
 import br.uem.apoioarestaurante.exceptions.EstoqueException;
 import br.uem.apoioarestaurante.metadata.entities.*;
@@ -66,18 +67,54 @@ public class PedidoModel implements Serializable {
         return pedido;
     }
 
+    public Pedido saveOrUpdate(Pedido pedido) {
+        return (pedido.getId() != null && pedido.getId() != 0D)
+                ? update(pedido)
+                : save(pedido);
+    }
+
     public ItemPedido update(ItemPedido itemPedido) throws Exception {
         Estoque estoque = itemPedido.getProduto().getEstoque();
 
         MovimentoEstoque movimentoEstoque = null;
         try {
             if (estoque != null) {
-                movimentoEstoque = estoque.novaMovimentacaoEstoque(
-                        itemPedido.getAtivo() ? MovimentoEstoqueTipo.OUT : MovimentoEstoqueTipo.IN,
-                        itemPedido.getQtdProduto(),
-                        itemPedido.getPedido().getUsuario());
+                if (!itemPedido.getAtivo()) {
+                    movimentoEstoque = estoque.novaMovimentacaoEstoque(
+                            MovimentoEstoqueTipo.IN,
+                            itemPedido.getQtdProduto(),
+                            itemPedido.getPedido().getUsuario());
 
-                pedidoDAO.saveMovimentoEstoque(movimentoEstoque);
+                    pedidoDAO.saveMovimentoEstoque(movimentoEstoque);
+                } else {
+                    if (itemPedido.getId() != null) {
+                        ItemPedidoDAO itemPedidoDAO = ItemPedidoDAO.getInstance();
+
+                        itemPedidoDAO.connect();
+                        ItemPedido antigo = itemPedidoDAO.findById(itemPedido.getId());
+                        itemPedidoDAO.disconnect();
+
+                        if (antigo != null) {
+                            int diff = itemPedido.getQtdProduto() - antigo.getQtdProduto();
+
+                            if (diff != 0) {
+                                movimentoEstoque = estoque.novaMovimentacaoEstoque(
+                                        diff < 0 ? MovimentoEstoqueTipo.IN : MovimentoEstoqueTipo.OUT,
+                                        Math.abs(diff),
+                                        itemPedido.getPedido().getUsuario());
+
+                                pedidoDAO.saveMovimentoEstoque(movimentoEstoque);
+                            }
+                        }
+                    } else {
+                        movimentoEstoque = estoque.novaMovimentacaoEstoque(
+                                MovimentoEstoqueTipo.OUT,
+                                itemPedido.getQtdProduto(),
+                                itemPedido.getPedido().getUsuario());
+
+                        pedidoDAO.saveMovimentoEstoque(movimentoEstoque);
+                    }
+                }
             }
 
             pedidoDAO.updateItemPedido(itemPedido);
