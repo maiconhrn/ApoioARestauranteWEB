@@ -14,7 +14,7 @@
         <p:separator></p:separator>
 
         <div class="ui-fluid">
-            <p:fieldset legend="Dados básicos" style="height: 250px; width: 500px; border: 1px solid black; padding: 20px; margin: auto;">
+            <p:fieldset legend="Dados básicos" style=" margin-top:100px;  size: auto; border: 1px solid black; padding: 20px; margin: auto;">
                 <p:panelGrid columns="2" layout="grid" styleClass="panelgrid-noborder">
                     <p:outputLabel value="Nome" for="nome" />
                     <p:inputText id="nome" required="true" value="#{usuariosView.usuario.nome}"/>
@@ -30,10 +30,43 @@
 
                     <p:outputLabel value="Senha" for="senha"  />
                     <p:password id="senha" required="true" value="#{usuariosView.usuario.senha}"/>
-                </p:panelGrid>
+                    </p:panelGrid>
+                    <p:dataTable id="per1" var="grupos" value="#{grupoPermissaoController.grupos}" >
+                        <f:facet name="header" >
+                            <div class="ui-g" >
+                                <div class="ui-g-4"></div>
+                                <div class="ui-g-4" style="align-self: center; ">
+                                    Grupos de Permissoes
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-lg-3"></div>
+                                <div class="ui-g-12 ui-lg-1" >
+                                    <p:commandButton icon="ui-icon-refresh" value="Atualizar" action="#{grupoPermissaoController.listarGrupoPermissoes()}" update=":frm"  style=" height:30px; width: 100px; text-align:center;" />
+                                </div>
+                            </div>
+
+                        </f:facet>
+                        <p:column style="width:10px;"  >
+                            <p:selectBooleanCheckbox value="#{usuariosView.permissoes}"/>
+                        </p:column>
+                        <p:column headerText="Código" style="height: 30px; width: 50px; text-align:center;">
+                            <h:outputText value="#{grupos.id}" />
+                        </p:column>
+
+                        <p:column headerText="Descrição" style="height: 30px; width: 100px; text-align:center;">
+                            <h:outputText value="#{grupos.descricao}" />
+                        </p:column>
+
+                        <p:column headerText="Observações" style="height: 30px; width: 150px; text-align:center;">
+                            <h:outputText value="#{grupos.observacao}" />
+                        </p:column>
+
+                        
+                    </p:dataTable>
+                    
+                <!--</p:panelGrid>-->
                 <p:separator></p:separator>
 
-                <p:panelGrid columns="2" layout="grid" styleClass="panelgrid-noborder">
+                <p:panelGrid columns="2" layout="grid" styleClass="panelgrid-noborder" style="height: 50px; width: 500px; ">
                     <p:commandButton id="bot3" value="Salvar" icon="fa fa-fw fa-save" actionListener="#{usuariosView.inserirUsuario(usuariosView.usuario)}" action="#{usuariosView.retornar()}" update="@all" style="height: 30px;  text-align:center; width: 100%; margin-right: 20px;"/>
 
                     <p:commandButton value="Cancelar" icon="fa fa-fw fa-close" actionListener="#{usuariosView.limparDados()}" action="usuarios"  update="@all" style="height: 30px;  text-align:center; width: 100%; margin-right: 20px;"/>

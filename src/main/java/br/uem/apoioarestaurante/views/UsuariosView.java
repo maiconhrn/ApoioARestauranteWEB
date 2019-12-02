@@ -19,6 +19,15 @@ public class UsuariosView {
     private Usuario usuario;
     private UsuarioDAO usuDAO;
     List<Usuario> usuarios;
+    private boolean permissoes;
+
+    public boolean isPermissoes() {
+        return permissoes;
+    }
+
+    public void setPermissoes(boolean permissoes) {
+        this.permissoes = permissoes;
+    }
 
     public UsuariosView() {
         usuario = new Usuario();
