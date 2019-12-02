@@ -56,6 +56,7 @@ public class ProdutoItemPedidoController implements Serializable {
             pedido.setTotal(pedido.getTotal() + itemPedido.getPreco());
 
             manutencaoPedidoView.getItemsNewOrUpdated().add(itemPedido);
+            manutencaoPedidoView.getItemPedidosRemoved().remove(itemPedido);
             return FacesUtil.ORDER_MAINTENANCE + "&editing=true";
         }
 
