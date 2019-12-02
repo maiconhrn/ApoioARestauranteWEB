@@ -8,7 +8,6 @@ package br.uem.apoioarestaurante.controllers;
 import br.uem.apoioarestaurante.dao.ProdutoDAO;
 import br.uem.apoioarestaurante.metadata.entities.Produto;
 import br.uem.apoioarestaurante.metadata.types.ProdutoTipo;
-import br.uem.apoioarestaurante.models.ProdutoModel;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
