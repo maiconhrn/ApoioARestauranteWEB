@@ -5,8 +5,12 @@ import br.uem.apoioarestaurante.exceptions.DAOException;
 import br.uem.apoioarestaurante.metadata.entities.Cliente;
 
 /**
- * @author Maicon
+ *     Universidade Estadual de Maringá
+ * 
+ *  Autor: José Gabriel Júnior       Ra: 54011
+ * 
  */
+
 public class ClienteDAO extends HibernateBasicGenericDAO<Cliente> {
 
     private static ClienteDAO ourInstance = new ClienteDAO();
