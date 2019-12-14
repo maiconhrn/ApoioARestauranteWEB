@@ -8,6 +8,7 @@ import br.uem.apoioarestaurante.metadata.types.PedidoTipo;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,6 +32,20 @@ public class PedidoDAO extends HibernateBasicGenericDAO<Pedido> {
         produtoDAO = ProdutoDAO.getInstance();
         itemPedidoDAO = ItemPedidoDAO.getInstance();
         estoqueDAO = EstoqueDAO.getInstance();
+    }
+
+    public List<Pedido> findInInitialDateRange(Date de, Date ate) {
+        try {
+            CriteriaBuilder cb = getSession().getCriteriaBuilder();
+            CriteriaQuery<Pedido> criteriaQuery = cb.createQuery(Pedido.class);
+            Root<Pedido> root = criteriaQuery.from(Pedido.class);
+            List<Predicate> predicates = new ArrayList<>(Arrays.asList(cb.greaterThanOrEqualTo(root.get("dataInicio"), de),
+                    cb.lessThanOrEqualTo(root.get("dataInicio"), ate)));
+
+            return getSession().createQuery(criteriaQuery.where(predicates.toArray(new Predicate[0]))).getResultList();
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
     }
 
     public List<Pedido> findByOrderType(PedidoTipo pedidoTipo) {

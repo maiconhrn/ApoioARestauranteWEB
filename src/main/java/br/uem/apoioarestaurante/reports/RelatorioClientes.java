@@ -57,7 +57,7 @@ public class RelatorioClientes extends AbstractReportFactory<Pedido> {
             
             JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(load(Id)));
             
-            JasperExportManager.exportReportToPdfFile(print, new StringBuilder("C:\\Users\\Gabriel\\Desktop\\aar\\reports\\")
+            JasperExportManager.exportReportToPdfFile(print, new StringBuilder("C:\\aar\\reports\\")
                     .append(getEntityClass().getSimpleName())
                     .append("_Report_")
                     .append(new Date().getTime())

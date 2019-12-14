@@ -9,18 +9,25 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * @author Maicon
  */
-public class TestPedidosReportFactory extends AbstractReportFactory<Pedido> {
+public class PedidosReportFactory extends AbstractReportFactory<Pedido> {
 
     private String reportFontFileName;
+    private String subreportFontFileName;
+    private Date dataDe;
+    private Date dataPara;
 
-    public TestPedidosReportFactory() {
+    public PedidosReportFactory(Date dataDe, Date dataPara) {
         super(Pedido.class);
-        reportFontFileName = "test_pedidos_report.jrxml";
+        this.dataDe = dataDe;
+        this.dataPara = dataPara;
+        reportFontFileName = "pedidos_report.jrxml";
+        subreportFontFileName = "item-pedido-subreport.jrxml";
     }
 
     @Override
@@ -29,7 +36,7 @@ public class TestPedidosReportFactory extends AbstractReportFactory<Pedido> {
 
         pedidoDAO.connect();
 
-        List<Pedido> pedidos = pedidoDAO.listAll();
+        List<Pedido> pedidos = pedidoDAO.findInInitialDateRange(dataDe, dataPara);
 
         pedidoDAO.disconnect();
 
@@ -40,9 +47,15 @@ public class TestPedidosReportFactory extends AbstractReportFactory<Pedido> {
     public void generateReport() {
         try {
             InputStream reportFont = this.getClass().getResourceAsStream("/reports/" + reportFontFileName);
+            InputStream subreportFont = this.getClass().getResourceAsStream("/reports/" + subreportFontFileName);
 
             JasperReport report = JasperCompileManager.compileReport(reportFont);
-            JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(load()));
+            JasperReport subreport = JasperCompileManager.compileReport(subreportFont);
+
+            HashMap<String, Object> parameters = new HashMap<>();
+            parameters.put("subreport", subreport);
+
+            JasperPrint print = JasperFillManager.fillReport(report, parameters, new JRBeanCollectionDataSource(load()));
             JasperExportManager.exportReportToPdfFile(print, new StringBuilder("C:\\aar\\reports\\")
                     .append(getEntityClass().getSimpleName())
                     .append("_Report_")
