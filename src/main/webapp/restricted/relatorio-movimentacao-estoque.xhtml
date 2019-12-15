@@ -36,9 +36,9 @@
             </div>
 
             <div style="float: right; padding-top: 20px;">
-                <p:commandButton value="Gerar relatório" id="generate" action="#{relatorioManutencaoEstoqueController.generate()}"
+                <p:commandButton value="Gerar relatório" id="generate" ajax="false" action="#{relatorioMovimentacaoEstoqueController.generate()}"
                                  style="margin-right:20px;" icon="fa fa-file"/>
-                <p:commandButton value="Cancelar" id="cancel" action="#{relatorioManutencaoEstoqueController.cancel()}"
+                <p:commandButton value="Cancelar" id="cancel" action="#{relatorioMovimentacaoEstoqueController.cancel()}"
                                  immediate="true"
                                  style="margin-right:20px;" icon="fa fa-ban"/>
             </div>

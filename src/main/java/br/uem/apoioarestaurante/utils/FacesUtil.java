@@ -1,6 +1,13 @@
 package br.uem.apoioarestaurante.utils;
 
+import br.uem.apoioarestaurante.reports.generic.resource.ReportResources;
+
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -20,5 +27,34 @@ public class FacesUtil {
         FacesContext context = FacesContext.getCurrentInstance();
         Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
         return paramMap.get(paramName);
+    }
+
+    public static void downloadFile(String filePath) {
+        try {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            ExternalContext externalContext = facesContext.getExternalContext();
+
+            String fileName = "Relatorio_" + new Date().getTime() + ".pdf";
+
+            externalContext.responseReset();
+            externalContext.setResponseContentType(ReportResources.REPORTS_DEFAULT_CONTENT_TYPE);
+            externalContext.setResponseHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+
+            FileInputStream inputStream = new FileInputStream(new File(filePath));
+            OutputStream outputStream = externalContext.getResponseOutputStream();
+
+            byte[] buffer = new byte[1024];
+
+            int length;
+            while ((length = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, length);
+            }
+
+            inputStream.close();
+
+            facesContext.responseComplete();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

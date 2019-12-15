@@ -9,14 +9,14 @@ import java.text.SimpleDateFormat;
 /**
  * @author Maicon
  */
-public class PedidosReportFactoryTest {
+public class MovimentosEstoqueReportFactoryTest {
 
     @Test
     public void generateReport() {
-        PedidosReportFactory reportFactory = null;
+        MovimentosEstoqueReportFactory reportFactory = null;
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            reportFactory = new PedidosReportFactory(sdf.parse("01/09/2019"), sdf.parse("01/12/2019"));
+            reportFactory = new MovimentosEstoqueReportFactory(sdf.parse("01/09/2019"), sdf.parse("31/12/2019"));
 
             reportFactory.generateReport();
         } catch (ParseException | ReportException e) {

@@ -1,8 +1,8 @@
 package br.uem.apoioarestaurante.reports;
 
-import br.uem.apoioarestaurante.dao.PedidoDAO;
+import br.uem.apoioarestaurante.dao.MovimentoEstoqueDAO;
 import br.uem.apoioarestaurante.exceptions.ReportException;
-import br.uem.apoioarestaurante.metadata.entities.Pedido;
+import br.uem.apoioarestaurante.metadata.entities.MovimentoEstoque;
 import br.uem.apoioarestaurante.reports.generic.impl.AbstractReportFactory;
 import br.uem.apoioarestaurante.reports.generic.resource.ReportResources;
 import net.sf.jasperreports.engine.*;
@@ -11,57 +11,48 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 /**
  * @author Maicon
  */
-public class PedidosReportFactory extends AbstractReportFactory<Pedido> {
+public class MovimentosEstoqueReportFactory extends AbstractReportFactory<MovimentoEstoque> {
 
     private String reportFontFileName;
-    private String subreportFontFileName;
     private Date dataDe;
     private Date dataPara;
 
-    public PedidosReportFactory(Date dataDe, Date dataPara) {
-        super(Pedido.class);
+    public MovimentosEstoqueReportFactory(Date dataDe, Date dataPara) {
+        super(MovimentoEstoque.class);
         this.dataDe = dataDe;
         this.dataPara = dataPara;
-        reportFontFileName = "pedidos-report.jrxml";
-        subreportFontFileName = "item-pedido-subreport.jrxml";
+        reportFontFileName = "movimentos-estoque-report.jrxml";
     }
 
     @Override
-    public List<Pedido> load() throws ReportException {
-        PedidoDAO pedidoDAO = PedidoDAO.getInstance();
+    public List<MovimentoEstoque> load() throws ReportException {
+        MovimentoEstoqueDAO movimentoEstoqueDAO = MovimentoEstoqueDAO.getInstance();
 
-        pedidoDAO.connect();
+        movimentoEstoqueDAO.connect();
 
-        List<Pedido> pedidos = pedidoDAO.findInInitialDateRange(dataDe, dataPara);
+        List<MovimentoEstoque> movimentosEstoque = movimentoEstoqueDAO.findInInitialDateRange(dataDe, dataPara);
 
-        if (pedidos == null || pedidos.isEmpty()) {
+        if (movimentosEstoque == null || movimentosEstoque.isEmpty()) {
             throw new ReportException("Nenhum resultado foi encontrado para estes filtros");
         }
 
-        pedidoDAO.disconnect();
+        movimentoEstoqueDAO.disconnect();
 
-        return pedidos != null ? pedidos : new ArrayList<>();
+        return movimentosEstoque != null ? movimentosEstoque : new ArrayList<>();
     }
 
     @Override
     public String generateReport() throws ReportException {
         try {
             InputStream reportFont = this.getClass().getResourceAsStream("/reports/" + reportFontFileName);
-            InputStream subreportFont = this.getClass().getResourceAsStream("/reports/" + subreportFontFileName);
 
             JasperReport report = JasperCompileManager.compileReport(reportFont);
-            JasperReport subreport = JasperCompileManager.compileReport(subreportFont);
-
-            HashMap<String, Object> parameters = new HashMap<>();
-            parameters.put("subreport", subreport);
-
-            JasperPrint print = JasperFillManager.fillReport(report, parameters, new JRBeanCollectionDataSource(load()));
+            JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(load()));
 
             String reportFilePath = new StringBuilder(ReportResources.REPORTS_DIRECTORY_RESOURCE)
                     .append(getEntityClass().getSimpleName())
