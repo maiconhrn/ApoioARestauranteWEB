@@ -3,9 +3,7 @@ package br.uem.apoioarestaurante.dao;
 import br.uem.apoioarestaurante.metadata.entities.*;
 import br.uem.apoioarestaurante.metadata.types.PedidoTipo;
 import br.uem.apoioarestaurante.metadata.types.ProdutoTipo;
-import br.uem.apoioarestaurante.models.GrupoPermissao;
 import org.junit.Test;
-import br.uem.apoioarestaurante.models.Permissao;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,11 +22,22 @@ public class PedidoDAOTest {
     @Test
     public void seachByFilters() throws ParseException {
         PedidoDAO pedidoDAO = PedidoDAO.getInstance();
+        UsuarioDAO usuarioDAO = UsuarioDAO.getInstance();
         ClienteDAO clienteDAO = ClienteDAO.getInstance();
         ProdutoDAO produtoDAO = ProdutoDAO.getInstance();
         EstoqueDAO estoqueDAO = EstoqueDAO.getInstance();
-        UsuarioDAO usuarioDAO = UsuarioDAO.getInstance();
-        
+
+        Usuario usuario = new Usuario();
+        usuario.setNome("José Carlos Almirante");
+        usuario.setCpf("10495058912");
+        usuario.setLogin("jose");
+        usuario.setSenha("123");
+        usuario.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("16/06/1998"));
+
+        usuarioDAO.connect();
+        usuarioDAO.save(usuario);
+        usuarioDAO.disconnect();
+
         Cliente cliente = new Cliente();
         cliente.setNome("Agostinho Carrara");
         cliente.setCpf("12365484452");
@@ -88,7 +97,7 @@ public class PedidoDAOTest {
         Pedido pedido1 = new Pedido();
         pedido1.setDataInicio(new Date());
         pedido1.setTipo(PedidoTipo.LOCAL);
-        pedido1.setUsuario(usuarioDAO.findById(Long.MIN_VALUE));
+        pedido1.setUsuario(usuario);
         pedido1.setMesa(23);
         pedido1.setItems(Arrays.asList(item1));
         item1.setPedido(pedido1);
@@ -99,7 +108,7 @@ public class PedidoDAOTest {
         Pedido pedido2 = new Pedido();
         pedido2.setDataInicio(new Date());
         pedido2.setTipo(PedidoTipo.DELIVERY);
-        pedido2.setUsuario(usuarioDAO.findById(Long.MIN_VALUE));
+        pedido2.setUsuario(usuario);
         pedido2.setCliente(cliente);
         pedido2.setItems(Arrays.asList(item2, item3));
         item2.setPedido(pedido2);

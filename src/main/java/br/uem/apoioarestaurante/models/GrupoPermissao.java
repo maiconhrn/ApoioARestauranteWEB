@@ -9,6 +9,7 @@ package br.uem.apoioarestaurante.models;
 
 import br.uem.apoioarestaurante.metadata.entities.Usuario;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -51,11 +52,9 @@ public class GrupoPermissao implements Serializable{
     @OneToMany(mappedBy = "grupo")
     private List<Usuario> usuarios;
 
-    public GrupoPermissao(Long id, String descricao, String observacao, List<Permissao> permissoes) {
-        this.id = id;
-        this.descricao = descricao;
-        this.observacao = observacao;
-        this.permissoes = permissoes;
+    public GrupoPermissao() {
+        this.permissoes = new ArrayList<>();
+        this.usuarios = new ArrayList<>();
     }
 
     public List<Usuario> getUsuarios() {
@@ -64,9 +63,6 @@ public class GrupoPermissao implements Serializable{
 
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
-    }
-    
-    public GrupoPermissao() {
     }
 
     public Long getId() {
