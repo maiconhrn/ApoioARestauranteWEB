@@ -7,6 +7,7 @@ package br.uem.apoioarestaurante.models;
  * 
  */
 
+import br.uem.apoioarestaurante.metadata.entities.Usuario;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -21,6 +22,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -45,6 +47,9 @@ public class GrupoPermissao implements Serializable{
             joinColumns=@JoinColumn(name="grupopermissao_ID"),
             inverseJoinColumns=@JoinColumn(name="permissao_ID"))
     private List<Permissao> permissoes;
+    
+    @OneToMany(mappedBy = "grupo")
+    private List<Usuario> usuarios;
 
     public GrupoPermissao(Long id, String descricao, String observacao, List<Permissao> permissoes) {
         this.id = id;
@@ -53,6 +58,14 @@ public class GrupoPermissao implements Serializable{
         this.permissoes = permissoes;
     }
 
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+    
     public GrupoPermissao() {
     }
 

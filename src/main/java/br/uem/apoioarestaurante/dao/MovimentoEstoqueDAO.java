@@ -33,7 +33,7 @@ public class MovimentoEstoqueDAO extends HibernateBasicGenericDAO<MovimentoEstoq
             CriteriaBuilder cb = getSession().getCriteriaBuilder();
             CriteriaQuery<MovimentoEstoque> criteriaQuery = cb.createQuery(MovimentoEstoque.class);
             Root<MovimentoEstoque> root = criteriaQuery.from(MovimentoEstoque.class);
-            List<Predicate> predicates = new ArrayList<>(Arrays.asList(cb.greaterThanOrEqualTo(root.get("data"), de),
+            List<Predicate> predicates = new ArrayList<>(Arrays.asList(cb.greaterThanOrEqualTo(root.get("data"), de), 
                     cb.lessThanOrEqualTo(root.get("data"), ate)));
 
             return getSession().createQuery(criteriaQuery.where(predicates.toArray(new Predicate[0]))).getResultList();

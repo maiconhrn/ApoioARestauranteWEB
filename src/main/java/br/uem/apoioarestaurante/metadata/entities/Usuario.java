@@ -31,19 +31,17 @@ public class Usuario extends Pessoa implements Serializable {
     @Where(clause = "ativo = true")
     private List<Pedido> pedidos;
     
-    //Refatorando Usuario para inserir List<GrupoPermissao>
-    
-//    @ManyToMany (mappedBy = "usuario")
-//    @Where(clause = "ativo = true")
-//    private List<GrupoPermissao> grupoDePermissoes;
-//
-//    public List<GrupoPermissao> getGrupoDePermissoes() {
-//        return grupoDePermissoes;
-//    }
-//
-//    public void setGrupoDePermissoes(List<GrupoPermissao> grupoDePermissoes) {
-//        this.grupoDePermissoes = grupoDePermissoes;
-//    }
+    @ManyToOne
+    @JoinColumn(name = "grupoPermissao_id")
+    private GrupoPermissao grupo;
+
+    public GrupoPermissao getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(GrupoPermissao grupo) {
+        this.grupo = grupo;
+    }
 
 
     public Usuario() {
