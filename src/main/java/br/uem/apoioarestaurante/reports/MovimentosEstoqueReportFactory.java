@@ -4,13 +4,15 @@ import br.uem.apoioarestaurante.dao.MovimentoEstoqueDAO;
 import br.uem.apoioarestaurante.exceptions.ReportException;
 import br.uem.apoioarestaurante.metadata.entities.MovimentoEstoque;
 import br.uem.apoioarestaurante.reports.generic.impl.AbstractReportFactory;
-import br.uem.apoioarestaurante.reports.generic.resource.ReportResources;
+import br.uem.apoioarestaurante.reports.resource.ReportResources;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import javax.imageio.ImageIO;
+import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -43,7 +45,7 @@ public class MovimentosEstoqueReportFactory extends AbstractReportFactory<Movime
 
         movimentoEstoqueDAO.disconnect();
 
-        return movimentosEstoque != null ? movimentosEstoque : new ArrayList<>();
+        return movimentosEstoque;
     }
 
     @Override
@@ -51,8 +53,11 @@ public class MovimentosEstoqueReportFactory extends AbstractReportFactory<Movime
         try {
             InputStream reportFont = this.getClass().getResourceAsStream("/reports/" + reportFontFileName);
 
+            HashMap<String, Object> parameters = new HashMap<>();
+            parameters.put("logo", ImageIO.read(this.getClass().getResourceAsStream("/images/logo.png")));
+
             JasperReport report = JasperCompileManager.compileReport(reportFont);
-            JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(load()));
+            JasperPrint print = JasperFillManager.fillReport(report, parameters, new JRBeanCollectionDataSource(load()));
 
             String reportFilePath = new StringBuilder(ReportResources.REPORTS_DIRECTORY_RESOURCE)
                     .append(getEntityClass().getSimpleName())
@@ -64,7 +69,7 @@ public class MovimentosEstoqueReportFactory extends AbstractReportFactory<Movime
             JasperExportManager.exportReportToPdfFile(print, reportFilePath);
 
             return reportFilePath;
-        } catch (JRException e) {
+        } catch (JRException | IOException e) {
             e.printStackTrace();
         }
 

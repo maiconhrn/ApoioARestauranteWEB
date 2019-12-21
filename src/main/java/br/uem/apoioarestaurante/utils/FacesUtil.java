@@ -1,6 +1,6 @@
 package br.uem.apoioarestaurante.utils;
 
-import br.uem.apoioarestaurante.reports.generic.resource.ReportResources;
+import br.uem.apoioarestaurante.reports.resource.ReportResources;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;

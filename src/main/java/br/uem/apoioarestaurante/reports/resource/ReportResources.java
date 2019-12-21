@@ -1,4 +1,4 @@
-package br.uem.apoioarestaurante.reports.generic.resource;
+package br.uem.apoioarestaurante.reports.resource;
 
 /**
  * @author Maicon

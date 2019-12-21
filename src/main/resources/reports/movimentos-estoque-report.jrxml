@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pedidos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="73154ed6-0ebb-4c35-85b0-25e6b2241c51">
+	<parameter name="logo" class="java.awt.Image"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -32,14 +33,19 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="112" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement x="0" y="0" width="559" height="78" uuid="08d84323-943d-4c61-879e-36c0d2b5820a"/>
+				<reportElement x="0" y="0" width="559" height="20" forecolor="#724141" uuid="08d84323-943d-4c61-879e-36c0d2b5820a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Century Gothic" size="16"/>
 				</textElement>
 				<text><![CDATA[APOIO À RESTAURANTE]]></text>
 			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="210" y="30" width="141" height="82" uuid="6063a06a-12c0-4b34-90de-83b27c32a932"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>

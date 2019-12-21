@@ -4,12 +4,13 @@ import br.uem.apoioarestaurante.dao.PedidoDAO;
 import br.uem.apoioarestaurante.exceptions.ReportException;
 import br.uem.apoioarestaurante.metadata.entities.Pedido;
 import br.uem.apoioarestaurante.reports.generic.impl.AbstractReportFactory;
-import br.uem.apoioarestaurante.reports.generic.resource.ReportResources;
+import br.uem.apoioarestaurante.reports.resource.ReportResources;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import javax.imageio.ImageIO;
+import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -46,7 +47,7 @@ public class PedidosReportFactory extends AbstractReportFactory<Pedido> {
 
         pedidoDAO.disconnect();
 
-        return pedidos != null ? pedidos : new ArrayList<>();
+        return pedidos;
     }
 
     @Override
@@ -60,6 +61,7 @@ public class PedidosReportFactory extends AbstractReportFactory<Pedido> {
 
             HashMap<String, Object> parameters = new HashMap<>();
             parameters.put("subreport", subreport);
+            parameters.put("logo", ImageIO.read(this.getClass().getResourceAsStream("/images/logo.png")));
 
             JasperPrint print = JasperFillManager.fillReport(report, parameters, new JRBeanCollectionDataSource(load()));
 
@@ -73,7 +75,7 @@ public class PedidosReportFactory extends AbstractReportFactory<Pedido> {
             JasperExportManager.exportReportToPdfFile(print, reportFilePath);
 
             return reportFilePath;
-        } catch (JRException e) {
+        } catch (JRException | IOException e) {
             e.printStackTrace();
         }
 
