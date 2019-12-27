@@ -1,6 +1,9 @@
 package br.uem.apoioarestaurante.models;
 
 import br.uem.apoioarestaurante.metadata.entities.*;
+import br.uem.apoioarestaurante.utils.EnvironmentUtil;
+import br.uem.apoioarestaurante.utils.HibernateUtil;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,6 +40,11 @@ public class PedidoModelTest {
         estoque = createEstoque(produto, 100, 50);
         pedido = createPedididoDelivery(usuario, cliente, Collections.singletonList(itemPedido));
         itemPedido = createItemPedido(pedido, produto, 3);
+    }
+
+    @After
+    public void clear() {
+        HibernateUtil.closeSessionFactory();
     }
 
     @Test

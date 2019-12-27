@@ -2,6 +2,8 @@ package br.uem.apoioarestaurante.metadata.entities;
 
 import br.uem.apoioarestaurante.metadata.types.PedidoStatusTipo;
 import br.uem.apoioarestaurante.metadata.types.PedidoTipo;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -60,6 +62,7 @@ public class Pedido implements Serializable {
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Where(clause = "ativo = true")
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<ItemPedido> items;
 
     public Pedido() {
