@@ -6,9 +6,11 @@ import org.junit.Test;
 
 import java.text.ParseException;
 import java.util.Collections;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static br.uem.apoioarestaurante.utils.TestUtil.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * @author Maicon
@@ -52,5 +54,18 @@ public class PedidoModelTest {
         itemPedido.setAtivo(false);
         model.update(itemPedido);
         assertEquals(103, (int) estoque.getQtdEmEstoque());
+    }
+
+    @Test
+    public void saveOrUpdate() {
+        assertNull(pedido.getTotal());
+
+        Long pedidoID = pedido.getId();
+        AtomicReference<Double> totalPrice = new AtomicReference<>(0D);
+        pedido.getItems().forEach(orderItem -> totalPrice.updateAndGet(v -> v + orderItem.getPreco()));
+        pedido.setTotal(totalPrice.get());
+        model.saveOrUpdate(pedido);
+        assertEquals(pedidoID, pedido.getId());
+        assertEquals(totalPrice.get(), pedido.getTotal());
     }
 }
