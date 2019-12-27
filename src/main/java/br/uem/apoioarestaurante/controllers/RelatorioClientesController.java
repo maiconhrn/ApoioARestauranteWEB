@@ -1,6 +1,6 @@
 package br.uem.apoioarestaurante.controllers;
 
-import br.uem.apoioarestaurante.utils.FacesUtil;
+import br.uem.apoioarestaurante.reports.RelatorioClientes;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -15,13 +15,9 @@ import java.io.Serializable;
 @Named
 @ViewScoped
 public class RelatorioClientesController implements Serializable {
-    
+    RelatorioClientes relatorio = new RelatorioClientes();
 
-    public void generate() {
-
-    }
-
-    public String cancel() {
-        return FacesUtil.HOME;
+    public void generate(Long id) {
+        relatorio.generateReport(id);
     }
 }

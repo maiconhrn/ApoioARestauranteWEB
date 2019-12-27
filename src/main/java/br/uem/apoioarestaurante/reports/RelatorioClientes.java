@@ -12,37 +12,51 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author Maicon
+ *     Universidade Estadual de Maringá
+ * 
+ *  Autor: José Gabriel Júnior       Ra: 54011
+ * 
  */
-public class TestPedidosReportFactory extends AbstractReportFactory<Pedido> {
+public class RelatorioClientes extends AbstractReportFactory<Pedido> {
 
     private String reportFontFileName;
 
-    public TestPedidosReportFactory() {
+    public RelatorioClientes() {
         super(Pedido.class);
-        reportFontFileName = "test_pedidos_report.jrxml";
+        reportFontFileName = "relatorioCliente.jrxml";
     }
 
-    @Override
-    public List<Pedido> load() {
+
+    public List<Pedido> load(long id) {
+        
         PedidoDAO pedidoDAO = PedidoDAO.getInstance();
+        Pedido ped = new Pedido();
 
         pedidoDAO.connect();
 
         List<Pedido> pedidos = pedidoDAO.listAll();
+        List<Pedido> retorno = new ArrayList<>();
 
         pedidoDAO.disconnect();
-
-        return pedidos != null ? pedidos : new ArrayList<>();
+        
+        for (int i = 0; i < pedidos.size(); i++) {
+            ped = pedidos.get(i);
+            if (ped.getCliente().getId()== id) {
+                retorno.add(ped);
+            }
+        }
+        return retorno != null ? retorno : new ArrayList<>();
     }
 
-    @Override
-    public void generateReport() {
+
+    public void generateReport(long Id) {
         try {
             InputStream reportFont = this.getClass().getResourceAsStream("/reports/" + reportFontFileName);
 
             JasperReport report = JasperCompileManager.compileReport(reportFont);
-            JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(load()));
+            
+            JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(load(Id)));
+            
             JasperExportManager.exportReportToPdfFile(print, new StringBuilder("C:\\aar\\reports\\")
                     .append(getEntityClass().getSimpleName())
                     .append("_Report_")

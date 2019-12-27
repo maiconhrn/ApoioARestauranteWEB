@@ -1,5 +1,6 @@
 package br.uem.apoioarestaurante.reports.generic.impl;
 
+import br.uem.apoioarestaurante.exceptions.ReportException;
 import br.uem.apoioarestaurante.reports.generic.intf.ReportFactory;
 
 import java.util.List;
@@ -20,12 +21,12 @@ public abstract class AbstractReportFactory<T> implements ReportFactory<T> {
     }
 
     @Override
-    public List<T> load() {
+    public List<T> load() throws ReportException {
         throw new UnsupportedOperationException("You have to implement this method");
     }
 
     @Override
-    public void generateReport() {
+    public String generateReport() throws ReportException {
         throw new UnsupportedOperationException("You have to implement this method");
     }
 }

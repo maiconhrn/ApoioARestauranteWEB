@@ -36,7 +36,8 @@
             </div>
 
             <div style="float: right; padding-top: 20px;">
-                <p:commandButton value="Gerar relatório" id="generate" action="#{relatorioHistoricoPedidosController.generate()}"
+                <p:commandButton value="Gerar relatório" id="generate" ajax="false"
+                                 action="#{relatorioHistoricoPedidosController.generate()}"
                                  style="margin-right:20px;" icon="fa fa-file"/>
                 <p:commandButton value="Cancelar" id="cancel" action="#{relatorioHistoricoPedidosController.cancel()}"
                                  immediate="true"

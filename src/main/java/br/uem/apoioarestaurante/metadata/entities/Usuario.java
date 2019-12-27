@@ -1,5 +1,6 @@
 package br.uem.apoioarestaurante.metadata.entities;
 
+import br.uem.apoioarestaurante.models.GrupoPermissao;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -29,6 +30,19 @@ public class Usuario extends Pessoa implements Serializable {
     @OneToMany(mappedBy = "usuario")
     @Where(clause = "ativo = true")
     private List<Pedido> pedidos;
+    
+    @ManyToOne
+    @JoinColumn(name = "grupoPermissao_id")
+    private GrupoPermissao grupo;
+
+    public GrupoPermissao getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(GrupoPermissao grupo) {
+        this.grupo = grupo;
+    }
+
 
     public Usuario() {
         this.ativo = true;
