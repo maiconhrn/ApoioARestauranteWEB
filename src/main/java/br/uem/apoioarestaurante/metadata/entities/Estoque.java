@@ -114,6 +114,10 @@ public class Estoque implements Serializable {
             throw new EstoqueException("Não e possivel fazer baixa no estoque: quantidade em estoque não suportada");
         }
 
+        if (qtd < 1) {
+            throw new EstoqueException("Não e possivel fazer baixa no estoque: quantidade para movimentar é invalida: " + qtd);
+        }
+
         MovimentoEstoque movimentoEstoque = new MovimentoEstoque();
         movimentoEstoque.setData(new Date());
         movimentoEstoque.setEstoque(this);
