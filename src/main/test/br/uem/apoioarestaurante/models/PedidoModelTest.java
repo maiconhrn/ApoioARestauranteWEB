@@ -1,7 +1,6 @@
 package br.uem.apoioarestaurante.models;
 
 import br.uem.apoioarestaurante.metadata.entities.*;
-import br.uem.apoioarestaurante.utils.EnvironmentUtil;
 import br.uem.apoioarestaurante.utils.HibernateUtil;
 import org.junit.After;
 import org.junit.Before;
@@ -12,8 +11,7 @@ import java.util.Collections;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static br.uem.apoioarestaurante.utils.TestUtil.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 /**
  * @author Maicon
@@ -62,6 +60,12 @@ public class PedidoModelTest {
         itemPedido.setAtivo(false);
         model.update(itemPedido);
         assertEquals(103, (int) estoque.getQtdEmEstoque());
+
+        try {
+            model.update((ItemPedido) null);
+        } catch (Exception e) {
+            assertTrue(e instanceof NullPointerException);
+        }
     }
 
     @Test
