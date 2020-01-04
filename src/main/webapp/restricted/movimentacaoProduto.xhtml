@@ -5,7 +5,7 @@
              xmlns:p="http://primefaces.org/ui"
              xmlns:f="http://xmlns.jcp.org/jsf/core"
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-             template="template_trabalho.xhtml">    
+             template="main-template.xhtml">
     
     <p:fieldset legend="Movimentação de Produtos" style=" border: 1px solid black; ">
         <h:form>
@@ -13,31 +13,31 @@
                 <f:facet name="header">
                     <p/>
                     <p:outputLabel for="codigo" value="Código:" style="text-align: left; float: none; width: 10%;"/> 
-                    <p:inputMask id="codigo" value="#{movimentacaoProdutoBean.codigoProduto}" mask="999999" required="true"  style="text-align: center; float: none; width: 10%;"></p:inputMask>
-                    <p:commandButton value="Carregar" action="#{movimentacaoProdutoBean.CarregarProduto()}" update="@form"  style="text-align: center; float: none;"></p:commandButton>
+                    <p:inputMask id="codigo" value="#{movimentacaoProdutoController.codigoProduto}" mask="999999" required="true"  style="text-align: center; float: none; width: 10%;"></p:inputMask>
+                    <p:commandButton value="Carregar" action="#{movimentacaoProdutoController.CarregarProduto()}" update="@form"  style="text-align: center; float: none;"></p:commandButton>
                     <p/>
                 </f:facet> 
                 <p/>
                 <p:row >
                     <p:outputLabel for="motivo" value="Motivo da Movimentação: " style="text-align: center; float: left;"/> 
-                    <p:inputText id="motivo" value="#{movimentacaoProdutoBean.motivoMovimentacao}" style="text-align: left; float: left; width: 50%;"></p:inputText>
+                    <p:inputText id="motivo" value="#{movimentacaoController.motivoMovimentacao}" style="text-align: left; float: left; width: 50%;"></p:inputText>
                 </p:row>  
                 <p/>
                 <p:row>
                     <p:outputLabel for="tipo" value="Tipo: " style="text-align: center; float: left;"/>                             
-                    <p:selectOneMenu id="tipo" value="#{movimentacaoProdutoBean.tipoMovimentacao}" style="width:100px; float: left">
+                    <p:selectOneMenu id="tipo" value="#{movimentacaoController.tipoMovimentacao}" style="width:100px; float: left">
                         <f:selectItem itemLabel="Selecione" itemValue="" />
                         <f:selectItem itemLabel="Entrada" itemValue="entrada" />
                         <f:selectItem itemLabel="Saída" itemValue="saida" />                        
                     </p:selectOneMenu>                            
                     <p:outputLabel for="quantidade" value="Quantidade: " style="text-align: center; float: none;"/> 
-                    <p:inputNumber id="quantidade" value="#{movimentacaoProdutoBean.quantidade}"  symbol="R$ " decimalSeparator="," thousandSeparator="." style="text-align: center; float: none; width: 10%;" ></p:inputNumber>                            
+                    <p:inputNumber id="quantidade" value="#{movimentacaoController.quantidade}"  symbol="R$ " decimalSeparator="," thousandSeparator="." style="text-align: center; float: none; width: 10%;" ></p:inputNumber>
                 </p:row> 
                 <p/>                
                 <f:facet name="footer" >
                     <p:row >
                         <p/>
-                        <p:commandButton value="Salvar" action="#{movimentacaoProdutoBean.salvarMovimentacao()}" update="@form"  style="text-align: center; float: none;width: 100%"></p:commandButton>
+                        <p:commandButton value="Salvar" action="#{movimentacaoController.salvarMovimentacao()}" update="@form"  style="text-align: center; float: none;width: 100%"></p:commandButton>
                         <p/>
                     </p:row>
                 </f:facet> 

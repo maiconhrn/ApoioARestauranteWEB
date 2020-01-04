@@ -1,0 +1,16 @@
+.semBorda tr, 
+
+.semBorda td { border: none !important; }
+.ui-panelgrid.panelgrid-noborder .ui-grid-responsive {
+	border: none !important;
+}
+
+
+@media (max-width: 640px) {
+	.ui-panelgrid.panelgrid-noborder .ui-grid-responsive .ui-grid-row {
+		border: none !important;
+	}
+}
+.campos{
+    width: 100% !important;
+}

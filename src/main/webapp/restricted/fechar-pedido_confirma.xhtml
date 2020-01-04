@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <link type="text/css" rel="stylesheet" href="../style/manutencao-pedido.css"/>
+    <ui:decorate template="main-template.xhtml">
+        <h:form id="orderMaintenance">
+
+            <div class="order-maintenance-container">
+
+                <p:panel id="fecharPedido" header="Fechar Pedido" style="width: 450px;  margin: auto;" >
+                    <p:panelGrid columns="2" style="border: 1px solid black;">
+
+                            <h:outputText value="Total :"
+                                          style="float: left; padding-top: 20px; padding-left: 30px; padding-right: 30px;"/>
+
+                            <h:outputText id="totFilter" value="#{fecharPedidoView.pedido.total}" 
+                                          style="float: left; padding-left: 20px; margin-top:  20px;"/>
+
+                            <h:outputText value="Recebido :" 
+                                          style="float: left; padding-top: 20px; padding-left: 30px; padding-right: 30px;"/>
+
+                            <h:outputText id="recFilter" value="#{fecharPedidoController.recebido}" 
+                                          style="float: left; padding-left: 20px; margin-top:  20px;"/>
+
+                            <h:outputText value="Troco :"
+                                          style="float: left; padding-top: 20px; padding-left: 30px; padding-right: 30px;"/>
+
+                            <h:outputText id="trocoFilter"  value="#{fecharPedidoController.troco}"
+                                          style="float: left; padding-left: 20px; margin-top:  20px;"/>
+
+                            <p:commandButton value="Confirma" id="close" action="#{fecharPedidoController.closeOrder()}" 
+                                             style=" width: 150px; margin-top: 20px;" icon="fa fa-check"/>
+
+                            <p:commandButton value="Cancelar" id="cancel" action="#{fecharPedidoController.cancel()}"
+                                             style=" width: 150px; margin-top: 20px;" icon="fa fa-ban"/>
+
+                        </p:panelGrid>
+                    </p:panel>
+            </div>
+        </h:form>
+    </ui:decorate>
+</html>

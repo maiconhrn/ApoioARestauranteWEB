@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -22,7 +23,7 @@ public class ProdutoDAO extends HibernateBasicGenericDAO<Produto> {
         return ourInstance;
     }
 
-    private ProdutoDAO() {
+    public ProdutoDAO() {
         super(Produto.class);
     }
 
@@ -34,7 +35,7 @@ public class ProdutoDAO extends HibernateBasicGenericDAO<Produto> {
             CriteriaQuery<Produto> criteriaQuery = cb.createQuery(Produto.class);
             Root<Produto> root = criteriaQuery.from(Produto.class);
 
-            List<Predicate> predicates = new ArrayList<>();
+            List<Predicate> predicates = new ArrayList<>(Arrays.asList(cb.equal(root.get("ativo"), true)));
 
             if (byId) {
                 predicates.add(cb.equal(root.get("id"), producId));

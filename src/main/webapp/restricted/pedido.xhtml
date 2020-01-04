@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+<link type="text/css" rel="stylesheet" href="../style/pedido.css"/>
+<ui:decorate template="main-template.xhtml">
+    <h:form id="ordersForm">
+        <div class="order-container">
+            <div style="min-height: 120px; width: 100%;">
+                <p:panel id="filters" header="Filtros" styleClass="filters-select">
+                    <p:selectBooleanCheckbox value="#{pedidoView.idFilterSelected}" itemLabel="ID">
+                        <p:ajax update="ordersForm:search"/>
+                    </p:selectBooleanCheckbox>
+                    <p:selectBooleanCheckbox value="#{pedidoView.clientFilterSelected}" itemLabel="Cliente">
+                        <p:ajax update="ordersForm:search"/>
+                    </p:selectBooleanCheckbox>
+                    <p:selectBooleanCheckbox value="#{pedidoView.userFilterSelected}" itemLabel="Usuário">
+                        <p:ajax update="ordersForm:search"/>
+                    </p:selectBooleanCheckbox>
+                    <p:selectBooleanCheckbox value="#{pedidoView.tableFilterSelected}" itemLabel="Mesa">
+                        <p:ajax update="ordersForm:search"/>
+                    </p:selectBooleanCheckbox>
+                </p:panel>
+
+                <p:panel id="type" header="Tipo" styleClass="types">
+                    <p:selectOneRadio value="#{pedidoView.type}" unselectable="true" layout="grid"
+                                      columns="2">
+                        <f:selectItems value="#{pedidoView.types}" var="type" itemValue="#{type}"
+                                       itemLabel="#{type.textValue}"/>
+                    </p:selectOneRadio>
+                </p:panel>
+            </div>
+
+            <div style="min-height: 120px; width: 100%;">
+                <p:panel id="search" header="Pesquisa" styleClass="search-panel">
+                    <div class="search">
+                        <div class="filters">
+                            <div>
+                                <p:outputLabel value="ID" for="idFilter"/>
+                                <p:inputText required="#{pedidoView.idFilterSelected}" id="idFilter"
+                                             value="#{pedidoView.idFilter}"/>
+                            </div>
+
+                            <div>
+                                <p:outputLabel value="ID Cliente" for="clientFilter"/>
+                                <p:inputText required="#{pedidoView.clientFilterSelected}" id="clientFilter"
+                                             value="#{pedidoView.clientFilter}"/>
+                            </div>
+
+                            <div>
+                                <p:outputLabel value="ID Usuário" for="userFilter"/>
+                                <p:inputText required="#{pedidoView.userFilterSelected}" id="userFilter"
+                                             value="#{pedidoView.userFilter}"/>
+                            </div>
+
+                            <div>
+                                <p:outputLabel value="Mesa" for="tableFilter"/>
+                                <p:inputText required="#{pedidoView.tableFilterSelected}" id="tableFilter"
+                                             value="#{pedidoView.tableFilter}"/>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p:commandButton icon="fa fa-search" action="#{pedidoController.search()}"
+                                             update="ordersTable orderItemsTable"/>
+                        </div>
+                    </div>
+                </p:panel>
+            </div>
+
+            <div style="width: 100%;">
+                <!--@elvariable id="pedido" type="br.uem.apoioarestaurante.metadata.entities.Pedido"-->
+                <p:dataTable styleClass="dataTable" id="ordersTable" var="pedido"
+                             value="#{pedidoView.pedidos}"
+                             selectionMode="single" selection="#{pedidoView.selectedPedido}" rowKey="#{pedido.id}"
+                             paginator="true"
+                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             rows="10" resizableColumns="true">
+
+                    <p:ajax event="rowSelect"
+                            update="ordersForm:orderItemsTable"/>
+
+                    <f:facet name="header">
+                        Pedidos
+                    </f:facet>
+
+                    <p:column headerText="ID" style="height: 30px; width: 10px; text-align:center;">
+                        <h:outputText value="#{pedido.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Tipo" style="height: 30px; width: 10px; text-align:center;">
+                        <h:outputText value="#{pedido.tipo.textValue}"/>
+                    </p:column>
+
+                    <p:column headerText="Usuário" style="height: 30px; width: 30px; text-align:center;">
+                        <h:outputText value="#{pedido.usuario.nome}"/>
+                    </p:column>
+
+                    <p:column headerText="Cliente" style="height: 30px; width: 30px; text-align:center;">
+                        <h:outputText value="#{pedido.cliente.nome}"/>
+                    </p:column>
+
+                    <p:column headerText="Mesa" style="height: 30px; width: 10px; text-align:center;">
+                        <h:outputText value="#{pedido.mesa}"/>
+                    </p:column>
+
+                    <p:column headerText="Preço total" style="height: 30px; width: 10px; text-align:center;">
+                        <h:outputText value="#{pedido.total}"/>
+                    </p:column>
+
+                    <p:column headerText="Data início" style="height: 30px; width: 10px; text-align:center;">
+                        <h:outputText value="#{pedido.dataInicio}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Data fim" style="height: 30px; width: 10px; text-align:center;">
+                        <h:outputText value="#{pedido.dataFim}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                        </h:outputText>
+                    </p:column>
+                </p:dataTable>
+            </div>
+
+            <div style="width: 100%;">
+                <p:dataTable styleClass="dataTable" id="orderItemsTable" var="itemPedido"
+                             value="#{pedidoView.selectedPedido.items}" paginator="true"
+                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             rows="10" resizableColumns="true">
+                    <f:facet name="header">
+                        Itens do Pedido
+                    </f:facet>
+
+                    <p:column headerText="ID" style="height: 30px; width: 10px; text-align:center;">
+                        <h:outputText value="#{itemPedido.id}"/>
+                    </p:column>
+
+                    <p:column headerText="ID Pedido" style="height: 30px; width: 10px; text-align:center;">
+                        <h:outputText value="#{itemPedido.pedido.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Produto" style="height: 30px; width: 50px; text-align:center;">
+                        <h:outputText value="#{itemPedido.produto.descricao}"/>
+                    </p:column>
+
+                    <p:column headerText="Quantidade" style="height: 30px; width: 10px; text-align:center;">
+                        <h:outputText value="#{itemPedido.qtdProduto}"/>
+                    </p:column>
+
+                    <p:column headerText="Total" style="height: 30px; width: 10px; text-align:center;">
+                        <h:outputText value="#{itemPedido.preco}"/>
+                    </p:column>
+                </p:dataTable>
+            </div>
+
+            <div style="float: right; padding-top: 20px;">
+                <p:commandButton value="Novo" id="new" action="#{pedidoController.newOrder()}"
+                                 style="margin-right:20px;" icon="fa fa-plus-square"/>
+                <p:commandButton value="Editar" id="edit" action="#{pedidoController.editOrder()}"
+                                 style="margin-right:20px;" icon="fa fa-edit"/>
+                <p:commandButton value="Deletar" id="delete" action="#{pedidoController.deleteOrder()}"
+                                 update="ordersForm"
+                                 style="margin-right:20px;" icon="fa fa-remove"/>
+                <p:commandButton value="Fechar" id="close" action="#{pedidoController.closeOrder()}"
+                                 style="margin-right:20px;" icon="fa fa-check"/>
+            </div>
+        </div>
+    </h:form>
+</ui:decorate>
+</html>

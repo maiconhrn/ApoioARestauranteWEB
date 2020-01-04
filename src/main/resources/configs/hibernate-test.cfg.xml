@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">org.h2.Driver</property>
+        <property name="hibernate.connection.url">jdbc:h2:mem:test</property>
+        <property name="hibernate.connection.username">sa</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="hbm2ddl.auto">create-drop</property>
+        <property name="hibernate.connection.autocommit">false</property>
+
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.Produto"/>
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.Estoque"/>
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.MovimentoEstoque"/>
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.Pedido"/>
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.Cliente"/>
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.Usuario"/>
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.ItemPedido"/>
+        <mapping class="br.uem.apoioarestaurante.metadata.entities.Pessoa"/>
+        <mapping class="br.uem.apoioarestaurante.models.Permissao"/>
+        <mapping class="br.uem.apoioarestaurante.models.GrupoPermissao"/>
+	    <mapping class="br.uem.apoioarestaurante.models.ContasAPagar"/>
+    </session-factory>
+</hibernate-configuration>

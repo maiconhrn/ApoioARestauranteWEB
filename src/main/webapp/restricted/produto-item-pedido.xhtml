@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<link type="text/css" rel="stylesheet" href="../style/produto-item-pedido.css"/>
+<ui:decorate template="main-template.xhtml">
+    <h:form id="orderItemProductsForm">
+        <div class="order-item-product-container">
+            <div style="min-height: 120px; width: 100%;">
+                <p:panel id="filters" header="Filtros" styleClass="filters-select">
+                    <p:selectBooleanCheckbox value="#{produtoItemPedidoView.idFilterSelected}" itemLabel="ID"/>
+                    <p:selectBooleanCheckbox value="#{produtoItemPedidoView.descriptionFilterSelected}"
+                                             itemLabel="Descrição"/>
+                </p:panel>
+            </div>
+
+            <div style="min-height: 120px; width: 100%;">
+                <p:panel id="seach" header="Pesquisa" styleClass="search-panel">
+                    <div class="search">
+                        <div class="filters">
+                            <div>
+                                <p:outputLabel value="ID" for="idFilter"/>
+                                <p:inputText required="#{produtoItemPedidoView.idFilterSelected}" id="idFilter"
+                                             value="#{produtoItemPedidoView.idFilter}"/>
+                            </div>
+
+                            <div>
+                                <p:outputLabel value="Decrição" for="descriptionFilter"/>
+                                <p:inputText required="#{produtoItemPedidoView.descriptionFilterSelected}"
+                                             id="descriptionFilter" value="#{produtoItemPedidoView.descriptionFilter}"/>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p:commandButton icon="fa fa-search" action="#{produtoItemPedidoController.search()}"
+                                             update="productsTable"/>
+                        </div>
+                    </div>
+                </p:panel>
+            </div>
+
+            <div style="width: 100%;">
+                <!--@elvariable id="produto" type="br.uem.apoioarestaurante.metadata.entities.Produto"-->
+                <p:dataTable styleClass="dataTable" id="productsTable" var="produto"
+                             value="#{produtoItemPedidoView.produtos}"
+                             selectionMode="single" selection="#{produtoItemPedidoView.selectedProduto}"
+                             rowKey="#{produto.id}"
+                             paginator="true"
+                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             rows="10" resizableColumns="true">
+
+                    <p:ajax event="rowSelect"
+                            update="orderItemProductsForm:productsTable"/>
+
+                    <f:facet name="header">
+                        Produtos
+                    </f:facet>
+
+                    <p:column headerText="ID">
+                        <h:outputText value="#{produto.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Descrição">
+                        <h:outputText value="#{produto.descricao}"/>
+                    </p:column>
+
+                    <p:column headerText="Fornecedor">
+                        <h:outputText value="#{produto.fornecedor}"/>
+                    </p:column>
+
+                    <p:column headerText="Tipo de Produto">
+                        <h:outputText value="#{produto.tipo.textValue}"/>
+                    </p:column>
+
+                    <p:column headerText="Preço">
+                        <h:outputText value="#{produto.precoVenda}"/>
+                    </p:column>
+                </p:dataTable>
+            </div>
+
+            <div style="float: right; padding-top: 20px;">
+                <p:commandButton value="Selecionar" id="select" action="#{produtoItemPedidoController.selectProduct()}"
+                                 style="margin-right:20px;" icon="fa fa-check"/>
+            </div>
+        </div>
+    </h:form>
+</ui:decorate>
+</html>

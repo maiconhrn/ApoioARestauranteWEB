@@ -5,12 +5,12 @@
              xmlns:p="http://primefaces.org/ui"
              xmlns:f="http://xmlns.jcp.org/jsf/core"
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-             template="template_trabalho.xhtml">
+             template="main-template.xhtml">
 
     <p:fieldset legend="Relatório de Clientes" style=" border: 1px solid black; ">
         <h:form id="frm" style="padding-top: 30px;">
             <p:growl id="ms" showDetail="true"/>
-            <p:dataTable id="per1" var="cliente" value="#{clienteControl.clientes}" selectionMode="single" selection="#{clienteControl.cli}" rowKey="#{cliente.cod}" >
+            <p:dataTable id="per1" var="cliente" value="#{clienteController.clientes}" selectionMode="single" selection="#{clienteController.cli}" rowKey="#{cliente.id}" >
                 <f:facet name="header" >
                     <div class="ui-g" >
                         <div class="ui-g-4"></div>
@@ -19,7 +19,7 @@
                         </div>
                         <div class="ui-g-12 ui-md-6 ui-lg-3"></div>
                         <div class="ui-g-12 ui-lg-1" >
-                            <p:commandButton icon="ui-icon-refresh" value="Atualizar" action="#{clienteControl.listarClientes()}" update=":frm"  style=" height:30px; width: 100px; text-align:center;" />
+                            <p:commandButton icon="ui-icon-refresh" value="Atualizar" action="#{clienteController.listarClientes()}" update=":frm"  style=" height:30px; width: 100px; text-align:center;" />
                         </div>
                     </div>
 
@@ -27,14 +27,14 @@
                 <p:ajax event="rowSelect" update="@all" />
                 <p:ajax event="rowUnselect" update="@all" />
                 <p:column headerText="Código" style="height: 30px; width: 50px; text-align:center;">
-                    <h:outputText value="#{cliente.cod}" />
+                    <h:outputText value="#{cliente.id}" />
                 </p:column>
 
-                <p:column headerText="Descrição" style="height: 30px; width: 100px; text-align:center;">
+                <p:column headerText="Nome" style="height: 30px; width: 100px; text-align:center;">
                     <h:outputText value="#{cliente.nome}" />
                 </p:column>
 
-                <p:column headerText="Observações" style="height: 30px; width: 150px; text-align:center;">
+                <p:column headerText="CPF" style="height: 30px; width: 150px; text-align:center;">
                     <h:outputText value="#{cliente.cpf}" />
                 </p:column>
 
@@ -47,17 +47,17 @@
                 </p:column>
 
                 <p:column headerText="Telefone" style="height: 20px; width: 100px; text-align:center;">
-                    <h:outputText value="#{cliente.telefone01}" />
+                    <h:outputText value="#{cliente.telefone}" />
                 </p:column>
 
             </p:dataTable>
 
             <div class="ui-g" style="padding-top: 30px; padding-bottom: 30px;">
                 <div class="ui-g-12 ui-md-6 ui-lg-8">
-                    <p:inputText id="login1" value="#{usuarioControl.usuario.nomeUsuario}" required="false" label="Código" style="height: 20px; width: 100%;" />
+                    <p:inputText id="login1" value="#{clienteController.cli.nome}" required="false" label="Código" style="height: 30px; width: 100%;" />
                 </div>
                 <div class="ui-g-12 ui-md-6 ui-lg-2">
-                    <p:commandButton icon="ui-icon-refresh" value="BUSCAR" action="#{clienteControl.listarClientes()}" update=":frm"  style=" height:100%; width: 100px; text-align:center; float: left;" />
+                    <p:commandButton icon="ui-icon-refresh" value="BUSCAR" action="#{clienteController.buscarCliente(clienteController.cli.nome)}" update=":frm"  style=" height:100%; width: 100px; text-align:center; float: left;" />
                 </div>
 
             </div>
@@ -67,26 +67,33 @@
                     <p:outputLabel for="nome" value="Nome" style="font-weight:bold; float: left; "/>
                 </div>
                 <div  class="ui-g-12 ui-md-6 ui-lg-7" >
-                    <p:inputText id="nome" value="#{clienteControl.cli.nome}"  style="text-align: center; float: left; width: 100%;"/>
+                    <p:inputText id="nome" value="#{clienteController.cli.nome}"  style="text-align: center; float: left; width: 100%;"/>
                 </div>
                 <div  class="ui-g-12 ui-md-6 ui-lg-4" >
-                    <p:commandButton icon="ui-icon-refresh" value="RELATORIO" action="gerenciaClientes" update=":frm"  style=" height:30px; width: 120px; text-align:center; float: right;" />
+                    <p:commandButton icon="fa fa-file" value="RELATORIO" action="#{relatorioClientesController.generate(clienteController.cli.id)}" update=":frm"  style=" height:30px; width: 120px; text-align:center; float: right;" />
                 </div>
                 <div  class="ui-g-12 ui-md-6 ui-lg-1" >
                     <p:outputLabel for="dataIn" value="Data Inícial:" style="font-weight:bold; float: left;"/>
                 </div>
                 <div  class="ui-g-12 ui-md-6 ui-lg-3" >
-                    <p:inputMask id="dataIn" value="#{produtoControl.estoque.dataInsercao}" mask="99/99/9999" required="true" style="text-align: center; float: left; width: 100%;"/>
-                    <p:message for="dataIn" />
-                    <h:outputText value="#{validationView.text}" />
+                    <p:datePicker id="dataIn" value="#{relatorioClientesView.inicio}"
+                                  showButtonBar="true"
+                                  showTime="true" pattern="dd/MM/yyyy" showIcon="true" required="true"
+                                  autocomplete="off" locale="br"
+                                  readonlyInput="true"
+                                  style="text-align: center; float: left; width: 100%;"/>
                 </div>
                 <div  class="ui-g-12 ui-md-6 ui-lg-1" >
                     <p:outputLabel for="dataFim" value="Data Final:" style="font-weight:bold; float: left;"/>
                 </div>
                 <div  class="ui-g-12 ui-md-6 ui-lg-3" >
-                    <p:inputMask id="dataFim" value="#{produtoControl.estoque.dataInsercao}" mask="99/99/9999" required="true" style="text-align: center; float: left; width: 100%;"/>
-                    <p:message for="dataFim" />
-                    <h:outputText value="#{validationView.text}" />
+
+                    <p:datePicker id="dataFim" value="#{relatorioClientesView.fim}"
+                                  showButtonBar="true"
+                                  showTime="true" pattern="dd/MM/yyyy" showIcon="true" required="true"
+                                  autocomplete="off" locale="br"
+                                  readonlyInput="true"
+                                  style="text-align: center; float: left; width: 100%;"/>
                 </div>
             </div>
         </h:form>

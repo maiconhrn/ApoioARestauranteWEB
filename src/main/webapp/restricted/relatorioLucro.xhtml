@@ -5,7 +5,7 @@
              xmlns:p="http://primefaces.org/ui"
              xmlns:f="http://xmlns.jcp.org/jsf/core"
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-             template="template_trabalho.xhtml">
+             template="main-template.xhtml">
     
     
     <p:fieldset legend="Relatório de Lucro sobre as Vendas" style=" border: 1px solid black; ">
@@ -13,14 +13,14 @@
             <p:panel id="panel" header="Periodo" style="margin-bottom:10px;">
                 <p:panelGrid columns="5" layout="grid" style="text-align: center">  
                     <p:outputLabel value="Data Inicial:" />  
-                    <p:inputMask value="#{relatorioLucroBean.dataInicial}" mask="99/99/9999" required="true" style="text-align: center; float: left; width: 50%;"/>
+                    <p:inputMask value="#{relatorioLucroController.dataInicial}" mask="99/99/9999" required="true" style="text-align: center; float: left; width: 50%;"/>
                     <p:outputLabel value="Data Final:" />  
-                    <p:inputMask value="#{relatorioLucroBean.dataFinal}" mask="99/99/9999" required="true" style="text-align: center; float: left; width: 50%;"/>
-                    <p:commandButton value="Gerar Relatório" action="#{relatorioProdutoFaltaBean.gerarRelatorio()}" update="@form" style="alignment-baseline: central"></p:commandButton>                                
+                    <p:inputMask value="#{relatorioLucroController.dataFinal}" mask="99/99/9999" required="true" style="text-align: center; float: left; width: 50%;"/>
+                    <p:commandButton value="Gerar Relatório" action="#{relatorioProdutoFaltaController.gerarRelatorio()}" update="@form" style="alignment-baseline: central"></p:commandButton>
                 </p:panelGrid>  
             </p:panel>
             <p></p>
-            <p:dataTable value="#{relatorioProdutoFaltaBean.produtos}" var="produto" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >
+            <p:dataTable value="#{relatorioProdutoFaltaController.produtos}" var="produto" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >
                 <p:column headerText="Data" sortBy="#{produto.codigo}" >
                     <h:outputText value="#{produto.codigo}"></h:outputText>
                 </p:column>
@@ -37,7 +37,7 @@
             <p></p>
             <p:panelGrid columns="5" layout="grid">
                 <p:outputLabel value="Exportar:  " />                        
-                <p:commandButton value="  PDF  " action="#{relatorioProdutoFaltaBean.gerarRelatorio()}" update="@form"></p:commandButton>            
+                <p:commandButton value="  PDF  " action="#{relatorioProdutoFaltaController.gerarRelatorio()}" update="@form"></p:commandButton>
             </p:panelGrid>    
         </h:form>
     </p:fieldset>              

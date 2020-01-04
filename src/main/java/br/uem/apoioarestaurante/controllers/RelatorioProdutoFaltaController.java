@@ -2,20 +2,23 @@
 package br.uem.apoioarestaurante.controllers;
 
 import br.uem.apoioarestaurante.models.ProdutoModel;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
 
 /**
  *
  * @author Filipe Carvalho <filipekof97@gmail.com>
  */
 
-@ManagedBean
+@Named
 @SessionScoped
-public class RelatorioProdutoFaltaController {
+public class RelatorioProdutoFaltaController implements Serializable {
     
     private Date dataInicial;
     private Date dataFinal;
