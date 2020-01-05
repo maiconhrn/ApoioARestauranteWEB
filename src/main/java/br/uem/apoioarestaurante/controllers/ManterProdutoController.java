@@ -87,6 +87,7 @@ public class ManterProdutoController implements Serializable {
     }
 
     public void inserirProduto(Produto novoProduto) throws SQLException, ClassNotFoundException {
+        ManterEstoqueController manterEstoque = new ManterEstoqueController();
         if (null == this.getConsoleTipo()) {
             return;
         } else {
@@ -106,6 +107,12 @@ public class ManterProdutoController implements Serializable {
         prodao.connect();
         prodao.save(novoProduto);
         prodao.disconnect();
+        manterEstoque.getEstoque().setProduto(novoProduto);
+        manterEstoque.getEstoque().setAtivo(Boolean.TRUE);
+        manterEstoque.getEstoque().setPedidoFeito(Boolean.TRUE);
+        manterEstoque.getEstoque().setQtdEmEstoque(0);
+        manterEstoque.getEstoque().setQtdMinima(0);
+        manterEstoque.salvarMovimentacao(manterEstoque.getEstoque());        
         this.listarProdutos();
         this.setConsoleTipo(null);
         produto = new Produto();

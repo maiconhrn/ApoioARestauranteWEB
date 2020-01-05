@@ -7,7 +7,9 @@ package br.uem.apoioarestaurante.controllers;
 
 import br.uem.apoioarestaurante.dao.EstoqueDAO;
 import br.uem.apoioarestaurante.metadata.entities.Estoque;
+import br.uem.apoioarestaurante.metadata.entities.MovimentoEstoque;
 import br.uem.apoioarestaurante.metadata.entities.Produto;
+import br.uem.apoioarestaurante.metadata.types.MovimentoEstoqueTipo;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,21 +27,20 @@ import javax.inject.Named;
 @SessionScoped
 public class ManterEstoqueController implements Serializable {
     
-    private Estoque       estoqueSelecionado = new Estoque();
-    private Estoque       estoque            = new Estoque();
-    private List<Estoque> estoques           = new ArrayList<>();
-    private EstoqueDAO    estoqueDao         = new EstoqueDAO();
-    private final Date    data               = new Date(System.currentTimeMillis());
-    private String        descricaoPesquisa; 
-    private Long          idProduto;
-    private double        quantidade       ;
-    private String        tipoMovimentacao ;
+    private Estoque                estoqueSelecionado = new Estoque();
+    private Estoque                estoque            = new Estoque();
+    private List<Estoque>          estoques           = new ArrayList<>();
+    private EstoqueDAO             estoqueDao         = new EstoqueDAO();
+    private Date                   data               = new Date(System.currentTimeMillis());
+    private MovimentacaoController movController      = new MovimentacaoController();
+    private String                 descricaoPesquisa;     
+    private int                    quantidade       ;
+    private String                 tipoMovimentacao ;
     
     
     
-    public ManterEstoqueController() throws SQLException {  
-        this.estoqueSelecionado.setProduto( new Produto() );
-        this.listarEstoque();
+    public ManterEstoqueController() throws SQLException { 
+        this.listarEstoque();        
     }
     
     public void listarEstoque() throws SQLException {
@@ -49,8 +50,49 @@ public class ManterEstoqueController implements Serializable {
         estoqueDao.disconnect();
     }
     
-    public void salvarMovimentacao(){
+    public void limparDadosEstoque() throws SQLException{        
+        this.estoqueSelecionado.setProduto( new Produto() );
+        this.estoqueSelecionado = new Estoque();
+        this.data               = new Date(System.currentTimeMillis());
+        this.descricaoPesquisa  = null;
+        this.quantidade         = 0   ;
+        this.tipoMovimentacao   = null;
+        this.listarEstoque();        
+    }
+    
+    
+    public void salvarMovimentacao(Estoque estoque){
+        estoqueDao.connect();
+        estoqueDao.save(estoque);
+        estoqueDao.disconnect();                
+    }
+    
+    public void alterarMovimentacao( Estoque estoque ){
+        estoqueDao.connect();
+        estoqueDao.update(estoque);
+        estoqueDao.disconnect();    
+    }
+    
+    public void movimentarEstoque() throws SQLException{
+        MovimentoEstoque mov = new MovimentoEstoque();       
         
+        if ( this.quantidade <= 0 || this.tipoMovimentacao == null ) return;
+        if ( this.tipoMovimentacao.equals("saida") ){
+            if ((this.estoqueSelecionado.getQtdEmEstoque() - this.quantidade) < 0) return;
+            this.estoqueSelecionado.setQtdEmEstoque(this.estoqueSelecionado.getQtdEmEstoque() - this.quantidade);
+            mov.setTipo(MovimentoEstoqueTipo.OUT);
+        }
+        else{
+            this.estoqueSelecionado.setQtdEmEstoque(this.estoqueSelecionado.getQtdEmEstoque() + this.quantidade);
+            mov.setTipo(MovimentoEstoqueTipo.IN);
+        }
+            mov.setAtivo(Boolean.TRUE);
+            mov.setData(this.data);
+            mov.setQtd(this.quantidade);
+            mov.setEstoque(this.estoqueSelecionado);            
+            this.alterarMovimentacao(this.estoqueSelecionado);  
+            this.movController.salvarMovimentacao(mov);
+            this.limparDadosEstoque();
     }
     
     public void pesquisar() throws SQLException, ClassNotFoundException {
@@ -110,11 +152,11 @@ public class ManterEstoqueController implements Serializable {
         this.descricaoPesquisa = descricaoPesquisa;
     }
 
-    public double getQuantidade() {
+    public int getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(double quantidade) {
+    public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
 
@@ -124,15 +166,7 @@ public class ManterEstoqueController implements Serializable {
 
     public void setTipoMovimentacao(String tipoMovimentacao) {
         this.tipoMovimentacao = tipoMovimentacao;
-    }
-
-    public Long getIdProduto() {
-        return idProduto;
-    }
-
-    public void setIdProduto(Long idProduto) {
-        this.idProduto = idProduto;
-    }
+    }   
     
     
     
