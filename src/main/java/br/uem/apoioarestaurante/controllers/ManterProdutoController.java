@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.uem.apoioarestaurante.controllers;
 
 import br.uem.apoioarestaurante.dao.ProdutoDAO;
@@ -20,22 +15,24 @@ import javax.inject.Named;
  *
  * @author Filipe Carvalho <filipekof97@gmail.com>
  */
+
 @Named
 @SessionScoped
 public class ManterProdutoController implements Serializable {
 
-    private Produto produtoSelecionado = new Produto();//USADO NA ALTERACAO E EXCLUSAO
-    private Produto produto = new Produto();
-    private List<Produto> produtos = new ArrayList<>();
-    private ProdutoDAO prodao;
-    private String consoleTipo;
-    private String descricaoPesquisa;
-    private Long IDPesquisa;
+    private Produto       produtoSelecionado = new Produto();//USADO NA ALTERACAO E EXCLUSAO
+    private Produto       produto            = new Produto();
+    private List<Produto> produtos           = new ArrayList<>();
+    private ProdutoDAO    prodao;
+    private String        consoleTipo;
+    private String        descricaoPesquisa;
+    private Long          IDPesquisa;
 
     public ManterProdutoController() {
-        produto = new Produto();
-        prodao = new ProdutoDAO();
+        produto  = new Produto();
+        prodao   = new ProdutoDAO();
         produtos = null;
+        this.setConsoleTipo( null );
         prodao.connect();
         produtos = prodao.listAll();
         prodao.disconnect();
@@ -45,12 +42,12 @@ public class ManterProdutoController implements Serializable {
         List<Produto> produtosPesquisa = new ArrayList<>();
         this.listarProdutos();
 
-        if (descricaoPesquisa.length() == 0) {
+        if ( descricaoPesquisa.length() == 0 ) {
             return;
         }
 
-        for (int i = 0; i < this.produtos.size(); i++) {
-            if (produtos.get(i).getDescricao().indexOf(this.descricaoPesquisa.toUpperCase()) >= 0) {
+        for ( int i = 0; i < this.produtos.size(); i++ ) {
+            if ( produtos.get(i).getDescricao().indexOf(this.descricaoPesquisa.toUpperCase()) >= 0 ) {
                 produtosPesquisa.add(produtos.get(i));
             }
         }
@@ -72,17 +69,20 @@ public class ManterProdutoController implements Serializable {
     public void buscarProduto() throws SQLException {
 
         this.listarProdutos();
-        if (this.IDPesquisa == null || this.IDPesquisa == 0) {
+        if ( this.IDPesquisa == null || this.IDPesquisa == 0 ) {
+            this.setConsoleTipo( null );
+            this.produtoSelecionado = new Produto();
             return;
         }
 
         for (int i = 0; i < this.produtos.size(); i++) {
             if (Objects.equals(this.produtos.get(i).getId(), this.IDPesquisa)) {
                 this.produtoSelecionado = this.produtos.get(i);
-                this.consoleTipo = this.produtos.get(i).getTipo().getTextValue();
+                this.consoleTipo = this.produtos.get(i).getTipo().getTextValue();               
                 return;
             }
         }
+        this.setConsoleTipo(null);
         this.produtoSelecionado = new Produto();
     }
 
@@ -107,6 +107,7 @@ public class ManterProdutoController implements Serializable {
         prodao.save(novoProduto);
         prodao.disconnect();
         this.listarProdutos();
+        this.setConsoleTipo(null);
         produto = new Produto();
 
     }
@@ -121,7 +122,7 @@ public class ManterProdutoController implements Serializable {
 
         this.listarProdutos();
 
-        if (null == this.getConsoleTipo() || produ == null || !verificarExistenciaID(produ.getId())) {
+        if (null == this.getConsoleTipo() || produ == null || !verificarExistenciaID( produ.getId() )) {
             return;
         } else {
             switch (this.getConsoleTipo()) {
@@ -141,6 +142,7 @@ public class ManterProdutoController implements Serializable {
         prodao.update(produ);
         prodao.disconnect();
         this.listarProdutos();
+        this.setConsoleTipo(null);
         this.produtoSelecionado = new Produto();
         this.IDPesquisa = null;
     }
@@ -171,6 +173,7 @@ public class ManterProdutoController implements Serializable {
         }
 
         alterarProduto(produto);
+        this.setConsoleTipo(null);
         this.produtoSelecionado = new Produto();
     }
 

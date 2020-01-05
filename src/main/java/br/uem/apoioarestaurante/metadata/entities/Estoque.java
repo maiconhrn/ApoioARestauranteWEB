@@ -157,4 +157,6 @@ public class Estoque implements Serializable {
     public int hashCode() {
         return Objects.hash(id, produto, qtdEmEstoque, qtdMinima, ultimaEntrada, ultimaSaida, ativo, pedidoFeito);
     }
+    
+    
 }
