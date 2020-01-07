@@ -110,7 +110,10 @@ public class Estoque implements Serializable {
     }
 
     public MovimentoEstoque novaMovimentacaoEstoque(MovimentoEstoqueTipo tipo, int qtd, Usuario usuario) throws EstoqueException {
-        if (tipo == MovimentoEstoqueTipo.OUT && (this.getQtdEmEstoque() <= 0 || this.getQtdEmEstoque() - qtd < 0)) {
+        if (tipo == MovimentoEstoqueTipo.OUT
+                && (this.getQtdEmEstoque() <= 0
+                || this.getQtdEmEstoque() - qtd < 0
+                || this.getQtdEmEstoque() - qtd < this.getQtdMinima())) {
             throw new EstoqueException("Não e possivel fazer baixa no estoque: quantidade em estoque não suportada");
         }
 
