@@ -39,7 +39,6 @@
         <welcome-file>restricted/home.xhtml</welcome-file>
     </welcome-file-list>
 
-    <!--  login filter -->
     <filter>
         <filter-name>LoginFilter</filter-name>
         <filter-class>br.uem.apoioarestaurante.web.filter.LoginFilter</filter-class>
@@ -48,4 +47,8 @@
         <filter-name>LoginFilter</filter-name>
         <url-pattern>/restricted/*</url-pattern>
     </filter-mapping>
+
+    <listener>
+        <listener-class>br.uem.apoioarestaurante.web.listener.ApoioARestauranteServletContextListener</listener-class>
+    </listener>
 </web-app>
