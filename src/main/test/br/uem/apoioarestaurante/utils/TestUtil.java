@@ -149,6 +149,7 @@ public class TestUtil {
                 .withUsuario(usuario)
                 .withCliente(cliente)
                 .withItems(itens)
+                .withTotal(0D)
                 .build(), PedidoDAO.getInstance());
     }
 }
