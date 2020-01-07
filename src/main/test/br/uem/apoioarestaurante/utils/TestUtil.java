@@ -97,6 +97,17 @@ public class TestUtil {
         return estoque;
     }
 
+    public static Produto createProduto() {
+        return (Produto) saveEntity(ProdutoBuilder.aProduto()
+                .withAtivo(true)
+                .withDataCadastro(new Date())
+                .withDescricao("Escondidinho de frango 300g")
+                .withPrecoVenda(25D)
+                .withTipo(ProdutoTipo.MANUFACTURED)
+                .withUnidadeMedida("Unidade")
+                .build(), ProdutoDAO.getInstance());
+    }
+
     public static Produto createProduto(Estoque estoque) {
         return (Produto) saveEntity(ProdutoBuilder.aProduto()
                 .withAtivo(true)
