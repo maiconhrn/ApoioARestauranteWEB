@@ -112,7 +112,7 @@ public class ManterProdutoController implements Serializable {
         manterEstoque.getEstoque().setPedidoFeito(Boolean.TRUE);
         manterEstoque.getEstoque().setQtdEmEstoque(0);
         manterEstoque.getEstoque().setQtdMinima(0);
-        manterEstoque.salvarMovimentacao(manterEstoque.getEstoque());        
+        manterEstoque.salvarEstoque(manterEstoque.getEstoque());        
         this.listarProdutos();
         this.setConsoleTipo(null);
         produto = new Produto();

@@ -6,7 +6,7 @@ import br.uem.apoioarestaurante.metadata.entities.MovimentoEstoque;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.Date;
+
 
 /**
  * @author Filipe Carvalho <filipekof97@gmail.com>
@@ -19,7 +19,7 @@ public class MovimentacaoController implements Serializable {
     private MovimentoEstoqueDAO movimentoDao = new MovimentoEstoqueDAO();
     
     public void salvarMovimentacao( MovimentoEstoque movimento ){
-        movimentoDao.connect();
+        movimentoDao.connect();        
         movimentoDao.save(movimento);
         movimentoDao.disconnect();
     }

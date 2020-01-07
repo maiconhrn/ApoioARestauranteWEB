@@ -99,4 +99,6 @@ public class Usuario extends Pessoa implements Serializable {
     public int hashCode() {
         return Objects.hash(super.hashCode(), id, login, ativo);
     }
+    
+    
 }

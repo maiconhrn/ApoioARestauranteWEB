@@ -61,16 +61,22 @@ public class ManterEstoqueController implements Serializable {
     }
     
     
-    public void salvarMovimentacao(Estoque estoque){
+    public void salvarEstoque(Estoque estoque){
         estoqueDao.connect();
         estoqueDao.save(estoque);
         estoqueDao.disconnect();                
     }
     
-    public void alterarMovimentacao( Estoque estoque ){
+    public void alterarEstoque( Estoque estoque ){
         estoqueDao.connect();
         estoqueDao.update(estoque);
         estoqueDao.disconnect();    
+    }
+    
+    public void alterarQtdeMinima() throws SQLException{
+        if( this.estoqueSelecionado == null || this.estoqueSelecionado.getQtdMinima() < 0) return;
+        this.alterarEstoque(this.estoqueSelecionado);
+        this.limparDadosEstoque();
     }
     
     public void movimentarEstoque() throws SQLException{
@@ -81,16 +87,18 @@ public class ManterEstoqueController implements Serializable {
             if ((this.estoqueSelecionado.getQtdEmEstoque() - this.quantidade) < 0) return;
             this.estoqueSelecionado.setQtdEmEstoque(this.estoqueSelecionado.getQtdEmEstoque() - this.quantidade);
             mov.setTipo(MovimentoEstoqueTipo.OUT);
+            this.estoqueSelecionado.setUltimaSaida(this.data);
         }
         else{
             this.estoqueSelecionado.setQtdEmEstoque(this.estoqueSelecionado.getQtdEmEstoque() + this.quantidade);
             mov.setTipo(MovimentoEstoqueTipo.IN);
+            this.estoqueSelecionado.setUltimaEntrada(this.data);
         }
             mov.setAtivo(Boolean.TRUE);
             mov.setData(this.data);
             mov.setQtd(this.quantidade);
             mov.setEstoque(this.estoqueSelecionado);            
-            this.alterarMovimentacao(this.estoqueSelecionado);  
+            this.alterarEstoque(this.estoqueSelecionado);  
             this.movController.salvarMovimentacao(mov);
             this.limparDadosEstoque();
     }
@@ -166,9 +174,6 @@ public class ManterEstoqueController implements Serializable {
 
     public void setTipoMovimentacao(String tipoMovimentacao) {
         this.tipoMovimentacao = tipoMovimentacao;
-    }   
-    
-    
-    
+    }  
     
 }
