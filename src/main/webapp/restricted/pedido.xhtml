@@ -10,6 +10,26 @@
 <ui:decorate template="main-template.xhtml">
     <h:form id="ordersForm">
         <div class="order-container">
+            <p:sidebar widgetVar="ajudaSB" position="top">
+                <h1 style="font-weight:normal">Tela de pedidos</h1>
+
+                <div style="margin-top: 2px">
+                    <h2 style="font-weight:normal">Para listar todos os pedido clique no botão pesquisar (Lupa) sem selecionar nenhum tipo de filtro de pesquisa.</h2>
+                </div>
+
+                <div style="margin-top: 2px">
+                    Para cadastrar um pedido clique no botão Novo na parte inferior da tela.
+                </div>
+
+                <div style="margin-top: 2px">
+                    Para editar um pedido selecione um pedido na lista e clique no botão Editar na parte inferior da tela.
+                </div>
+
+                <div style="margin-top: 2px">
+                    Para deletar um pedido selecione um pedido na lista e clique no botão Deletar na parte inferior da tela.
+                </div>
+            </p:sidebar>
+
             <div style="min-height: 120px; width: 100%;">
                 <p:panel id="filters" header="Filtros" styleClass="filters-select">
                     <p:selectBooleanCheckbox value="#{pedidoView.idFilterSelected}" itemLabel="ID">
@@ -167,6 +187,9 @@
                                  style="margin-right:20px;" icon="fa fa-remove"/>
                 <p:commandButton value="Fechar" id="close" action="#{pedidoController.closeOrder()}"
                                  style="margin-right:20px;" icon="fa fa-check"/>
+
+                <p:commandButton value="Ajuda" id="ajuda" oncomplete="PF('ajudaSB').show()"
+                                 icon="fa fa-question"/>
             </div>
         </div>
     </h:form>
