@@ -11,7 +11,8 @@ import java.util.Collections;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static br.uem.apoioarestaurante.utils.TestUtil.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Maicon
@@ -70,7 +71,7 @@ public class PedidoModelTest {
 
     @Test
     public void saveOrUpdate() {
-        assertNull(pedido.getTotal());
+        assertTrue(pedido.getTotal().equals(0D));
 
         Long pedidoID = pedido.getId();
         AtomicReference<Double> totalPrice = new AtomicReference<>(0D);
