@@ -63,8 +63,10 @@
                     </p:panelGrid>                  
                     <p:commandButton id="bt2" value="Salvar Movimento" action="#{manterEstoqueController.movimentarEstoque()}" update="@form"  style="text-align: center; float: none;width: 100%"></p:commandButton>
                 </p:outputPanel>
-            </p:dialog>       
-            
+            </p:dialog>
+
+            <p:commandButton value="Inativar" id="delete" action="#{manterEstoqueController.invalidarEstoque()}"
+                             update="@form"/>
         </h:form>
     </p:fieldset >              
 </ui:decorate>

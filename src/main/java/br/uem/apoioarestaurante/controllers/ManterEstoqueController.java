@@ -7,6 +7,7 @@ package br.uem.apoioarestaurante.controllers;
 
 import br.uem.apoioarestaurante.dao.EstoqueDAO;
 import br.uem.apoioarestaurante.dao.UsuarioDAO;
+import br.uem.apoioarestaurante.dao.ProdutoDAO;
 import br.uem.apoioarestaurante.metadata.entities.Estoque;
 import br.uem.apoioarestaurante.metadata.entities.MovimentoEstoque;
 import br.uem.apoioarestaurante.metadata.entities.Produto;
@@ -17,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -122,6 +125,36 @@ public class ManterEstoqueController implements Serializable {
         }
 
         this.estoques = estoquesPesquisa;
+    }
+
+    public void invalidarEstoque() {
+        if (estoqueSelecionado != null) {
+            if (estoqueSelecionado.getAtivo()) {
+                EstoqueDAO estoqueDAO = EstoqueDAO.getInstance();
+                estoqueDAO.connect();
+                MovimentoEstoque movimentoEstoque = estoqueSelecionado.invalidar(null);
+                estoqueDAO.saveMovimentoEstoque(movimentoEstoque);
+                estoqueDAO.update(movimentoEstoque.getEstoque());
+                estoqueDAO.disconnect();
+
+                ProdutoDAO produtoDAO = ProdutoDAO.getInstance();
+                produtoDAO.connect();
+                produtoDAO.update(estoqueSelecionado.getProduto());
+                produtoDAO.disconnect();
+
+                return;
+            }
+
+            FacesContext.getCurrentInstance()
+                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Erro!", "Estoque já está inválido."));
+
+            return;
+        }
+
+        FacesContext.getCurrentInstance()
+                .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                        "Aviso!", "É necessário selecionar um Estoque na tabela para essa ação."));
     }
 
     public Estoque getEstoqueSelecionado() {

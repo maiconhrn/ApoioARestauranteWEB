@@ -109,6 +109,23 @@ public class Estoque implements Serializable {
         this.pedidoFeito = pedidoFeito;
     }
 
+    public MovimentoEstoque invalidar(Usuario usuario) {
+        MovimentoEstoque movimentoEstoque = new MovimentoEstoque();
+        movimentoEstoque.setData(new Date());
+        movimentoEstoque.setEstoque(this);
+        movimentoEstoque.setQtd(this.getQtdEmEstoque());
+        movimentoEstoque.setTipo(MovimentoEstoqueTipo.OUT);
+        movimentoEstoque.setUsuario(usuario);
+
+        this.setAtivo(false);
+        this.getProduto().setAtivo(false);
+        this.setQtdMinima(0);
+        this.setQtdEmEstoque(0);
+        this.setUltimaSaida(new Date());
+
+        return movimentoEstoque;
+    }
+
     public MovimentoEstoque novaMovimentacaoEstoque(MovimentoEstoqueTipo tipo, int qtd, Usuario usuario) throws EstoqueException {
         if (tipo == MovimentoEstoqueTipo.OUT
                 && (this.getQtdEmEstoque() <= 0
