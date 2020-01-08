@@ -24,7 +24,7 @@ public class MovimentoEstoqueDAO extends HibernateBasicGenericDAO<MovimentoEstoq
         return ourInstance;
     }
 
-    private MovimentoEstoqueDAO() {
+    public MovimentoEstoqueDAO() {
         super(MovimentoEstoque.class);
     }
 

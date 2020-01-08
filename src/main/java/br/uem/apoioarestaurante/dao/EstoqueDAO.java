@@ -17,7 +17,7 @@ public class EstoqueDAO extends HibernateBasicGenericDAO<Estoque> {
 
     private MovimentoEstoqueDAO movimentoEstoqueDAO;
 
-    private EstoqueDAO() {
+    public EstoqueDAO() {
         super(Estoque.class);
 
         movimentoEstoqueDAO = MovimentoEstoqueDAO.getInstance();
