@@ -57,6 +57,10 @@ public class Produto implements Serializable {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }    
+
     public String getDescricao() {
         return descricao;
     }
@@ -149,4 +153,5 @@ public class Produto implements Serializable {
     public int hashCode() {
         return Objects.hash(id, descricao, dataCadastro, fornecedor, tipo, precoVenda, ativo);
     }
+    
 }

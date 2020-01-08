@@ -7,6 +7,7 @@ import br.uem.apoioarestaurante.metadata.entities.*;
 import br.uem.apoioarestaurante.metadata.types.MovimentoEstoqueTipo;
 import br.uem.apoioarestaurante.metadata.types.PedidoTipo;
 import br.uem.apoioarestaurante.views.PedidoView;
+import org.hibernate.annotations.Where;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -30,6 +31,7 @@ public class PedidoModel implements Serializable {
         pedidoDAO = PedidoDAO.getInstance();
     }
 
+    @Where(clause = "ativo = true")
     public List<Pedido> findOrdersByFilters(PedidoTipo pedidoTipo, boolean byId, long orderId, boolean byClient, long clientId, boolean byUser, long userId, boolean byTable, int table) {
         pedidoDAO.connect();
 
@@ -42,6 +44,7 @@ public class PedidoModel implements Serializable {
         return pedidos;
     }
 
+    @Where(clause = "ativo = true")
     public List<Produto> findProductsByFilters(boolean byId, long producId, boolean byDescription, String description) {
 
         return pedidoDAO.findProductsByFilters(byId, producId, byDescription, description);
