@@ -8,9 +8,9 @@ import br.uem.apoioarestaurante.utils.FacesUtil;
 import br.uem.apoioarestaurante.views.ManutencaoPedidoView;
 import br.uem.apoioarestaurante.views.ProdutoItemPedidoView;
 
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -20,7 +20,7 @@ import java.util.List;
  * @author Maicon
  */
 @Named
-@SessionScoped
+@ViewScoped
 public class ProdutoItemPedidoController implements Serializable {
 
     @Inject

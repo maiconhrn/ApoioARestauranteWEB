@@ -5,7 +5,7 @@ import br.uem.apoioarestaurante.metadata.entities.Produto;
 import br.uem.apoioarestaurante.models.PedidoModel;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -16,7 +16,7 @@ import java.util.List;
  * @author Maicon
  */
 @Named
-@SessionScoped
+@ViewScoped
 public class ProdutoItemPedidoView implements Serializable {
 
     @Inject

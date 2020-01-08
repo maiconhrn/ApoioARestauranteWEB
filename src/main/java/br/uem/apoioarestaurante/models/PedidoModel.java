@@ -124,7 +124,7 @@ public class PedidoModel implements Serializable {
         } catch (EstoqueException e) {
             e.printStackTrace();
 
-            throw new Exception(e);
+            throw e;
         }
 
         return itemPedido;

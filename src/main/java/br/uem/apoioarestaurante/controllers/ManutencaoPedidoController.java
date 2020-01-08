@@ -65,29 +65,33 @@ public class ManutencaoPedidoController implements Serializable {
     }
 
     public void save() {
-        Pedido pedidoView = manutencaoPedidoView.getPedido();
-        List<ItemPedido> itensPedido = manutencaoPedidoView.getItemPedidosRemoved();
-        itensPedido.addAll(manutencaoPedidoView.getItemsNewOrUpdated());
+        try {
+            Pedido pedidoView = manutencaoPedidoView.getPedido();
+            List<ItemPedido> itensPedido = manutencaoPedidoView.getItemPedidosRemoved();
+            itensPedido.addAll(manutencaoPedidoView.getItemsNewOrUpdated());
 
-        Pedido pedidoSaved;
-        if (pedidoView != null) {
-            itensPedido.forEach(i -> {
-                if (i != null) {
-                    try {
+            Pedido pedidoSaved;
+            if (pedidoView != null) {
+                for (ItemPedido i : itensPedido) {
+                    if (i != null) {
                         pedidoModel.update(i);
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
                 }
-            });
 
-            pedidoSaved = pedidoModel.saveOrUpdate(pedidoView);
+                pedidoSaved = pedidoModel.saveOrUpdate(pedidoView);
 
-            itensPedido.clear();
-            manutencaoPedidoView.getItemPedidosRemoved().clear();
-            manutencaoPedidoView.getItemsNewOrUpdated().clear();
+                itensPedido.clear();
+                manutencaoPedidoView.getItemPedidosRemoved().clear();
+                manutencaoPedidoView.getItemsNewOrUpdated().clear();
 
-            showSaveSuccess(pedidoSaved);
+                showSaveSuccess(pedidoSaved);
+            }
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance()
+                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Erro!", e.getMessage()));
+
+            e.printStackTrace();
         }
     }
 
