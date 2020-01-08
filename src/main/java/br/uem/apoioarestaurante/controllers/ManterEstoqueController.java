@@ -6,6 +6,7 @@
 package br.uem.apoioarestaurante.controllers;
 
 import br.uem.apoioarestaurante.dao.EstoqueDAO;
+import br.uem.apoioarestaurante.dao.UsuarioDAO;
 import br.uem.apoioarestaurante.metadata.entities.Estoque;
 import br.uem.apoioarestaurante.metadata.entities.MovimentoEstoque;
 import br.uem.apoioarestaurante.metadata.entities.Produto;
@@ -50,13 +51,9 @@ public class ManterEstoqueController implements Serializable {
         estoqueDao.disconnect();
     }
     
-    public void limparDadosEstoque() throws SQLException{        
-        this.estoqueSelecionado.setProduto( new Produto() );
+    public void limparDadosEstoque() throws SQLException{  
         this.estoqueSelecionado = new Estoque();
-        this.data               = new Date(System.currentTimeMillis());
-        this.descricaoPesquisa  = null;
-        this.quantidade         = 0   ;
-        this.tipoMovimentacao   = null;
+        //this.estoqueSelecionado.setProduto( new Produto() );        
         this.listarEstoque();        
     }
     
@@ -80,9 +77,13 @@ public class ManterEstoqueController implements Serializable {
     }
     
     public void movimentarEstoque() throws SQLException{
-        MovimentoEstoque mov = new MovimentoEstoque();       
+        MovimentoEstoque mov = new MovimentoEstoque(); 
+        UsuarioDAO  usuarioDao = new UsuarioDAO();
         
-        if ( this.quantidade <= 0 || this.tipoMovimentacao == null ) return;
+        if ( this.quantidade <= 0 || this.tipoMovimentacao == null || this.tipoMovimentacao == "" ){
+            this.limparDadosEstoque();
+            return;
+        }
         if ( this.tipoMovimentacao.equals("saida") ){
             if ((this.estoqueSelecionado.getQtdEmEstoque() - this.quantidade) < 0) return;
             this.estoqueSelecionado.setQtdEmEstoque(this.estoqueSelecionado.getQtdEmEstoque() - this.quantidade);
@@ -97,10 +98,13 @@ public class ManterEstoqueController implements Serializable {
             mov.setAtivo(Boolean.TRUE);
             mov.setData(this.data);
             mov.setQtd(this.quantidade);
-            mov.setEstoque(this.estoqueSelecionado);            
+            mov.setEstoque(this.estoqueSelecionado);
+            usuarioDao.connect();
+            mov.setUsuario(usuarioDao.listAll().get(0));
+            usuarioDao.disconnect();
             this.alterarEstoque(this.estoqueSelecionado);  
             this.movController.salvarMovimentacao(mov);
-            this.limparDadosEstoque();
+            
     }
     
     public void pesquisar() throws SQLException, ClassNotFoundException {

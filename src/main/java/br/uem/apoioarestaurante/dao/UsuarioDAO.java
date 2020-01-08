@@ -15,7 +15,7 @@ public class UsuarioDAO extends HibernateBasicGenericDAO<Usuario> {
         return ourInstance;
     }
 
-    private UsuarioDAO() {
+    public UsuarioDAO() {
         super(Usuario.class);
     }
 
