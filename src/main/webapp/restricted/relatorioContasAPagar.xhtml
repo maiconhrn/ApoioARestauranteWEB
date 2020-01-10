@@ -8,12 +8,12 @@
       xmlns:p="http://primefaces.org/ui"
           
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<link type="text/css" rel="stylesheet" href="../style/relatorio-movimentacao-estoque.css"/>
+<link type="text/css" rel="stylesheet" href="../style/relatorio-contas-a-pagar.css"/>
 <ui:decorate template="main-template.xhtml">
     <h:form id="contasAPagar">
         <div class="contas-a-pagar-container">
             <div style="min-height: 120px; width: 100%;">
-                <p:panel id="listaData" style="padding-botton: 100px" header="Lista de Contas a Pagar" styleClass="relatorio-info">
+                <p:panel id="listaData" style="padding-botton: 100px" header="Lista de Contas a Pagar (Preview)" styleClass="relatorio-info">
                     <div>
                         <p:dataTable var="contas" value="#{contasAPagarView.contas}" >
 
