@@ -43,10 +43,11 @@
                 
                 <f:facet name="footer">
                     <p:commandButton process="singleDT" update=":form:movimentarEstoque"  value="Movimentar Estoque" oncomplete="PF('movimentarDialog').show()" />                      
+              
                 </f:facet>                
             </p:dataTable>  
             
-            <p:dialog header="Movimentar Saldo" widgetVar="movimentarDialog" resizable="true" height="150" width="400"  > 
+            <p:dialog header="Movimentar Saldo" widgetVar="movimentarDialog" resizable="true" height="150" width="500"  > 
                 <p:outputPanel id="movimentarEstoque" layout="grid"   style="text-align:center;" >
                     <p:panelGrid  columns="2" layout="grid"  rendered="#{not empty manterEstoqueController.estoqueSelecionado}">
                            
@@ -59,11 +60,20 @@
                         
                         <p:outputLabel for="quantidade" value="Quantidade: " style="text-align: center; float: right;"/> 
                         <p:inputNumber id="quantidade" value="#{manterEstoqueController.quantidade}"  decimalSeparator="," thousandSeparator="." style="text-align: center; float: left; width: 10%;" ></p:inputNumber>
-
+                                               
+                        
                     </p:panelGrid>                  
-                    <p:commandButton id="bt2" value="Salvar Movimento" action="#{manterEstoqueController.movimentarEstoque()}" update="@form"  style="text-align: center; float: none;width: 100%"></p:commandButton>
+                    <p:commandButton id="bt2" value="Salvar Movimento" rendered="#{not empty manterEstoqueController.estoqueSelecionado}" action="#{manterEstoqueController.movimentarEstoque()}" update="@form"  style="text-align: center; float: none;width: 100%"></p:commandButton>
+                <p/>
+                    <p:panelGrid  columns="3"   rendered="#{not empty manterEstoqueController.estoqueSelecionado}">                        
+                        <p:outputLabel   for="quantidadeMinima" value="Estoque Minimo: " style="text-align: center; float: left;"/> 
+                        <p:inputNumber   id="quantidadeMinima" value="#{manterEstoqueController.estoqueMinimo}"  decimalSeparator="," thousandSeparator="." style="text-align: center; float: none ; width: 10%;" ></p:inputNumber>
+                        <p:commandButton id="bt3" value="Salvar QTDE Minima"  action="#{manterEstoqueController.alterarQtdeMinima()}" update="@form"  style="text-align: center; float: none;width: 100%"></p:commandButton>
+                    </p:panelGrid>
+                    
+                    <p:outputLabel  value="Selecione um estoque antes" rendered="#{empty manterEstoqueController.estoqueSelecionado}" style="text-align: center; float: none;"/> 
                 </p:outputPanel>
-            </p:dialog>
+            </p:dialog>       
 
             <p:commandButton value="Inativar" id="delete" action="#{manterEstoqueController.invalidarEstoque()}"
                              update="@form"/>

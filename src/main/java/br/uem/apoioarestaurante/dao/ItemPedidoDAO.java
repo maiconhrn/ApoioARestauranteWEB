@@ -27,7 +27,7 @@ public class ItemPedidoDAO extends HibernateBasicGenericDAO<ItemPedido> {
         }
     }
 
-    private ItemPedidoDAO() {
+    public ItemPedidoDAO() {
         super(ItemPedido.class);
     }
 }

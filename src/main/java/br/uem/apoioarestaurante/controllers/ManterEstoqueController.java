@@ -20,6 +20,8 @@ import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -39,6 +41,7 @@ public class ManterEstoqueController implements Serializable {
     private MovimentacaoController movController      = new MovimentacaoController();
     private String                 descricaoPesquisa;     
     private int                    quantidade       ;
+    private int                    estoqueMinimo    ;
     private String                 tipoMovimentacao ;
     
     
@@ -56,7 +59,10 @@ public class ManterEstoqueController implements Serializable {
     
     public void limparDadosEstoque() throws SQLException{  
         this.estoqueSelecionado = new Estoque();
-        //this.estoqueSelecionado.setProduto( new Produto() );        
+        //this.estoqueSelecionado.setProduto( new Produto() ); 
+        this.estoqueMinimo    = 0   ;
+        this.quantidade       = 0   ;
+        this.tipoMovimentacao = null;
         this.listarEstoque();        
     }
     
@@ -74,21 +80,32 @@ public class ManterEstoqueController implements Serializable {
     }
     
     public void alterarQtdeMinima() throws SQLException{
-        if( this.estoqueSelecionado == null || this.estoqueSelecionado.getQtdMinima() < 0) return;
-        this.alterarEstoque(this.estoqueSelecionado);
+        if( !(this.estoqueMinimo < 0) ){
+            this.estoqueSelecionado.setQtdMinima(estoqueMinimo);
+            this.alterarEstoque(this.estoqueSelecionado);
+        }
+        else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Não é permitido quantidade minima negativa."));
+        }
         this.limparDadosEstoque();
     }
     
     public void movimentarEstoque() throws SQLException{
         MovimentoEstoque mov = new MovimentoEstoque(); 
-        UsuarioDAO  usuarioDao = new UsuarioDAO();
+        UsuarioDAO  usuarioDao = new UsuarioDAO();  
         
         if ( this.quantidade <= 0 || this.tipoMovimentacao == null || this.tipoMovimentacao == "" ){
+            if ( this.quantidade <= 0 ) FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Quantidade Invalida."));
+            if ( this.tipoMovimentacao == null || this.tipoMovimentacao == "" ) FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Tipo de Movimentação não selecionada."));            
             this.limparDadosEstoque();
             return;
         }
         if ( this.tipoMovimentacao.equals("saida") ){
-            if ((this.estoqueSelecionado.getQtdEmEstoque() - this.quantidade) < 0) return;
+            if ((this.estoqueSelecionado.getQtdEmEstoque() - this.quantidade) < 0){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Estoque não pode ficar negativo."));
+                this.limparDadosEstoque();
+                return;                
+            }
             this.estoqueSelecionado.setQtdEmEstoque(this.estoqueSelecionado.getQtdEmEstoque() - this.quantidade);
             mov.setTipo(MovimentoEstoqueTipo.OUT);
             this.estoqueSelecionado.setUltimaSaida(this.data);
@@ -107,7 +124,7 @@ public class ManterEstoqueController implements Serializable {
             usuarioDao.disconnect();
             this.alterarEstoque(this.estoqueSelecionado);  
             this.movController.salvarMovimentacao(mov);
-            
+            this.limparDadosEstoque();            
     }
     
     public void pesquisar() throws SQLException, ClassNotFoundException {
@@ -212,5 +229,21 @@ public class ManterEstoqueController implements Serializable {
     public void setTipoMovimentacao(String tipoMovimentacao) {
         this.tipoMovimentacao = tipoMovimentacao;
     }  
+    
+     public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public int getEstoqueMinimo() {
+        return estoqueMinimo;
+    }
+
+    public void setEstoqueMinimo(int estoqueMinimo) {
+        this.estoqueMinimo = estoqueMinimo;
+    }
     
 }

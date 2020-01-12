@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -67,21 +69,21 @@ public class ManterProdutoController implements Serializable {
     }
 
     public void buscarProduto() throws SQLException {
-
         this.listarProdutos();
-        if ( this.IDPesquisa == null || this.IDPesquisa == 0 ) {
+        if ( this.IDPesquisa == null || this.IDPesquisa == 0 ) {            
             this.setConsoleTipo( null );
-            this.produtoSelecionado = new Produto();
-            return;
+            this.produtoSelecionado = new Produto();            
         }
-
-        for (int i = 0; i < this.produtos.size(); i++) {
-            if (Objects.equals(this.produtos.get(i).getId(), this.IDPesquisa)) {
-                this.produtoSelecionado = this.produtos.get(i);
-                this.consoleTipo = this.produtos.get(i).getTipo().getTextValue();               
-                return;
+        else{
+            for (int i = 0; i < this.produtos.size(); i++) {
+                if (Objects.equals(this.produtos.get(i).getId(), this.IDPesquisa)) {
+                    this.produtoSelecionado = this.produtos.get(i);
+                    this.consoleTipo = this.produtos.get(i).getTipo().getTextValue();               
+                    return;
+                }
             }
         }
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "ID não encontrado."));
         this.setConsoleTipo(null);
         this.produtoSelecionado = new Produto();
     }
@@ -89,6 +91,7 @@ public class ManterProdutoController implements Serializable {
     public void inserirProduto(Produto novoProduto) throws SQLException, ClassNotFoundException {
         ManterEstoqueController manterEstoque = new ManterEstoqueController();
         if (null == this.getConsoleTipo()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Selecione o Tipo."));
             return;
         } else {
             switch (this.getConsoleTipo()) {
@@ -130,6 +133,8 @@ public class ManterProdutoController implements Serializable {
         this.listarProdutos();
 
         if (null == this.getConsoleTipo() || produ == null || !verificarExistenciaID( produ.getId() )) {
+            if ( null == this.getConsoleTipo()) FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Selecione o tipo."));
+            if( !verificarExistenciaID( produ.getId() )) FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Pesquise um produto válido antes."));
             return;
         } else {
             switch (this.getConsoleTipo()) {
@@ -169,13 +174,16 @@ public class ManterProdutoController implements Serializable {
     }
 
     public void ativarDesativarProduto(Produto produto) throws ClassNotFoundException, SQLException {
-        if (produto == null) {
+        if (produto == null || !verificarExistenciaID( produto.getId()) ) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Produto inválido."));
             return;
         }
 
         if (produto.getAtivo()) {
             produto.setAtivo(Boolean.FALSE);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "Produto: " + String.valueOf(produto.getId()) + " foi desativado!"));
         } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "Produto: " + String.valueOf(produto.getId()) + " foi ativado!"));
             produto.setAtivo(Boolean.TRUE);
         }
 

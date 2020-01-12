@@ -12,37 +12,34 @@
         <h:form>
             <p:panel id="panel" header="Filtros" style="margin-bottom:10px;">
                 <p:panelGrid columns="4" layout="grid">                    
-                    <p:selectBooleanCheckbox value="#{relatorioProdutoFaltaController.manufatufado}" itemLabel="Manufaturado"/>
-                    <p:selectBooleanCheckbox value="#{relatorioProdutoFaltaController.materiaPrima}" itemLabel="Manufaturado"/>
-                    <p:selectBooleanCheckbox value="#{relatorioProdutoFaltaController.revenda}" itemLabel="Manufaturado"/>
+                    <p:selectBooleanCheckbox value="#{relatorioProdutoFaltaController.manufatufado}" itemLabel="manufaturado"/>
+                    <p:selectBooleanCheckbox value="#{relatorioProdutoFaltaController.materiaPrima}" itemLabel="materiaPrima"/>
+                    <p:selectBooleanCheckbox value="#{relatorioProdutoFaltaController.revenda}" itemLabel="revenda"/>
                     <p:commandButton value="Gerar Relatório" action="#{relatorioProdutoFaltaController.gerarRelatorio()}" update="@form"></p:commandButton>
                 </p:panelGrid>  
             </p:panel>
             <p></p>
-            <p:dataTable value="#{relatorioProdutoFaltaController.produtos}" var="produto" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >
-                <p:column headerText="Código" sortBy="#{produto.codigo}" width="10">
-                    <h:outputText value="#{produto.codigo}"></h:outputText>
+            <p:dataTable value="#{relatorioProdutoFaltaController.estoques}" var="estoque" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >
+                <p:column headerText="Código" sortBy="#{estoque.id}" width="10">
+                    <h:outputText value="#{estoque.produto.id}"></h:outputText>
                 </p:column>
-                <p:column headerText="Descrição" sortBy="#{produto.descricao}" width="60">
-                    <h:outputText value="#{produto.descricao}"></h:outputText>
+                <p:column headerText="Descrição" sortBy="#{estoque.produto.descricao}" width="60">
+                    <h:outputText value="#{estoque.produto.descricao}"></h:outputText>
                 </p:column>
-                <p:column headerText="UM" sortBy="#{produto.unidadeMedida}" width="5">
-                    <h:outputText value="#{produto.unidadeMedida}"></h:outputText>
+                <p:column headerText="UM" sortBy="#{estoque.produto.unidadeMedida}" width="5">
+                    <h:outputText value="#{estoque.produto.unidadeMedida}"></h:outputText>
                 </p:column>
-                <p:column headerText="Fornecedor" sortBy="#{produto.fornecedor}" width="15">
-                    <h:outputText value="#{produto.fornecedor}"></h:outputText>
-                </p:column>      
-                <p:column headerText="Reposicao" sortBy="#{produto.fornecedor}" width="15">
-                    <h:outputText value="#{produto.fornecedor}"></h:outputText>
-                </p:column>                
-                <p:column headerText="Saldo" sortBy="#{produto.fornecedor}" width="15">
-                    <h:outputText value="#{produto.fornecedor}"></h:outputText>
-                </p:column>                
+                <p:column headerText="QTDE Minima" sortBy="#{estoque.qtdMinima}" width="15">
+                    <h:outputText value="#{estoque.qtdMinima}"></h:outputText>
+                </p:column>  
+                <p:column headerText="Saldo" sortBy="#{estoque.qtdEmEstoque}" width="15">
+                    <h:outputText value="#{estoque.qtdEmEstoque}"></h:outputText>
+                </p:column>              
             </p:dataTable>
             <p></p>
             <p:panelGrid columns="5" layout="grid">
                 <p:outputLabel value="Exportar:  " />                        
-                <p:commandButton value="  PDF  " action="#{relatorioProdutoFaltaController.gerarRelatorio()}" update="@form"></p:commandButton>
+                <p:commandButton value="  PDF  " action="#{relatorioProdutoFaltaController.generateReport()}" update="@form"></p:commandButton>
             </p:panelGrid>    
         </h:form>
     </p:fieldset>              
