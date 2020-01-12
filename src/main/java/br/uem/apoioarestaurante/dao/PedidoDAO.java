@@ -26,7 +26,7 @@ public class PedidoDAO extends HibernateBasicGenericDAO<Pedido> {
     private ItemPedidoDAO itemPedidoDAO;
     private EstoqueDAO estoqueDAO;
 
-    private PedidoDAO() {
+    public PedidoDAO() {
         super(Pedido.class);
 
         produtoDAO = ProdutoDAO.getInstance();
