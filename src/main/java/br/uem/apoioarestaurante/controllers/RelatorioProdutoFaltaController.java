@@ -1,33 +1,17 @@
 
 package br.uem.apoioarestaurante.controllers;
-
 import br.uem.apoioarestaurante.dao.EstoqueDAO;
-import br.uem.apoioarestaurante.exceptions.ReportException;
 import br.uem.apoioarestaurante.metadata.entities.Estoque;
 import br.uem.apoioarestaurante.metadata.types.ProdutoTipo;
-import br.uem.apoioarestaurante.reports.PedidosReportFactory;
-import br.uem.apoioarestaurante.reports.resource.ReportResources;
 import br.uem.apoioarestaurante.utils.FacesUtil;
-import java.io.IOException;
-import java.io.InputStream;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.imageio.ImageIO;
 import javax.inject.Named;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 /**
  *
@@ -46,8 +30,7 @@ public class RelatorioProdutoFaltaController implements Serializable {
     private EstoqueDAO estoqueDao;
     private boolean materiaPrima;
     private boolean revenda;
-    private boolean manufatufado;
-    private String reportFontFileName = "produtos-falta.jrxml";
+    private boolean manufatufado; 
 
     public RelatorioProdutoFaltaController() {      
         this.inicializar();
@@ -84,42 +67,13 @@ public class RelatorioProdutoFaltaController implements Serializable {
                 
         }
         else{
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "Selecione pelo menos um tipo de produto!"));
+            FacesContext.getCurrentInstance().addMessage(null, 
+                    new FacesMessage(FacesMessage.SEVERITY_WARN, 
+                            "Aviso!", "Selecione pelo menos um tipo de produto!"));
         }
         
         inicializar();
-    }
-    
-    public String generateReport( ) throws ReportException {
-        try {
-            InputStream reportFont = this.getClass().getResourceAsStream("/reports/" + reportFontFileName);
-            //InputStream subreportFont = this.getClass().getResourceAsStream("/reports/" + subreportFontFileName);
-
-            JasperReport report = JasperCompileManager.compileReport(reportFont);
-            //JasperReport subreport = JasperCompileManager.compileReport(subreportFont);
-
-            HashMap<String, Object> parameters = new HashMap<>();
-           // parameters.put("subreport", subreport);
-            parameters.put("logo", ImageIO.read(this.getClass().getResourceAsStream("/images/logo.png")));
-
-            JasperPrint print = JasperFillManager.fillReport(report, parameters, new JRBeanCollectionDataSource(this.getEstoques()));
-
-            String reportFilePath = new StringBuilder(ReportResources.REPORTS_DIRECTORY_RESOURCE)
-                    .append("teste")
-                    .append("_Report_")
-                    .append(new Date().getTime())
-                    .append(".pdf")
-                    .toString();
-
-            JasperExportManager.exportReportToPdfFile(print, reportFilePath);
-
-            return reportFilePath;
-        } catch (JRException | IOException e) {
-            e.printStackTrace();
-        }
-
-        return "";
-    }
+    }  
 
     public String cancel() {
         return FacesUtil.HOME;
@@ -187,9 +141,7 @@ public class RelatorioProdutoFaltaController implements Serializable {
 
     public void setManufatufado(boolean manufatufado) {
         this.manufatufado = manufatufado;
-    }
-
-  
+    }  
 
 
     

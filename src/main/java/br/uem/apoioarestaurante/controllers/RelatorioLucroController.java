@@ -11,6 +11,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -37,10 +39,14 @@ public class RelatorioLucroController implements Serializable {
     private double totalLucro;
     
     
-    public void carregarPedidosPeriodo(){
+    public void carregarPedidosPeriodo(){     
+        
+        
         this.pedidoDao.connect();
         this.pedidos = this.pedidoDao.listAll();
-        this.pedidoDao.disconnect();
+        this.pedidoDao.disconnect();       
+        
+        
     }
     
     public void carregarTodosItens(){
@@ -72,6 +78,10 @@ public class RelatorioLucroController implements Serializable {
         totalGeralCusto = 0;
         totalGeral      = 0;
         totalLucro      = 0;
+        
+        if( this.dataInicial.compareTo(dataFinal) > 0){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "Data Inicial tem que ser menor ou igual a data final!"));
+        }
         
         carregarPedidosPeriodo();
         carregarTodosItens();              
