@@ -25,7 +25,7 @@ public class UsuarioModelCaminhosIndependetesTest {
     public void setUp() throws ParseException {
         permissao = createPermissao();
         grupoPermissao = createGrupoPermissao(Collections.singletonList(permissao));
-        usuario = createUser(grupoPermissao);
+        usuario = createUser1(grupoPermissao);
         usuariosView = new UsuariosView();
     }
 
@@ -43,7 +43,7 @@ public class UsuarioModelCaminhosIndependetesTest {
 
     @Test
     public void autenticacaoCaso2() throws Exception {
-        String testa = (usuariosView.envia("gabriel", "123"));
+        String testa = (usuariosView.envia("gabrielconejo", "123"));
         assertEquals    ("/restricted/home.xhtml",
                         testa);
     }
